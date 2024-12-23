@@ -1,0 +1,32 @@
+{% load static %}
+
+<a href="/" id="mainLogo">
+    <img src="{% static 'icons/favicon.ico' %}" alt="logo" title="Retour à l'accueil">
+</a>
+
+<nav>
+    {% comment %} <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">AirBnb</a> {% endcomment %}
+
+    {% comment %} {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}"><img src="{% static 'icons/unlocked.png' %}" title="Déconnexion de {{user.first_name}}" alt="Déconnexion"></a>
+    {% else %}
+    <a href="{% url 'signin' %}"><img src="{% static 'icons/locked.png' %}" title="Connexion" alt="Connexion"></a>
+    {% endif %} {% endcomment %}
+</nav>
+
+<div id="logo">
+    <div>
+        <a href="/">Accueil</a>
+        <img src="{% static 'icons/favicon.ico' %}" alt="logo">
+    </div>
+    <div>
+        <img src="{% static 'icons/line.png' %}" alt="line1">
+        <img src="{% static 'icons/line.png' %}" alt="line2">
+        <img src="{% static 'icons/line.png' %}" alt="line3">
+    </div>
+</div>
+
+<div id="menu">
+    <a href="/" class="{% if request.path == "/" %}smallActive{% endif %}">ACCUEIL</a>
+    {% comment %} <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">AirBnb</a> {% endcomment %}
+</div>

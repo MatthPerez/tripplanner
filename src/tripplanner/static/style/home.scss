@@ -1,0 +1,36 @@
+@import 'mixins.scss';
+@import 'constants.scss';
+
+main {
+    @include flex;
+    flex-direction: column;
+    gap: 2em;
+    padding-bottom: 3em;
+}
+
+nav,
+footer {
+    background-color: var(--color-primary2);
+}
+
+.top {
+    $k: 80;
+    background: linear-gradient(rgba($k, $k, $k, .5), transparent);
+    height: 10em;
+    position: fixed;
+    top: var(--height);
+    z-index: 2;
+}
+
+main {
+    background-color: var(--color-quaternary2);
+    @include flexcolumn;
+    gap: 1em;
+
+    h1 {
+        @include red-neon;
+        color: white;
+        font-weight: 400;
+    }
+}
+

@@ -1,0 +1,328 @@
+@mixin flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@mixin flexcolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin white-neon {
+    text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white,
+        0 0 40px white;
+}
+
+@mixin little-white-neon {
+    text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white;
+}
+
+@mixin big-white-neon {
+    text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white,
+        0 0 40px white, 0 0 50px white, 0 0 60px white;
+}
+
+@mixin red-neon {
+    text-shadow: 0 0 5px red, 0 0 10px red, 0 0 20px red, 0 0 30px red,
+        0 0 40px red;
+}
+
+@mixin black-neon {
+    text-shadow: 0 0 5px black, 0 0 10px black, 0 0 20px black, 0 0 30px black,
+        0 0 40px black;
+}
+
+@mixin blue-neon {
+    text-shadow: 0 0 5px blue, 0 0 10px blue, 0 0 20px blue, 0 0 30px blue,
+        0 0 40px blue;
+}
+
+@mixin cyan-neon {
+    text-shadow: 0 0 5px cyan, 0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan,
+        0 0 40px cyan;
+}
+
+@mixin green-neon {
+    text-shadow: 0 0 5px green, 0 0 10px green, 0 0 20px green, 0 0 30px green,
+        0 0 40px green;
+}
+
+@mixin brown-neon {
+    text-shadow: 0 0 5px brown, 0 0 10px brown, 0 0 20px brown, 0 0 30px brown,
+        0 0 40px brown;
+}
+
+@mixin box-white-neon {
+    box-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white,
+        0 0 40px white;
+}
+
+@mixin box-shadow {
+    $k: 140;
+    box-shadow: 4px 4px 5px rgb($k, $k, $k);
+}
+
+@mixin shadow-active {
+    $depth: 4px;
+    $k: 130;
+    text-shadow: $depth $depth 5px rgb($k, $k, $k);
+    transition: 700ms all ease;
+
+    &:hover {
+        transition: 400ms all ease;
+        text-shadow: none;
+        transform: translateY($depth);
+    }
+}
+
+@mixin shadow {
+    $k: 140;
+    text-shadow: 4px 4px 5px rgb($k, $k, $k);
+}
+
+@mixin b-shadow {
+    $padding: 15px;
+    $k: 40;
+    box-shadow: $padding $padding 10px rgba($k, $k, $k, .7);
+}
+
+@mixin btn {
+    width: auto;
+    padding: 10px 30px;
+    font-size: 18px;
+    $padding: 4px;
+    box-shadow: $padding $padding 5px grey;
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+}
+
+@mixin btn_click {
+    width: auto;
+    padding: 10px 30px;
+    font-size: 18px;
+    $padding: 4px;
+    box-shadow: $padding $padding 5px grey;
+    transition: 300ms all ease;
+
+    &:focus {
+        transition: 150ms all ease;
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+}
+
+@mixin appear {
+    animation: 500ms appear ease-out forwards;
+}
+
+@mixin border {
+    border: 1px solid black;
+}
+
+@mixin no-border {
+    outline: none;
+    border: none;
+}
+
+@mixin width {
+    width: clamp(300px, 50%, 600px);
+}
+
+@mixin big-title {
+    width: auto;
+    font-size: 40px;
+    background-color: rgba(white, .5);
+    padding: .4em 3em;
+    text-align: center;
+
+    @media (width<=768px) {
+        width: 80%;
+        padding: .3em;
+        font-size: 30px;
+    }
+}
+
+@mixin button {
+    width: auto;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid black;
+    padding: .5em 1.5em;
+    color: black;
+    font-size: 20px;
+    background-color: rgba(white, .5);
+    $padding: 4px;
+    $k: 50;
+    box-shadow: $padding $padding 5px rgba($k, $k, $k, .8);
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        background-color: rgba(white, .7);
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+}
+
+@mixin submit {
+    width: auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    background-color: rgba(white, .5);
+    $padding: 4px;
+    $k: 120;
+    border: none;
+    box-shadow: $padding $padding 5px rgb($k, $k, $k);
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+
+    &:focus {
+        transition: 50ms all ease;
+        background-color: rgba(136, 230, 136, .5);
+    }
+}
+
+@mixin no-submit {
+    box-shadow: none;
+    transition: 300ms all ease;
+    
+    &:hover {
+        transition: 50ms all ease;
+        box-shadow: none;
+        transform: none;
+
+    }
+}
+
+$padding: 4px;
+$k: 80;
+$color-green: #17c917;
+$color-red: #e62626;
+
+@mixin update-button {
+    width: clamp(150px, 10%, 400px);
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    background-color: rgba($color-green, .2);
+    padding: 1em;
+    box-shadow: $padding $padding 5px rgb($k, $k, $k);
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        background-color: rgba($color-green, .5);
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+}
+
+@mixin delete-button {
+    width: clamp(150px, 10%, 400px);
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    background-color: rgba($color-red, .2);
+    padding: 1em;
+    box-shadow: $padding $padding 5px rgb($k, $k, $k);
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        background-color: rgba($color-red, .5);
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+}
+
+@mixin form-btn {
+    width: clamp(150px, 10%, 400px);
+    @include flex;
+    text-align: center;
+    background-color: rgba($color-red, .2);
+    padding: 1em;
+    box-shadow: $padding $padding 5px rgb($k, $k, $k);
+    transition: 300ms all ease;
+
+    &:hover {
+        transition: 150ms all ease;
+        background-color: rgba($color-red, .5);
+        box-shadow: none;
+        transform: translateY($padding);
+    }
+
+    button {
+        @include no-border;
+        background-color: transparent;
+        font-size: 20px;
+        color: black;
+    }
+}
+
+@mixin h1-form {
+    width: auto;
+    font-size: clamp(20px, 3rem, 35px);
+    @include flex;
+    justify-content: center;
+    gap: 1em;
+
+    span {
+        &:nth-child(2) {
+            display: block;
+        }
+
+        &:nth-child(3) {
+            display: none;
+        }
+    }
+
+    @media (width<=768px) {
+        width: minmax(250px, 500px);
+
+        a {
+            img {
+                height: .7em;
+                aspect-ratio: 1;
+            }
+        }
+
+        span {
+            font-size: 30px;
+
+            &:nth-child(2) {
+                display: none;
+            }
+
+            &:nth-child(3) {
+                display: block;
+            }
+        }
+    }
+
+    * {
+        width: auto;
+    }
+
+    a {
+        text-decoration: none;
+        width: auto;
+
+        img {
+            height: .7em;
+        }
+    }
+}
