@@ -67,12 +67,12 @@
 @mixin shadow-active {
     $depth: 4px;
     $k: 130;
-    text-shadow: $depth $depth 5px rgb($k, $k, $k);
-    transition: 700ms all ease;
+    box-shadow: $depth $depth 5px rgb($k, $k, $k);
+    transition: 300ms all ease;
 
     &:hover {
-        transition: 400ms all ease;
-        text-shadow: none;
+        transition: 150ms all ease;
+        box-shadow: none;
         transform: translateY($depth);
     }
 }
