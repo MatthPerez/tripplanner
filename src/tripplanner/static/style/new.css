@@ -100,12 +100,6 @@ main h1 {
   justify-content: center;
   gap: 1em;
 }
-main h1 span:nth-child(2) {
-  display: block;
-}
-main h1 span:nth-child(3) {
-  display: none;
-}
 @media (width <= 768px) {
   main h1 {
     width: minmax(250px, 500px);
@@ -113,15 +107,6 @@ main h1 span:nth-child(3) {
   main h1 a img {
     height: 0.7em;
     aspect-ratio: 1;
-  }
-  main h1 span {
-    font-size: 30px;
-  }
-  main h1 span:nth-child(2) {
-    display: none;
-  }
-  main h1 span:nth-child(3) {
-    display: block;
   }
 }
 main h1 * {

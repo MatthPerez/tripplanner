@@ -24,15 +24,30 @@ class AddAirbnb(forms.Form):
     price = forms.IntegerField(
         required=True,
         label="Prix/nuit",
+        widget=forms.NumberInput(
+            attrs={
+                "placeholder": "70",
+            }
+        ),
     )
     charges = forms.IntegerField(
         required=True,
         label="Frais",
+        widget=forms.NumberInput(
+            attrs={
+                "placeholder": "25",
+            }
+        ),
     )
     city = forms.CharField(
         required=True,
         max_length=50,
         label="Ville",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Barcelone",
+            }
+        ),
     )
     start_date = forms.DateField(
         required=True,
