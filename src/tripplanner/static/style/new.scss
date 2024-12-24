@@ -1,0 +1,82 @@
+@import 'mixins.scss';
+@import 'constants.scss';
+
+:root {
+    --space: 3em;
+}
+
+nav,
+footer {
+    background-color: var(--color-primary2);
+}
+
+main {
+    background-color: var(--color-tertiary2);
+    @include flex;
+    flex-direction: column;
+    gap: 2em;
+    padding-bottom: 3em;
+
+    h1 {
+        @include h1-form;
+    }
+}
+
+form {
+    width: clamp(300px, 70%, 700px);
+    @include flexcolumn;
+    gap: 1em;
+
+    h2 {
+        text-align: center;
+        margin: 1em 0 .5em 0;
+        font-size: 30px;
+    }
+
+    section {
+        @include border;
+        @include flexcolumn;
+        gap: 10px;
+        padding: 1em;
+        background-color: rgba(white, .2);
+
+        @media (width<=768px) {
+            width: 80vw;
+        }
+
+        h3 {
+            width: auto;
+            padding: .5em 2em;
+            text-align: center;
+            margin-bottom: 1em;
+            font-size: 22px;
+            border: 1px solid white;
+        }
+
+        div {
+            @include flexcolumn;
+            gap: 5px;
+        }
+
+        label {
+            text-indent: 3em;
+        }
+
+        input,
+        select {
+            width: calc(90% - 20px);
+            padding: 10px;
+            @include no-border;
+            transition: 300ms all ease;
+
+            &:focus {
+                transition: 150ms all ease;
+                box-shadow: 0 0 10px var(--color-primary2), 0 0 10px var(--color-primary2);
+            }
+        }
+    }
+
+    button {
+        @include submit;
+    }
+}

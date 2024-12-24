@@ -1,0 +1,40 @@
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %}
+{% block script_js %}<script src="{% static 'js/airbnb.js' %}" defer></script>{% endblock %}
+{% block title %}Tripplanner | Nouvel AirBnb{% endblock %}
+{% block content %}
+<main>
+  <h1>
+    <a href="{% url 'airbnb' %}"><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"/></a>
+    <span>
+      {% if title %}
+      {{title}}
+      {% else %}
+      Ajouter un logement
+      {% endif %}
+    </span>
+  </h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <section>
+      <div>{{ form.name.label_tag }} {{ form.name }}</div>
+      <div>{{ form.reference.label_tag }} {{ form.reference }}</div>
+      <div>{{ form.price.label_tag }} {{ form.price }}</div>
+      <div>{{ form.charges.label_tag }} {{ form.charges }}</div>
+      <div>{{ form.city.label_tag }} {{ form.city }}</div>
+      <div>{{ form.start_date.label_tag }} {{ form.start_date }}</div>
+      <div>{{ form.end_date.label_tag }} {{ form.end_date }}</div>
+    </section>
+
+    {% if form.non_field_errors %}
+    <div class="error">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <button type="submit">
+      {% if submit_text %}{{submit_text}}{% else %}Ajouter{% endif %}
+    </button>
+  </form>
+</main>
+{% endblock %}

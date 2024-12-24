@@ -5,7 +5,7 @@
 </a>
 
 <nav>
-    {% comment %} <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">AirBnb</a> {% endcomment %}
+    <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">AirBnb</a>
 
     {% comment %} {% if request.user.is_authenticated %}
     <a href="{% url 'logout' %}"><img src="{% static 'icons/unlocked.png' %}" title="Déconnexion de {{user.first_name}}" alt="Déconnexion"></a>
@@ -28,5 +28,5 @@
 
 <div id="menu">
     <a href="/" class="{% if request.path == "/" %}smallActive{% endif %}">ACCUEIL</a>
-    {% comment %} <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">AirBnb</a> {% endcomment %}
+    <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">AirBnb</a>
 </div>

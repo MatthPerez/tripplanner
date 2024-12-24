@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ga+Maamli&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Matemasie&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+AR:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
+:root {
+  --height: 4em;
+  --padding: 1em;
+  --color-primary1: #1d2d44;
+  --color-secondary1: #34507a;
+  --color-tertiary1: #4b74af;
+  --color-quaternary1: #7e9dc8;
+  --color-quinary1: #b4c6df;
+  --color-senary1: #800000;
+  --color-primary2: #935c25;
+  --color-secondary2: #cd8238;
+  --color-tertiary2: #dca975;
+  --color-quaternary2: #eccfb2;
+  --color-quinary2: #fbf5ef;
+  --color-primary3: #2a6a1e;
+  --color-secondary3: #42a62f;
+  --color-tertiary3: #66ce53;
+  --color-quaternary3: #9bdf8e;
+  --color-quinary3: #d0f0ca;
+  --color-primary-gray: #5a5a5a;
+  --color-secondary-gray: gray;
+  --color-tertiary-gray: #a7a7a7;
+  --color-quaternary-gray: #cdcdcd;
+  --color-quinary-gray: #f3f3f3;
+  --hover: #ffcc7e;
+  --active: #fca626;
+  --smallActive: red;
+  --anton: "Anton", sans-serif;
+  --archivo: "Archivo", sans-serif;
+  --archivoBlack: "Archivo Black", sans-serif;
+  --baloo: "Baloo Paaji 2", sans-serif;
+  --comfortaa: "Comfortaa", sans-serif;
+  --comicneue: "Comic Neue", cursive;
+  --dmsans: "DM Sans", sans-serif;
+  --gaMaamli: "Ga Maamli", sans-serif;
+  --jersey: "Jersey 10", sans-serif;
+  --jost: "Jost", sans-serif;
+  --macondo: "Macondo", cursive;
+  --matemasie: "Matemasie", sans-serif;
+  --montserrat: "Montserrat", sans-serif;
+  --openSans: "Open Sans", sans-serif;
+  --pacifico: "Pacifico", cursive;
+  --playRightArgentina: "Playwrite AR", cursive;
+  --playwritHU: "Playwrite HU", cursive;
+  --poppins: "Poppins", sans-serif;
+  --quickSand: "Quicksand", sans-serif;
+  --roboto: "Roboto", sans-serif;
+  --rubik: "Rubik", sans-serif;
+  --rajdhani: "Rajdhani", sans-serif;
+  --sacramento: "Sacramento", cursive;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+  padding-bottom: 3em;
+}
+
+nav,
+footer {
+  background-color: var(--color-primary2);
+}
+
+.top {
+  background: linear-gradient(rgba(80, 80, 80, 0.5), transparent);
+  height: 10em;
+  position: fixed;
+  top: var(--height);
+  z-index: 2;
+}
+
+main {
+  background-color: var(--color-quaternary2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+main h1 {
+  text-shadow: 0 0 5px red, 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
+  color: var(--color-primary2);
+  font-weight: 400;
+}
+main > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+main > div a {
+  box-shadow: 4px 4px 5px rgb(130, 130, 130);
+  transition: 300ms all ease;
+  width: clamp(200px, 15%, 300px);
+  text-decoration: none;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-size: 20px;
+}
+main > div a:hover {
+  transition: 150ms all ease;
+  box-shadow: none;
+  transform: translateY(4px);
+}
+main > div a:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+@media (width <= 768px) {
+  main > div a {
+    width: clamp(100px, 70%, 300px);
+    padding: 0.8em;
+    font-size: 18px;
+  }
+}/*# sourceMappingURL=model.css.map */
