@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", Home.as_view(), name="home"),
     path("airbnb/", include("airbnb.urls")),
+    path("trajet/", include("travel.urls")),
 
 ]

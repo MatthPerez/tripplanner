@@ -1,0 +1,40 @@
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %}
+{% block script_js %}<script src="{% static 'js/travel.js' %}" defer></script>{% endblock %}
+{% block title %}Tripplanner | Nouvel trajet{% endblock %}
+{% block content %}
+<main>
+  <h1>
+    <a href="{% url 'travel' %}"><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"/></a>
+    <span>
+      {% if title %}
+      {{title}}
+      {% else %}
+      Ajouter un trajet
+      {% endif %}
+    </span>
+  </h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <section>
+      <div>{{ form.date.label_tag }} {{ form.date }}</div>
+      <div>{{ form.price.label_tag }} {{ form.price }}</div>
+      <div>{{ form.start_place.label_tag }} {{ form.start_place }}</div>
+      <div>{{ form.start_time.label_tag }} {{ form.start_time }}</div>
+      <div>{{ form.end_place.label_tag }} {{ form.end_place }}</div>
+      <div>{{ form.end_time.label_tag }} {{ form.end_time }}</div>
+      <div>{{ form.type.label_tag }} {{ form.type }}</div>
+    </section>
+
+    {% if form.non_field_errors %}
+    <div class="error">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <button type="submit">
+      {% if submit_text %}{{submit_text}}{% else %}Ajouter{% endif %}
+    </button>
+  </form>
+</main>
+{% endblock %}

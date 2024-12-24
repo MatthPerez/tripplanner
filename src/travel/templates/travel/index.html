@@ -1,0 +1,34 @@
+{% extends 'tripplanner/base.html' %} {% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'style/index.css' %}" />{% endblock %}
+{% block script_js %}<script src="{% static 'js/travel.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner | Trajets{% endblock %}
+{% block content %}
+<main>
+  <h1>Liste des trajets</h1>
+
+  <a href="{% url 'travel_new' %}" title="Rajouter un trajet à la liste"
+    >Rajouter un trajet</a
+  >
+
+  <div class="elements">
+    {% for travel in travels %}
+    <div>
+      <a href="#">
+        <div>{{travel.date}} ({{travel.type}} {{travel.start_place}} - {{travel.end_place}})</div>
+        <div>
+          <a
+            href="{% url 'travel_update' travel.pk %}"
+            title="Modifier ce trajet"
+            >✏️</a
+          >
+          <form action="{% url 'travel_delete' travel.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" title="Supprimer le trajet">❌</button>
+          </form>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

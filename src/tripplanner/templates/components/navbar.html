@@ -5,6 +5,7 @@
 </a>
 
 <nav>
+    <a href="{% url 'travel' %}" class="{% if '/travel/' in request.path %}active{% endif %}">Trajet</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">AirBnb</a>
 
     {% comment %} {% if request.user.is_authenticated %}
@@ -28,5 +29,6 @@
 
 <div id="menu">
     <a href="/" class="{% if request.path == "/" %}smallActive{% endif %}">ACCUEIL</a>
+    <a href="{% url 'travel' %}" class="{% if '/travel/' in request.path %}smallActive{% endif %}">Trajet</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">AirBnb</a>
 </div>

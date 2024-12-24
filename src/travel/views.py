@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-from .forms import AddAirbnb
-from .models import Airbnb
+from .forms import AddTravel
+from .models import Travel
 from django.utils.timezone import now
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -10,25 +10,25 @@ from django.utils.timezone import now
 #     return user.is_authenticated and hasattr(user, "is_admin") and user.is_admin
 
 
-class AirbnbView(View):
+class TravelView(View):
     def get(self, request):
         today = now()
-        airbnbs = Airbnb.objects.filter(start_date__gte=today,).order_by("city", "name")
+        travels = Travel.objects.filter(date__gte=today,).order_by("date")
         
         context = {
-            "airbnbs": airbnbs,
+            "travels": travels,
         }
         
         return render(
             request,
-            "airbnb/index.html",
+            "travel/index.html",
             context,
         )
         
-class NewAirbnb(View):
+class NewTravel(View):
     def get(self, request):
-        form = AddAirbnb()
-        title="Ajouter un logement"
+        form = AddTravel()
+        title="Ajouter un trajet"
         submit_text = "Ajouter"
         
         context = {
@@ -39,22 +39,22 @@ class NewAirbnb(View):
         
         return render(
             request,
-            "airbnb/new.html",
+            "travel/new.html",
             context,
         )
     
     def post(self, request):
-        form = AddAirbnb(request.POST)
+        form = AddTravel(request.POST)
         
         if form.is_valid():
             form.save()
             
             context={
                 "form": form,
-                "success": "Logement ajouté avec succès.",
+                "success": "Trajet ajouté avec succès.",
             }
             
-            return redirect("airbnb")
+            return redirect("travel")
         else:
             print(form.errors)
             
@@ -65,27 +65,27 @@ class NewAirbnb(View):
             
             return render(
                 request,
-                "airbnb/new.html",
+                "travel/new.html",
                 context
             )
             
             
         
-class AirbnbUpdate(View):
+class TravelUpdate(View):
     def get(self, request, pk):
-        airbnb = Airbnb.objects.get(pk=pk)
-        title=f"Mise à jour du logenemt : {airbnb.name}"
+        travel = Travel.objects.get(pk=pk)
+        title=f"Mise à jour du trajet"
         submit_text="Enregistrer"
         
-        form = AddAirbnb(
+        form = AddTravel(
             initial={
-                "name": airbnb.name,
-                "reference": airbnb.reference,
-                "price": airbnb.price,
-                "charges": airbnb.charges,
-                "city": airbnb.city,
-                "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
-                "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
+                "date": travel.date.strftime("%Y-%m-%d"),
+                "price": travel.price,
+                "start_place": travel.start_place,
+                "start_time": travel.start_time,
+                "end_place": travel.end_place,
+                "end_time": travel.end_time,
+                "type": travel.type,
             }
         )
         
@@ -97,33 +97,22 @@ class AirbnbUpdate(View):
         
         return render(
             request,
-            "airbnb/new.html",
+            "travel/new.html",
             context,
         )
         
     def post(self, request, pk):
-        airbnb = Airbnb.objects.get(pk=pk)
-        form = AddAirbnb(request.POST)
+        form = AddTravel(request.POST)
         
         if form.is_valid():
-            data = form.cleaned_data()
-            
-            airbnb = Airbnb(
-                name=data["name"],
-                reference=data["reference"],
-                price=data["price"],
-                charges=data["charges"],
-                city=data["city"],
-                start_data=data["start_data"],
-                end_data=data["end_data"],
-            )
-            
-            airbnb.save()
+            form.save()
             
             context={
                 "form": form,
-                "success": "Logement modifié avec succès.",
+                "success": "Trajet modifié avec succès.",
             }
+            
+            return redirect("travel")
         else:
             print(form.errors)
             
@@ -134,14 +123,14 @@ class AirbnbUpdate(View):
             
             return render(
                 request,
-                "airbnb/new.html",
+                "travel/new.html",
                 context
             )
             
-class AirbnbDelete(View):
+class TravelDelete(View):
     def post(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
-        airbnb = get_object_or_404(Airbnb, pk=pk)
-        airbnb.delete()
+        travel = get_object_or_404(Travel, pk=pk)
+        travel.delete()
         
-        return redirect("airbnb")
+        return redirect("travel")
