@@ -6,10 +6,31 @@
 <main>
   <h1>Planificateur de voyages</h1>
 
-  <div>
-    <a href="#">Trajet</a>
-    <a href="{% url 'airbnb' %}" title="Voir les AirBnb référencés">AirBnb</a>
-    <a href="#">Activités</a>
-  </div>
+  <section>
+    <h3>Mes voyages prévus</h3>
+
+    <div id="trips">
+      <a href="#">Paris avril 2025</a>
+      <a href="#">Croatie octobre 2025</a>
+      <a href="#">Prague 2026</a>
+      <a href="#">Japon 2027</a>
+    </div>
+  </section>
+
+  <section id="builder">
+    <h3>Construire un voyage</h3>
+
+    <a href="#">Nouveau voyage</a>
+  </section>
+
+  <section>
+    <h3>Eléments de voyage</h3>
+
+    <div id="elements">
+      <a href="#">Trajet</a>
+      <a href="{% url 'airbnb' %}" title="Voir les AirBnb référencés">AirBnb</a>
+      <a href="#">Activités</a>
+    </div>
+  </section>
 </main>
 {% endblock %}

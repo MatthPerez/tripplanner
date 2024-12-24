@@ -2,18 +2,11 @@ from django.db import models
 from django.utils.timezone import now
 
 class Airbnb(models.Model):
-
-    name = models.CharField(
-        max_length=50,
-    )
-    reference = models.CharField(
-        max_length=20,
-    )
+    name = models.CharField(max_length=50)
+    reference = models.CharField(max_length=20)
     price = models.IntegerField()
     charges = models.IntegerField()
-    city = models.CharField(
-        max_length=50,
-    )
+    city = models.CharField(max_length=50)
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 

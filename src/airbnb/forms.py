@@ -1,7 +1,11 @@
 from django import forms
 from airbnb.models import Airbnb
 
-class AddAirbnb(forms.Form):
+class AddAirbnb(forms.ModelForm):
+    class Meta:
+        model = Airbnb
+        fields = ['name', 'reference', 'price', 'charges', 'city', 'start_date', 'end_date']
+    
     name = forms.CharField(
         required=True,
         label="Désignation",

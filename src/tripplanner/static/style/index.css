@@ -100,7 +100,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 3em;
 }
 main h1 {
   text-shadow: 0 0 5px green, 0 0 10px green, 0 0 20px green, 0 0 30px green, 0 0 40px green;
@@ -125,7 +125,9 @@ main > a:hover {
   box-shadow: none;
   transform: translateY(4px);
 }
-main > div {
+
+.elements {
+  width: clamp(300px, 50%, 550px);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -133,28 +135,54 @@ main > div {
   gap: 1em;
   flex-wrap: wrap;
 }
-main > div a {
+.elements > div {
   box-shadow: 4px 4px 5px rgb(130, 130, 130);
   transition: 300ms all ease;
-  width: clamp(200px, 15%, 300px);
-  text-decoration: none;
-  padding: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  font-size: 20px;
 }
-main > div a:hover {
+.elements > div:hover {
   transition: 150ms all ease;
   box-shadow: none;
   transform: translateY(4px);
 }
-main > div a:hover {
+.elements > div a {
+  text-decoration: none;
+}
+.elements > div:hover {
   background-color: rgba(255, 255, 255, 0.8);
 }
 @media (width <= 768px) {
-  main > div a {
+  .elements > div {
     width: clamp(100px, 70%, 300px);
     padding: 0.8em;
     font-size: 18px;
   }
+}
+.elements > div div {
+  width: auto;
+  font-size: 18px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.elements > div div a,
+.elements > div div form {
+  width: auto;
+  font-size: 16px;
+}
+.elements > div div a button,
+.elements > div div form button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  cursor: pointer;
 }/*# sourceMappingURL=index.css.map */

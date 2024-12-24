@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-from .forms import AirbnbForm, AddAirbnb
+from .forms import AddAirbnb
+from .models import Airbnb
+from django.utils.timezone import now
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -8,11 +10,19 @@ from .forms import AirbnbForm, AddAirbnb
 #     return user.is_authenticated and hasattr(user, "is_admin") and user.is_admin
 
 
-class Airbnb(View):
+class AirbnbView(View):
     def get(self, request):
+        today = now()
+        airbnbs = Airbnb.objects.filter(start_date__gte=today,).order_by("city", "name")
+        
+        context = {
+            "airbnbs": airbnbs,
+        }
+        
         return render(
             request,
             "airbnb/index.html",
+            context,
         )
         
 class NewAirbnb(View):
@@ -32,3 +42,120 @@ class NewAirbnb(View):
             "airbnb/new.html",
             context,
         )
+    
+    def post(self, request):
+        form = AddAirbnb(request.POST)
+        
+        if form.is_valid():
+            # data = form.cleaned_data
+            
+            # airbnb = Airbnb(
+            #     name=data["name"],
+            #     reference=data["reference"],
+            #     price=data["price"],
+            #     charges=data["charges"],
+            #     city=data["city"],
+            #     start_date=data["start_date"],
+            #     end_date=data["end_date"],
+            # )
+            
+            # airbnb.save()
+            
+            form.save()
+            
+            context={
+                "form": form,
+                "success": "Logement ajouté avec succès.",
+            }
+            
+            return redirect("airbnb")
+        else:
+            print(form.errors)
+            
+            context={
+                "form": form,
+                "errors": form.errors,
+            }
+            
+            return render(
+                request,
+                "airbnb/new.html",
+                context
+            )
+            
+            
+        
+class AirbnbUpdate(View):
+    def get(self, request, pk):
+        airbnb = Airbnb.objects.get(pk=pk)
+        title=f"Mise à jour du logenemt : {airbnb.name}"
+        submit_text="Enregistrer"
+        
+        form = AddAirbnb(
+            initial={
+                "name": airbnb.name,
+                "reference": airbnb.reference,
+                "price": airbnb.price,
+                "charges": airbnb.charges,
+                "city": airbnb.city,
+                "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
+                "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
+            }
+        )
+        
+        context = {
+            "form": form,
+            "title": title,
+            "submit_text": submit_text,
+        }
+        
+        return render(
+            request,
+            "airbnb/new.html",
+            context,
+        )
+        
+    def post(self, request, pk):
+        airbnb = Airbnb.objects.get(pk=pk)
+        form = AddAirbnb(request.POST)
+        
+        if form.is_valid():
+            data = form.cleaned_data()
+            
+            airbnb = Airbnb(
+                name=data["name"],
+                reference=data["reference"],
+                price=data["price"],
+                charges=data["charges"],
+                city=data["city"],
+                start_data=data["start_data"],
+                end_data=data["end_data"],
+            )
+            
+            airbnb.save()
+            
+            context={
+                "form": form,
+                "success": "Logement modifié avec succès.",
+            }
+        else:
+            print(form.errors)
+            
+            context={
+                "form": form,
+                "errors": form.errors,
+            }
+            
+            return render(
+                request,
+                "airbnb/new.html",
+                context
+            )
+            
+class AirbnbDelete(View):
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+        airbnb = get_object_or_404(Airbnb, pk=pk)
+        airbnb.delete()
+        
+        return redirect("airbnb")
