@@ -10,7 +10,6 @@ from django.utils.timezone import now
 # def is_admin(user):
 #     return user.is_authenticated and hasattr(user, "is_admin") and user.is_admin
 
-
 class TripView(View):
     def get(self, request):
         today = now()
@@ -35,7 +34,7 @@ class TripDetail(DetailView):
         context = super().get_context_data(**kwargs)
         
         context['travels'] = context['trip'].travels.all()
-        context['housing'] = context['trip'].housing.all()
+        context['airbnbs'] = context['trip'].airbnbs.all()
         context['activities'] = context['trip'].activities.all()
         context['expenses'] = context['trip'].expenses.all()
         context['total_price'] = context['trip'].total_price
@@ -101,7 +100,7 @@ class TripUpdate(View):
                 "place": trip.place,
                 "people": trip.people,
                 "travels": trip.travels,
-                "housing": trip.housing,
+                "airbnbs": trip.airbnbs,
                 "activities": trip.activities,
                 "expenses": trip.expenses,
             }

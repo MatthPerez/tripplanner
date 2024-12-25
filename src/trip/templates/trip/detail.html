@@ -1,10 +1,13 @@
-{% extends 'tripplanner/base.html' %} {% load static %} {% block extra_css%}<link
-  rel="stylesheet"
-  href="{% static 'style/trip-detail.css' %}"
-/>{% endblock %} {% block script_js %}
-<script src="{% static 'js/trip.js' %}" defer></script>
-{% endblock %} {% block title %}Trip planner |
-{{trip.place}}{{trip.date|date:"Y"}}{% endblock %} {% block content %}
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css%}<link
+rel="stylesheet"
+href="{% static 'style/trip-detail.css' %}"
+/>{% endblock %}
+{% block script_js %}<script src="{% static 'js/trip.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner |
+{{trip.place}}{{trip.date|date:"Y"}}{% endblock %}
+{% block content %}
 
 <main>
   <h1>
@@ -61,13 +64,13 @@
     </div>
 
     <div>
-        <h2>Logements ({{ trip.housing_total|floatformat:2 }}) €</h2>
+        <h2>Logements ({{ trip.air_total|floatformat:2 }}) €</h2>
 
         <ul>
-            {% for house in housing %}
+            {% for house in airbnbs %}
             <li>
             <span>{{ house.name }} ({{ house.city }}, {{ house.price|floatformat:2 }} €/nuit)</span>
-            <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults=6&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank">
+            <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults={{trip.people}}&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank">
                 <img src="{% static 'icons/airbnb.png' %}" alt="lien AirBnb">
             </a>
             </li>

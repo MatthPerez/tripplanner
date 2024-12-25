@@ -152,7 +152,8 @@ main section > a:hover {
 main section > p {
   text-indent: 0;
   text-align: justify;
-  font-size: 22px;
+  font-size: 24px;
+  text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white;
 }
 
 #trips {

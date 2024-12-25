@@ -64,7 +64,8 @@ main {
         >p {
             text-indent: 0;
             text-align: justify;
-            font-size: 22px;
+            font-size: 24px;
+            @include white-neon;
         }
     }
 }

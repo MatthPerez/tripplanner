@@ -8,7 +8,7 @@ from expense.models import Expense
 class AddTrip(forms.ModelForm):
     class Meta:
         model = Trip
-        fields = ['date', 'duration', 'place', 'people', 'travels', 'housing', 'activities', 'expenses',]
+        fields = ['date', 'duration', 'place', 'people', 'travels', 'airbnbs', 'activities', 'expenses',]
     
     date = forms.DateField(
         required=True,
