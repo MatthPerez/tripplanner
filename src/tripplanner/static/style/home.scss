@@ -34,10 +34,20 @@ main {
 
     section {
         @include flexcolumn;
-        gap: 1em;
+        gap: 3em;
 
         h3 {
             @include h3;
+        }
+
+        >a {
+            @include button;
+        }
+
+        >p {
+            text-indent: 0;
+            text-align: justify;
+            font-size: 18px;
         }
     }
 }
@@ -53,26 +63,3 @@ main {
     }
 }
 
-#builder {
-    h3 {
-        @include h3;
-
-    }
-
-    a {
-        @include link-btn-list;
-    }
-}
-
-#elements {
-    @include flex;
-    justify-content: center;
-    gap: 1em;
-    flex-wrap: wrap;
-
-    a {
-        @include link-btn-list;
-        width: clamp(150px, 15%, 200px);
-        text-align: center;
-    }
-}

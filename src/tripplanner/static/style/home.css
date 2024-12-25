@@ -110,11 +110,34 @@ main section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 3em;
 }
 main section h3 {
   font-size: 26px;
   text-align: center;
+}
+main section > a {
+  width: auto;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid black;
+  padding: 0.5em 1.5em;
+  color: black;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.8);
+  transition: 300ms all ease;
+}
+main section > a:hover {
+  transition: 150ms all ease;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: none;
+  transform: translateY(4px);
+}
+main section > p {
+  text-indent: 0;
+  text-align: justify;
+  font-size: 18px;
 }
 
 #trips {
@@ -136,52 +159,6 @@ main section h3 {
   transition: 300ms all ease;
 }
 #trips a:hover {
-  transition: 150ms all ease;
-  box-shadow: none;
-  transform: translateY(4px);
-}
-
-#builder h3 {
-  font-size: 26px;
-  text-align: center;
-}
-#builder a {
-  width: auto;
-  text-decoration: none;
-  color: black;
-  font-size: 20px;
-  padding: 10px 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 4px 4px 5px rgb(130, 130, 130);
-  transition: 300ms all ease;
-}
-#builder a:hover {
-  transition: 150ms all ease;
-  box-shadow: none;
-  transform: translateY(4px);
-}
-
-#elements {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  flex-wrap: wrap;
-}
-#elements a {
-  width: auto;
-  text-decoration: none;
-  color: black;
-  font-size: 20px;
-  padding: 10px 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 4px 4px 5px rgb(130, 130, 130);
-  transition: 300ms all ease;
-  width: clamp(150px, 15%, 200px);
-  text-align: center;
-}
-#elements a:hover {
   transition: 150ms all ease;
   box-shadow: none;
   transform: translateY(4px);

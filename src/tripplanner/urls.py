@@ -10,5 +10,6 @@ urlpatterns = [
     path("trajet/", include("travel.urls")),
     path("activite/", include("activity.urls")),
     path("depense/", include("expense.urls")),
+    path("voyage/", include("trip.urls")),
 
 ]

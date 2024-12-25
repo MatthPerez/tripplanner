@@ -12,3 +12,4 @@ class Travel(models.Model):
 
     def __str__(self):
         return self.start_place
+    
