@@ -4,7 +4,7 @@ class Expense(models.Model):
     name = models.CharField(max_length=100)
     place = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
-    price = models.IntegerField(max_length=4)
+    price = models.DecimalField(max_digits=2, decimal_places=2)
     note = models.TextField(max_length=100, null=True)
 
     def __str__(self):
