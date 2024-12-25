@@ -6,8 +6,8 @@
 <main>
   <h1>Liste des dépenses</h1>
 
-  <a href="{% url 'expense_new' %}" title="Rajouter un dépense à la liste"
-    >Rajouter un dépense</a
+  <a href="{% url 'expense_new' %}" title="Rajouter une dépense à la liste"
+    >Rajouter une dépense</a
   >
 
   <div class="elements">
@@ -23,7 +23,7 @@
           >
           <form action="{% url 'expense_delete' expense.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit" title="Supprimer la dépense">❌</button>
+              <button type="submit" title="Supprimer la dépense">❌</button>
           </form>
         </div>
       </a>

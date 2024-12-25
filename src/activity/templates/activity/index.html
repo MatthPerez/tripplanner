@@ -11,10 +11,10 @@
   >
 
   <div class="elements">
-    {% for activity in activitys %}
+    {% for activity in activities %}
     <div>
-      <a href="#">
-        <div>{{activity.name}}</div>
+      <a href="#" title="{{activity.price_person}} €/personne">
+        <div>{{activity.name}} ({{activity.city}})</div>
         <div>
           <a
             href="{% url 'activity_update' activity.pk %}"
