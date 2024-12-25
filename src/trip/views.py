@@ -38,6 +38,7 @@ class TripDetail(DetailView):
         context['housing'] = context['trip'].housing.all()
         context['activities'] = context['trip'].activities.all()
         context['expenses'] = context['trip'].expenses.all()
+        context['total_price'] = context['trip'].total_price
         
         return context
         

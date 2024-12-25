@@ -15,7 +15,25 @@ class Trip(models.Model):
     activities = models.ManyToManyField(Activity, related_name="activities_list")
     expenses = models.ManyToManyField(Expense, related_name="expenses_list")
 
-
     def __str__(self):
         return self.place
     
+    @property
+    def travel_total(self):
+        return sum(travel.price for travel in self.travels.all())
+    
+    @property
+    def housing_total(self):
+        return sum(airbnb.price * self.duration for airbnb in self.housing.all())
+    
+    @property
+    def activity_total(self):
+        return sum(activity.price_person for activity in self.activities.all())
+    
+    @property
+    def expense_total(self):
+        return sum(expense.price for expense in self.expenses.all())
+    
+    @property
+    def total_price(self):
+        return self.travel_total + self.housing_total + self.activity_total + self.expense_total

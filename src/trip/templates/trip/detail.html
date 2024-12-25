@@ -23,7 +23,7 @@
 
   <div id="total">
     <span>Coût total =</span>
-    <span>XXXX €</span>
+    <span>{{total_price}} €</span>
   </div>
 
   <section>
@@ -50,49 +50,55 @@
     </div>
 
     <div>
-      <h2>Trajets</h2>
+        <h2>Trajets ({{ trip.travel_total|floatformat:2 }}) €</h2>
 
-      <ul>
-        {% for travel in travels %}
-        <li>{{travel}} ({{travel.start_time}} - {{travel.end_time}})</li>
-        {% empty %} Pas de trajet pour ce voyage. {% endfor %}
-      </ul>
+        <ul>
+            {% for travel in travels %}
+            <li>{{ travel }} ({{ travel.start_time }} - {{ travel.end_time }})</li>
+            {% empty %} Pas de trajet pour ce voyage. {% endfor %}
+        </ul>
     </div>
 
     <div>
-      <h2>Logements</h2>
+        <h2>Logements ({{ trip.housing_total|floatformat:2 }}) €</h2>
 
-      <ul>
-        {% for house in housing %}
-        <li>
+        <ul>
+            {% for house in housing %}
+            <li>
             <span>{{ house.name }} ({{ house.city }}, {{ house.price|floatformat:2 }} €/nuit)</span>
-            <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults=6&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank"><img src="{% static 'icons/airbnb.png' %}" alt="lien AirBnb"></a>
-        </li>
-        {% empty %} Pas de logement pour ce voyage. {% endfor %}
-      </ul>
+            <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults=6&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank">
+                <img src="{% static 'icons/airbnb.png' %}" alt="lien AirBnb">
+            </a>
+            </li>
+            {% empty %} Pas de logement pour ce voyage. {% endfor %}
+        </ul>
     </div>
 
     <div>
-      <h2>Activités</h2>
+        <h2>Activités ({{ trip.activity_total|floatformat:2 }}) €</h2>
 
-      <ul>
-        {% for act in activities %}
-        <li>
-            <span>{{act}} : {{act.price_person}} €/personne</span>
-            <a href="https://www.google.com/maps/place/{{ act.gps }}/" target="_blank"><img src="{% static 'icons/maps.png' %}" alt="Lien Google Maps" title="Lien Google Maps vers {{act.name}}"></a>
-        </li>
-        {% empty %} Pas d'activité pour ce voyage. {% endfor %}
-      </ul>
+        <ul>
+            {% for act in activities %}
+            <li>
+            <span>{{ act }} : {{ act.price_person|floatformat:2 }} €/personne</span>
+            <a href="https://www.google.com/maps/place/{{ act.gps|urlencode }}/" target="_blank">
+                <img src="{% static 'icons/maps.png' %}" alt="Lien Google Maps" title="Lien Google Maps vers {{ act.name }}">
+            </a>
+            </li>
+            {% empty %} Pas d'activité pour ce voyage. {% endfor %}
+        </ul>
     </div>
 
     <div>
-      <h2>Dépenses</h2>
+        <h2>Dépenses ({{ trip.expense_total }}) €</h2>
 
-      <ul>
-        {% for exp in expenses %}
-        <li>{{exp}} : {{exp.price}} €</li>
-        {% empty %} Pas de dépense supplémentaire pour ce voyage. {% endfor %}
-      </ul>
+        <ul>
+            {% for exp in expenses %}
+            <li>{{ exp }} : {{ exp.price }} €</li>
+            {% empty %}
+            Pas de dépense supplémentaire pour ce voyage.
+            {% endfor %}
+        </ul>
     </div>
   </section>
 </main>
