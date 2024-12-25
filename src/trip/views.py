@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
+from django.views.generic import DetailView
 from .forms import AddTrip
 from .models import Trip
 from django.utils.timezone import now
@@ -24,6 +25,21 @@ class TripView(View):
             "trip/index.html",
             context,
         )
+        
+class TripDetail(DetailView):
+    model = Trip
+    template_name = "trip/detail.html"
+    context_object_name = "trip"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['travels'] = context['trip'].travels.all()
+        context['housing'] = context['trip'].housing.all()
+        context['activities'] = context['trip'].activities.all()
+        context['expenses'] = context['trip'].expenses.all()
+        
+        return context
         
 class NewTrip(View):
     def get(self, request):
@@ -103,7 +119,9 @@ class TripUpdate(View):
         )
         
     def post(self, request, pk):
-        form = AddTrip(request.POST)
+        trip = Trip.objects.get(pk=pk)
+        
+        form = AddTrip(request.POST, instance=trip)
         
         if form.is_valid():
             form.save()

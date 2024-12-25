@@ -1,0 +1,99 @@
+{% extends 'tripplanner/base.html' %} {% load static %} {% block extra_css%}<link
+  rel="stylesheet"
+  href="{% static 'style/trip-detail.css' %}"
+/>{% endblock %} {% block script_js %}
+<script src="{% static 'js/trip.js' %}" defer></script>
+{% endblock %} {% block title %}Trip planner |
+{{trip.place}}{{trip.date|date:"Y"}}{% endblock %} {% block content %}
+<main>
+  <h1>
+    <a href="{% url 'trip' %}"
+      ><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"
+    /></a>
+    <span>{{trip.place}} {{trip.date|date:"Y"}}</span>
+  </h1>
+
+  <div class="actions">
+    <a href="{% url 'trip_update' trip.pk %}" title="Modifier ce voyage">✏️</a>
+    <form action="{% url 'trip_delete' trip.pk %}" method="POST" title="Supprimer ce voyage">
+        {% csrf_token %}
+        <button type="submit">❌</button>
+    </form>
+  </div>
+
+  <div id="total">
+    <span>Coût total =</span>
+    <span>XXXX €</span>
+  </div>
+
+  <section>
+    <div>
+        <div>
+            <span>Date :</span>
+            <span>{{trip.date}}</span>
+        </div>
+
+        <div>
+            <span>Durée :</span>
+            <span>{{trip.duration}} jour{% if trip.duration > 1 %}s{% endif %}</span>
+        </div>
+        
+        <div>
+            <span>Destination :</span>
+            <span>{{trip.place}}</span>
+        </div>
+        
+        <div>
+            <span>Participants :</span>
+            <span>{{trip.people}}</span>
+        </div>
+    </div>
+
+    <div>
+      <h2>Trajets</h2>
+
+      <ul>
+        {% for travel in travels %}
+        <li>{{travel}} ({{travel.start_time}} - {{travel.end_time}})</li>
+        {% empty %} Pas de trajet pour ce voyage. {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h2>Logements</h2>
+
+      <ul>
+        {% for house in housing %}
+        <li>
+            <span>{{ house.name }} ({{ house.city }}, {{ house.price|floatformat:2 }} €/nuit)</span>
+            <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults=6&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank"><img src="{% static 'icons/airbnb.png' %}" alt="lien AirBnb"></a>
+        </li>
+        {% empty %} Pas de logement pour ce voyage. {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h2>Activités</h2>
+
+      <ul>
+        {% for act in activities %}
+        <li>
+            <span>{{act}} : {{act.price_person}} €/personne</span>
+            <a href="https://www.google.com/maps/place/{{ act.gps }}/" target="_blank"><img src="{% static 'icons/maps.png' %}" alt="Lien Google Maps" title="Lien Google Maps vers {{act.name}}"></a>
+        </li>
+        {% empty %} Pas d'activité pour ce voyage. {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h2>Dépenses</h2>
+
+      <ul>
+        {% for exp in expenses %}
+        <li>{{exp}} : {{exp.price}} €</li>
+        {% empty %} Pas de dépense supplémentaire pour ce voyage. {% endfor %}
+      </ul>
+    </div>
+  </section>
+</main>
+{% endblock %}

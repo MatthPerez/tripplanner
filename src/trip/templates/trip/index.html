@@ -13,7 +13,7 @@
   <div class="elements">
     {% for trip in trips %}
     <div>
-      <a href="#">
+      <a href="{% url 'trip_detail' trip.pk %}">
         <div>{{trip.place}} ({{trip.date}})</div>
         <div>
           <a

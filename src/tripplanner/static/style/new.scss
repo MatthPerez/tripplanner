@@ -56,22 +56,37 @@ form {
         div {
             @include flexcolumn;
             gap: 5px;
+
+            >label {
+                text-indent: 1em;
+                font-weight: bold;
+            }
+
+            input,
+            select {
+                width: calc(90% - 20px);
+                padding: 10px;
+                @include no-border;
+                transition: 300ms all ease;
+
+                &:focus {
+                    transition: 150ms all ease;
+                    box-shadow: 0 0 10px var(--color-primary2), 0 0 10px var(--color-primary2);
+                }
+            }
         }
 
-        label {
-            text-indent: 3em;
-        }
+        ul {
+            list-style: none;
 
-        input,
-        select {
-            width: calc(90% - 20px);
-            padding: 10px;
-            @include no-border;
-            transition: 300ms all ease;
+            li {
+                @include flex;
+                justify-content: flex-start;
+                gap: 10px;
 
-            &:focus {
-                transition: 150ms all ease;
-                box-shadow: 0 0 10px var(--color-primary2), 0 0 10px var(--color-primary2);
+                * {
+                    width: auto;
+                }
             }
         }
     }

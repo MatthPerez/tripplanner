@@ -1,0 +1,127 @@
+@import 'mixins.scss';
+@import 'constants.scss';
+
+:root {
+    --space: 3em;
+}
+
+nav,
+footer {
+    background-color: var(--color-primary2);
+}
+
+main {
+    background-color: var(--color-tertiary2);
+    @include flex;
+    flex-direction: column;
+    gap: 2em;
+    padding-bottom: 3em;
+
+    h1 {
+        @include h1-form;
+    }
+
+    >section {
+        width: clamp(300px, 60%, 700px);
+        @include flexcolumn;
+        gap: 1em;
+
+        >div {
+            background-color: rgba(white, .5);
+            padding: 10px;
+            @include flexcolumn;
+            gap: 1em;
+            border-radius: 10px;
+            $depth: 4px;
+            $k: 80;
+            box-shadow: $depth $depth 5px rgb($k, $k, $k);
+
+            h2 {
+                text-align: center;
+            }
+
+            ul {
+                width: 90%;
+                list-style: none;
+
+                li {
+                    @include flex;
+                    gap: 10px;
+
+                    span,
+                    a {
+                        width: auto;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: blue;
+
+                        img {
+                            width: 20px;
+                            aspect-ratio: 1;
+                        }
+                    }
+
+                }
+            }
+
+            div {
+                @include flex;
+                gap: 10px;
+                padding: 0;
+
+                span {
+                    width: auto;
+
+                    &:first-child {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#total {
+    width: auto;
+    @include flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(white, .3);
+    padding: 1em 3em;
+
+    span {
+        font-weight: bold;
+        width: auto;
+        font-size: 25px;
+
+        &:nth-child(2) {
+            color: red;
+        }
+    }
+}
+
+.actions {
+    @include flex;
+    justify-content: center;
+    gap: 1em;
+
+    $font-size: 24px;
+
+    a,
+    form {
+        text-decoration: none;
+        width: auto;
+        font-size: $font-size;
+    }
+
+    form {
+        button {
+            @include no-border;
+            background-color: transparent;
+            font-size: $font-size;
+            cursor: pointer;
+        }
+    }
+}

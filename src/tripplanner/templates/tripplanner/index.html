@@ -15,7 +15,7 @@
 
     <div id="trips">
       {% for trip in trips %}
-      <a href="#">{{trip.name}} {{trip.date}}</a>
+      <a href="{% url 'trip_detail' trip.pk %}">{{trip.place}} {{trip.date|date:"Y"}}</a>
       {% empty %}
       Pas de voyage créé pour le moment.
       {% endfor %}

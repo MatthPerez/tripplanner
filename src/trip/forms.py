@@ -52,7 +52,6 @@ class AddTrip(forms.ModelForm):
     travels = forms.MultipleChoiceField(
         required=False,
         label="Trajets",
-        # Correct way to set choices
         choices=[(t.id, str(t)) for t in Travel.objects.all()],
         widget=forms.CheckboxSelectMultiple,
     )
