@@ -29,8 +29,10 @@
       <div>{{ form.expenses.label_tag }} {{ form.expenses }}</div>
     </section>
 
-    {% if form.non_field_errors %}
-    <div class="error">{{ form.non_field_errors }}</div>
+    {% if form.errors %}
+    <ul>
+      {{form.errors}}
+    </ul>
     {% endif %}
 
     <button type="submit">

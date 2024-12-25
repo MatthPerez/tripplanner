@@ -4,8 +4,8 @@ from django.utils.timezone import now
 class Airbnb(models.Model):
     name = models.CharField(max_length=50)
     reference = models.CharField(max_length=20)
-    price = models.DecimalField(max_digits=2, decimal_places=2)
-    charges = models.DecimalField(max_digits=2, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    charges = models.DecimalField(max_digits=6, decimal_places=2)
     city = models.CharField(max_length=50)
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
