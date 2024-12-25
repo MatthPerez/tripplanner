@@ -95,7 +95,9 @@ footer {
 }
 
 main {
-  background-color: var(--color-quaternary2);
+  background: url("../pics/trip01.webp");
+  background-position: center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,11 +112,24 @@ main section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3em;
+  gap: 2em;
 }
 main section h3 {
-  font-size: 26px;
   text-align: center;
+  font-size: 24px;
+  text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+main section h3 span,
+main section h3 a {
+  width: auto;
+}
+main section h3 a {
+  text-decoration: none;
 }
 main section > a {
   width: auto;
@@ -137,7 +152,7 @@ main section > a:hover {
 main section > p {
   text-indent: 0;
   text-align: justify;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 #trips {

@@ -24,7 +24,7 @@ class Trip(models.Model):
     
     @property
     def housing_total(self):
-        return sum(airbnb.price * self.duration for airbnb in self.housing.all())
+        return sum(airbnb.charges + airbnb.price * self.duration for airbnb in self.housing.all())
     
     @property
     def activity_total(self):

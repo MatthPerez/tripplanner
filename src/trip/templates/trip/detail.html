@@ -5,6 +5,7 @@
 <script src="{% static 'js/trip.js' %}" defer></script>
 {% endblock %} {% block title %}Trip planner |
 {{trip.place}}{{trip.date|date:"Y"}}{% endblock %} {% block content %}
+
 <main>
   <h1>
     <a href="{% url 'trip' %}"

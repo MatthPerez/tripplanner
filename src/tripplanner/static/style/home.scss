@@ -22,7 +22,10 @@ footer {
 }
 
 main {
-    background-color: var(--color-quaternary2);
+    // background-color: var(--color-quaternary2);
+    background: url("../pics/trip01.webp");
+    background-position: center;
+    background-size: cover;
     @include flexcolumn;
     gap: 1em;
 
@@ -34,10 +37,24 @@ main {
 
     section {
         @include flexcolumn;
-        gap: 3em;
+        gap: 2em;
 
         h3 {
-            @include h3;
+            text-align: center;
+            font-size: 24px;
+            @include white-neon;
+            @include flex;
+            justify-content: center;
+            gap: 10px;
+
+            span,
+            a {
+                width: auto;
+            }
+
+            a {
+                text-decoration: none;
+            }
         }
 
         >a {
@@ -47,7 +64,7 @@ main {
         >p {
             text-indent: 0;
             text-align: justify;
-            font-size: 18px;
+            font-size: 22px;
         }
     }
 }
@@ -62,4 +79,3 @@ main {
         @include link-btn-list;
     }
 }
-

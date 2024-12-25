@@ -45,7 +45,7 @@ class TripDetail(DetailView):
 class NewTrip(View):
     def get(self, request):
         form = AddTrip()
-        title="Ajouter un trajet"
+        title="Ajouter un voyage"
         submit_text = "Ajouter"
         
         context = {

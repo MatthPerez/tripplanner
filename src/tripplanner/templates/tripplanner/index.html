@@ -7,21 +7,26 @@
   <h1>Planificateur de voyages</h1>
 
   <section>
-    <p>Commence par ajouter des éléments dans les catégories <b>trajet</b>, <b>AirBnb</b>, <b>activité</b> et <b>dépense</b>. Ensuite, tu pourras te créer un plan de voyage à partir de ces éléments.</p>
+    <p>
+      Ajoute d'abord des éléments dans les catégories <b>trajet</b>,
+      <b>AirBnb</b>, <b>activité</b> et <b>dépense</b>. Crée ensuite un plan de
+      voyage à partir de ces éléments.
+    </p>
   </section>
 
   <section>
-    <h3>Mes voyages</h3>
+    <h3>
+      <span>Mes voyages</span>
+      <a href="{% url 'trip_new' %}" title="Ajouter un voyage">➕</a>
+    </h3>
 
     <div id="trips">
       {% for trip in trips %}
-      <a href="{% url 'trip_detail' trip.pk %}">{{trip.place}} {{trip.date|date:"Y"}}</a>
-      {% empty %}
-      Pas de voyage créé pour le moment.
-      {% endfor %}
+      <a href="{% url 'trip_detail' trip.pk %}"
+        >{{trip.place}} {{trip.date|date:"Y"}}</a
+      >
+      {% empty %} Pas de voyage créé pour le moment. {% endfor %}
     </div>
-
-    <a href="{% url 'trip_new' %}">Nouveau voyage</a>
   </section>
 </main>
 {% endblock %}
