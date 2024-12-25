@@ -8,6 +8,7 @@
     <a href="{% url 'travel' %}" class="{% if '/travel/' in request.path %}active{% endif %}">Trajet</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">AirBnb</a>
     <a href="{% url 'activity' %}" class="{% if '/activity/' in request.path %}active{% endif %}">Activité</a>
+    <a href="{% url 'expense' %}" class="{% if '/expense/' in request.path %}active{% endif %}">Dépense</a>
 
     {% comment %} {% if request.user.is_authenticated %}
     <a href="{% url 'logout' %}"><img src="{% static 'icons/unlocked.png' %}" title="Déconnexion de {{user.first_name}}" alt="Déconnexion"></a>
@@ -33,4 +34,5 @@
     <a href="{% url 'travel' %}" class="{% if '/travel/' in request.path %}smallActive{% endif %}">Trajet</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">AirBnb</a>
     <a href="{% url 'activity' %}" class="{% if '/activity/' in request.path %}smallActive{% endif %}">Activité</a>
+    <a href="{% url 'expense' %}" class="{% if '/expense/' in request.path %}smallActive{% endif %}">Dépense</a>
 </div>

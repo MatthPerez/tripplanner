@@ -9,5 +9,6 @@ urlpatterns = [
     path("airbnb/", include("airbnb.urls")),
     path("trajet/", include("travel.urls")),
     path("activite/", include("activity.urls")),
+    path("depense/", include("expense.urls")),
 
 ]

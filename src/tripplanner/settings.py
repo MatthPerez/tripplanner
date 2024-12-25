@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'airbnb',
     'travel',
     'activity',
+    'expense',
 ]
 
 MIDDLEWARE = [
