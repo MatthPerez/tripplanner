@@ -3,7 +3,7 @@ from django.utils.timezone import now
 
 class Travel(models.Model):
     date = models.DateField(default=now)
-    price = models.IntegerField()
+    price = models.DecimalField()
     start_place = models.CharField(max_length=100)
     start_time = models.CharField(max_length=5)
     end_place = models.CharField(max_length=100)
