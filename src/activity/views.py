@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
+from django.views.generic import DetailView
 from .forms import AddActivity
 from .models import Activity
 # from django.contrib.auth.mixins import UserPassesTestMixin
@@ -23,6 +24,11 @@ class ActivityView(View):
             context,
         )
         
+class ActivityDetail(DetailView):
+    model = Activity
+    template_name=  "activity/detail.html"
+    context_object_name = "activity"
+
 class NewActivity(View):
     def get(self, request):
         form = AddActivity()

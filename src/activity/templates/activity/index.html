@@ -13,7 +13,7 @@
   <div class="elements">
     {% for activity in activities %}
     <div>
-      <a href="#" title="{{activity.price_person}} €/personne">
+      <a href="{% url 'activity_detail' activity.pk %}" title="{{activity.category}}">
         <div>{{activity.name}} ({{activity.city}} | {{activity.price_person}} €)</div>
         <div>
           <a
