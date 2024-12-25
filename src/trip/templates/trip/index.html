@@ -14,7 +14,7 @@
     {% for trip in trips %}
     <div>
       <a href="{% url 'trip_detail' trip.pk %}">
-        <div>{{trip.place}} ({{trip.date}})</div>
+        <div>{{forloop.counter}} • {{trip.place}} ({{trip.date}})</div>
         <div>
           <a
             href="{% url 'trip_update' trip.pk %}"
