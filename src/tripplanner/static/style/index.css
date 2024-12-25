@@ -166,7 +166,7 @@ main > a:hover {
 }
 .elements > div div {
   width: auto;
-  font-size: 18px;
+  font-size: 16px;
   padding: 5px;
   display: flex;
   flex-direction: row;

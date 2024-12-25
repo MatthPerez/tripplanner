@@ -25,7 +25,7 @@ class AddActivity(forms.ModelForm):
             }
         ),
     )
-    price_person = forms.IntegerField(
+    price_person = forms.DecimalField(
         required=True,
         label="Prix par personne",
         widget=forms.NumberInput(

@@ -14,7 +14,7 @@
     {% for airbnb in airbnbs %}
     <div>
       <a href="#">
-        <div>{{airbnb.name}} ({{airbnb.city}})</div>
+        <div>{{airbnb.name}} ({{airbnb.city}} | {{airbnb.price}} €/nuit)</div>
         <div>
           <a
             href="{% url 'airbnb_update' airbnb.pk %}"

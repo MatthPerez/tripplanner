@@ -14,7 +14,7 @@
     {% for activity in activities %}
     <div>
       <a href="#" title="{{activity.price_person}} €/personne">
-        <div>{{activity.name}} ({{activity.city}})</div>
+        <div>{{activity.name}} ({{activity.city}} | {{activity.price_person}} €)</div>
         <div>
           <a
             href="{% url 'activity_update' activity.pk %}"

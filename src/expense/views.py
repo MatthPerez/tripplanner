@@ -69,21 +69,68 @@ class NewExpense(View):
             
             
         
+# class ExpenseUpdate(View):
+#     def get(self, request, pk):
+#         expense = Expense.objects.get(pk=pk)
+#         title=f"Mise à jour de la dépense"
+#         submit_text="Enregistrer"
+        
+#         form = AddExpense(
+#             initial={
+#                 "name": expense.name,
+#                 "place": expense.place,
+#                 "category": expense.category,
+#                 "price": expense.price,
+#                 "note": expense.note,
+#             }
+#         )
+        
+#         context = {
+#             "form": form,
+#             "title": title,
+#             "submit_text": submit_text,
+#         }
+        
+#         return render(
+#             request,
+#             "expense/new.html",
+#             context,
+#         )
+        
+#     def post(self, request, pk):
+#         form = AddExpense(request.POST)
+        
+#         if form.is_valid():
+#             form.save()
+            
+#             context={
+#                 "form": form,
+#                 "success": "Dépense modifiée avec succès.",
+#             }
+            
+#             return redirect("expense")
+#         else:
+#             print(form.errors)
+            
+#             context={
+#                 "form": form,
+#                 "errors": form.errors,
+#             }
+            
+#             return render(
+#                 request,
+#                 "expense/new.html",
+#                 context
+#       
+# )
+
 class ExpenseUpdate(View):
     def get(self, request, pk):
         expense = Expense.objects.get(pk=pk)
-        title=f"Mise à jour de la dépense"
-        submit_text="Enregistrer"
+        title = "Mise à jour de la dépense"
+        submit_text = "Enregistrer"
         
-        form = AddExpense(
-            initial={
-                "name": expense.name,
-                "place": expense.place,
-                "category": expense.category,
-                "price": expense.price,
-                "note": expense.note,
-            }
-        )
+        form = AddExpense(instance=expense)
         
         context = {
             "form": form,
@@ -98,12 +145,14 @@ class ExpenseUpdate(View):
         )
         
     def post(self, request, pk):
-        form = AddExpense(request.POST)
+        expense = Expense.objects.get(pk=pk)
+        
+        form = AddExpense(request.POST, instance=expense)
         
         if form.is_valid():
             form.save()
             
-            context={
+            context = {
                 "form": form,
                 "success": "Dépense modifiée avec succès.",
             }
@@ -112,7 +161,7 @@ class ExpenseUpdate(View):
         else:
             print(form.errors)
             
-            context={
+            context = {
                 "form": form,
                 "errors": form.errors,
             }
@@ -122,6 +171,7 @@ class ExpenseUpdate(View):
                 "expense/new.html",
                 context
             )
+
             
 class ExpenseDelete(View):
     def post(self, request, *args, **kwargs):

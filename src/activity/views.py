@@ -67,24 +67,14 @@ class NewActivity(View):
                 context
             )
             
-            
-        
+
 class ActivityUpdate(View):
     def get(self, request, pk):
         activity = Activity.objects.get(pk=pk)
-        title=f"Mise à jour de l'activité"
-        submit_text="Enregistrer"
+        title = "Mise à jour de l'activité"
+        submit_text = "Enregistrer"
         
-        form = AddActivity(
-            initial={
-                "name": activity.name,
-                "city": activity.city,
-                "price_person": activity.price_person,
-                "category": activity.category,
-                "gps": activity.gps,
-                "note": activity.note,
-            }
-        )
+        form = AddActivity(instance=activity)
         
         context = {
             "form": form,
@@ -93,18 +83,20 @@ class ActivityUpdate(View):
         }
         
         return render(
-            request,
+                request,
             "activity/new.html",
             context,
         )
         
     def post(self, request, pk):
-        form = AddActivity(request.POST)
+        activity = Activity.objects.get(pk=pk)
+        
+        form = AddActivity(request.POST, instance=activity)
         
         if form.is_valid():
             form.save()
             
-            context={
+            context = {
                 "form": form,
                 "success": "Activité modifiée avec succès.",
             }
@@ -113,7 +105,7 @@ class ActivityUpdate(View):
         else:
             print(form.errors)
             
-            context={
+            context = {
                 "form": form,
                 "errors": form.errors,
             }

@@ -14,7 +14,7 @@
     {% for expense in expenses %}
     <div>
       <a href="#">
-        <div>{{expense.name}}</div>
+        <div>{{expense.name}} ({{expense.price}} €)</div>
         <div>
           <a
             href="{% url 'expense_update' expense.pk %}"
