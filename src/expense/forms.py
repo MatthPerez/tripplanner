@@ -44,7 +44,7 @@ class AddExpense(forms.ModelForm):
         ),
     )
     note = forms.CharField(
-        required=True,
+        required=False,
         label="Note, information",
         widget=forms.TextInput(
             attrs={
