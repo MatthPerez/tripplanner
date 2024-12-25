@@ -27,7 +27,7 @@ class AddExpense(forms.ModelForm):
     )
     category = forms.CharField(
         required=True,
-        label="Lieu de départ",
+        label="Catégorie",
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Déplacement",

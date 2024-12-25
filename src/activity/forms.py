@@ -36,7 +36,7 @@ class AddActivity(forms.ModelForm):
     )
     category = forms.CharField(
         required=True,
-        label="Lieu de départ",
+        label="Catégorie",
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Restauration",
@@ -45,7 +45,7 @@ class AddActivity(forms.ModelForm):
     )
     gps = forms.CharField(
         required=False,
-        label="Lieu de départ",
+        label="Point GPS",
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'xxxx yyyy',
