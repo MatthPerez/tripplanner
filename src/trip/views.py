@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic.edit import FormView
 from django.views import View
 from django.views.generic import DetailView
 from .forms import AddTrip
 from .models import Trip
 from django.utils.timezone import now
-from datetime import datetime
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -88,61 +88,96 @@ class NewTrip(View):
             
             
         
-class TripUpdate(View):
-    def get(self, request, pk):
-        trip = Trip.objects.get(pk=pk)
-        title = f"Mise à jour du trajet"
-        submit_text = "Enregistrer"
+class TripUpdate(FormView):
+    # def get(self, request, pk):
+    #     trip = Trip.objects.get(pk=pk)
+    #     title = f"Mise à jour du trajet"
+    #     submit_text = "Enregistrer"
         
-        formatted_date = trip.date.strftime('%d/%m/%Y') if trip.date else None
+    #     formatted_date = trip.date.strftime('%d/%m/%Y') if trip.date else None
         
-        form = AddTrip(instance=trip)
+    #     form = AddTrip(instance=trip)
         
-        form.fields['date'].initial = formatted_date
+    #     form.fields['date'].initial = formatted_date
         
+    #     for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
+    #         related_objects = getattr(trip, field_name).all()
+    #         form.fields[field_name].initial = [obj.id for obj in related_objects]
+        
+    #     context = {
+    #         "form": form,
+    #         "title": title,
+    #         "submit_text": submit_text,
+    #     }
+        
+    #     return render(
+    #         request,
+    #         "trip/new.html",
+    #         context,
+    #     )
+        
+    # def post(self, request, pk):
+    #     trip = Trip.objects.get(pk=pk)
+        
+    #     form = AddTrip(request.POST, instance=trip)
+        
+    #     if form.is_valid():
+    #         form.save()
+            
+    #         context={
+    #             "form": form,
+    #             "success": "Trajet modifié avec succès.",
+    #         }
+            
+    #         return redirect("trip")
+    #     else:
+    #         print(form.errors)
+            
+    #         context={
+    #             "form": form,
+    #             "errors": form.errors,
+    #         }
+            
+    #         return render(
+    #             request,
+    #             "trip/new.html",
+    #             context
+    #         )
+    
+    template_name = 'trip/new.html'
+    form_class = AddTrip
+
+    def get_initial(self):
+        initial = super().get_initial()
+        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        initial.update({
+            'date': trip.date.strftime("%Y-%m-%d"),
+            'duration': trip.duration,
+            'place': trip.place,
+            'people': trip.people,
+        })
         for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
             related_objects = getattr(trip, field_name).all()
-            form.fields[field_name].initial = [obj.id for obj in related_objects]
+            initial[field_name] = [obj.id for obj in related_objects]
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Mise à jour du voyage"
+        context['submit_text'] = "Enregistrer"
         
-        context = {
-            "form": form,
-            "title": title,
-            "submit_text": submit_text,
-        }
+        return context
+
+    def form_valid(self, form):
+        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        form.instance = trip
+        form.save()
         
-        return render(
-            request,
-            "trip/new.html",
-            context,
-        )
-        
-    def post(self, request, pk):
-        trip = Trip.objects.get(pk=pk)
-        
-        form = AddTrip(request.POST, instance=trip)
-        
-        if form.is_valid():
-            form.save()
-            
-            context={
-                "form": form,
-                "success": "Trajet modifié avec succès.",
-            }
-            
-            return redirect("trip")
-        else:
-            print(form.errors)
-            
-            context={
-                "form": form,
-                "errors": form.errors,
-            }
-            
-            return render(
-                request,
-                "trip/new.html",
-                context
-            )
+        return redirect('trip')
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form, errors=form.errors))
+
             
 class TripDelete(View):
     def post(self, request, *args, **kwargs):
