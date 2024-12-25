@@ -168,11 +168,16 @@ main > section > div div {
   gap: 10px;
   padding: 0;
 }
-main > section > div div span {
+main > section > div div span,
+main > section > div div a {
   width: auto;
 }
-main > section > div div span:first-child {
+main > section > div div span:first-child,
+main > section > div div a:first-child {
   font-weight: bold;
+}
+main > section > div div a {
+  text-decoration: none;
 }
 
 #total {

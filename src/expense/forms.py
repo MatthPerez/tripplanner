@@ -21,7 +21,7 @@ class AddExpense(forms.ModelForm):
         label="Ville",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Hertz, Zadar",
+                "placeholder": "Zadar",
             }
         ),
     )

@@ -51,7 +51,11 @@ href="{% static 'style/detail.css' %}"
         
         <div>
             <span>Note :</span>
+            {% if 'https' in activity.note %}
+            <a href="{{activity.note}}}" target="_blank">Lien</a>
+            {% else %}
             <span>{{activity.note}}</span>
+            {% endif %}
         </div>
     </div>
   </section>

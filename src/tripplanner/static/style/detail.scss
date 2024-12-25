@@ -71,12 +71,17 @@ main {
                 gap: 10px;
                 padding: 0;
 
-                span {
+                span,
+                a {
                     width: auto;
 
                     &:first-child {
                         font-weight: bold;
                     }
+                }
+
+                a {
+                    text-decoration: none;
                 }
             }
         }
