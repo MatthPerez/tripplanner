@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from .forms import AddTrip
 from .models import Trip
 from django.utils.timezone import now
+from datetime import datetime
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -90,21 +91,18 @@ class NewTrip(View):
 class TripUpdate(View):
     def get(self, request, pk):
         trip = Trip.objects.get(pk=pk)
-        title=f"Mise à jour du trajet"
-        submit_text="Enregistrer"
+        title = f"Mise à jour du trajet"
+        submit_text = "Enregistrer"
         
-        form = AddTrip(
-            initial={
-                "date": trip.date.strftime("%Y-%m-%d"),
-                "duration": trip.duration,
-                "place": trip.place,
-                "people": trip.people,
-                "travels": trip.travels,
-                "airbnbs": trip.airbnbs,
-                "activities": trip.activities,
-                "expenses": trip.expenses,
-            }
-        )
+        formatted_date = trip.date.strftime('%d/%m/%Y') if trip.date else None
+        
+        form = AddTrip(instance=trip)
+        
+        form.fields['date'].initial = formatted_date
+        
+        for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
+            related_objects = getattr(trip, field_name).all()
+            form.fields[field_name].initial = [obj.id for obj in related_objects]
         
         context = {
             "form": form,

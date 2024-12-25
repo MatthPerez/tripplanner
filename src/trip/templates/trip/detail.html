@@ -64,7 +64,7 @@ href="{% static 'style/trip-detail.css' %}"
     </div>
 
     <div>
-        <h2>Logements ({{ trip.air_total|floatformat:2 }}) €</h2>
+        <h2>Logements ({{ trip.airbnb_total|floatformat:2 }}) €</h2>
 
         <ul>
             {% for house in airbnbs %}
