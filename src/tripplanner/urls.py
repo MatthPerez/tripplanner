@@ -8,5 +8,6 @@ urlpatterns = [
     path("", Home.as_view(), name="home"),
     path("airbnb/", include("airbnb.urls")),
     path("trajet/", include("travel.urls")),
+    path("activite/", include("activity.urls")),
 
 ]
