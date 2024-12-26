@@ -28,5 +28,19 @@
       {% empty %} Pas de voyage créé pour le moment. {% endfor %}
     </div>
   </section>
+
+  <section id="scrap">
+    <h3>Titres actuels sur le site Kayak.fr</h3>
+
+    {% if elements %}
+    <div>
+      {% for element in kayak_elements %}
+      <a href="{{element.href}}" target="_blank">{{element.text}}</a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <span>Aucun élément présent.</span>
+    {% endif %} 
+  </section>
 </main>
 {% endblock %}

@@ -130,3 +130,14 @@ main {
         }
     }
 }
+
+#wikipedia-info {
+    @include flex;
+    justify-content: center;
+
+    p {
+        width: clamp(300px, 90%, 1000px);
+        background-color: rgba(white, .5);
+        padding: 10px;
+    }
+}

@@ -24,6 +24,14 @@ href="{% static 'style/detail.css' %}"
         <button type="submit">❌</button>
     </form>
   </div>
+  
+  <div id="wikipedia-info">
+    {% if wikipedia_paragraphs|length >= 2 %}
+        <p>{{ wikipedia_paragraphs.1 }}</p>
+    {% else %}
+        <p>Pas assez d'informations Wikipedia disponibles pour {{ trip.city }}.</p>
+    {% endif %}
+  </div>
 
   <div id="total">
     <span>Coût total =</span>

@@ -218,4 +218,16 @@ main > section > div div a {
   background-color: transparent;
   font-size: 24px;
   cursor: pointer;
+}
+
+#wikipedia-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+#wikipedia-info p {
+  width: clamp(300px, 90%, 1000px);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
 }/*# sourceMappingURL=detail.css.map */
