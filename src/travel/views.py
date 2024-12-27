@@ -24,7 +24,7 @@ class TravelView(View):
             "travel/index.html",
             context,
         )
-        
+
 class NewTravel(View):
     def get(self, request):
         form = AddTravel()
@@ -68,16 +68,15 @@ class NewTravel(View):
                 "travel/new.html",
                 context
             )
-            
-            
-        
+
 class TravelUpdate(View):
     def get(self, request, pk):
         travel = Travel.objects.get(pk=pk)
         title=f"Mise à jour du trajet"
         submit_text="Enregistrer"
-        
+
         form = AddTravel(
+            instance=travel,
             initial={
                 "date": travel.date.strftime("%Y-%m-%d"),
                 "price": travel.price,
@@ -88,45 +87,46 @@ class TravelUpdate(View):
                 "type": travel.type,
             }
         )
-        
+
         context = {
             "form": form,
             "title": title,
             "submit_text": submit_text,
         }
-        
+
         return render(
             request,
             "travel/new.html",
             context,
         )
-        
+
     def post(self, request, pk):
-        form = AddTravel(request.POST)
-        
+        travel = Travel.objects.get(pk=pk)
+        form = AddTravel(request.POST, instance=travel)
+
         if form.is_valid():
             form.save()
-            
+
             context={
                 "form": form,
                 "success": "Trajet modifié avec succès.",
             }
-            
+
             return redirect("travel")
         else:
             print(form.errors)
-            
+
             context={
                 "form": form,
                 "errors": form.errors,
             }
-            
+
             return render(
                 request,
                 "travel/new.html",
                 context
             )
-            
+
 class TravelDelete(View):
     def post(self, request, *args, **kwargs):
         pk = kwargs.get("pk")

@@ -77,7 +77,10 @@ class AirbnbUpdate(View):
         title=f"Mise à jour du logenemt : {airbnb.name}"
         submit_text="Enregistrer"
         
+        # form = AddAirbnb(instance=airbnb)
+        
         form = AddAirbnb(
+            instance=airbnb,
             initial={
                 "name": airbnb.name,
                 "reference": airbnb.reference,
@@ -103,27 +106,17 @@ class AirbnbUpdate(View):
         
     def post(self, request, pk):
         airbnb = Airbnb.objects.get(pk=pk)
-        form = AddAirbnb(request.POST)
+        form = AddAirbnb(request.POST, instance=airbnb)
         
         if form.is_valid():
-            data = form.cleaned_data()
-            
-            airbnb = Airbnb(
-                name=data["name"],
-                reference=data["reference"],
-                price=data["price"],
-                charges=data["charges"],
-                city=data["city"],
-                start_data=data["start_data"],
-                end_data=data["end_data"],
-            )
-            
-            airbnb.save()
+            form.save()
             
             context={
                 "form": form,
                 "success": "Logement modifié avec succès.",
             }
+            
+            return redirect("airbnb")
         else:
             print(form.errors)
             
