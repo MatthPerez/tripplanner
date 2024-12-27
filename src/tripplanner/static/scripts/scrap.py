@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
 
 def kayak():
@@ -72,37 +73,58 @@ def wikipedia(city):
     return paragraphs
 
 
-def staycation(gps):
-    url = f"https://www.staycation.co/fr/collections/staycation-au-vert?coords={gps}"
+def extract_number(price_str):
+    match = re.search(r"\d+", price_str)
+    if match:
+        return int(match.group())
+    return 0
+
+
+def verychic():
+    url = "https://www.verychic.fr/search?thematic=LOVE"
 
     try:
-        response = requests.get(url)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
 
     except requests.RequestException as e:
-        return [
-            "Erreur lors de la récupération des informations de Staycation : " + str(e)
-        ]
+        return ["Erreur lors de la récupération des informations de AirBnb : " + str(e)]
 
     soup = BeautifulSoup(response.content, "html.parser")
 
     plans = []
 
-    items = soup.find_all("li", class_="CardsGrid_item__jEkAl")
+    articles = soup.find("div", class_="blocks-grid gap").findAll("article")
 
-    for item in items:
-        link = item.find("a")
-        if link:
-            href = link.get("href")
+    for article in articles:
+        text = (
+            article.find(
+                "a",
+                class_="infos",
+            )
+            .find("div")
+            .find("span")
+            .get_text(strip=True)
+        )
+        link = article.find("a").get("href")
+        link = f"https://www.verychic.fr{link}"
 
-            divs = link.find_all("div")
-            if len(divs) >= 3:
-                third_div = divs[
-                    2
-                ]
-                text = third_div.text.strip()
-                plans.append({"link": href, "text": text})
+        price = article.find(
+            "a",
+            class_="infos",
+        ).findAll("div")[1].find("div").find("div").findAll("div")[2].get_text(strip=True)
 
-    print(plans)
+        plans.append(
+            {
+                "text": text,
+                "link": link,
+                "price": price,
+            }
+        )
 
-    return plans
+        sorted_plans = sorted(plans, key=lambda x: extract_number(x["price"]))
+
+    return sorted_plans

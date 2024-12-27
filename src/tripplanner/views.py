@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from trip.models import Trip
-from .static.scripts.scrap import kayak, staycation
+from .static.scripts.scrap import kayak, verychic
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -13,13 +13,13 @@ from .static.scripts.scrap import kayak, staycation
 class Home(View):
     def get(self, request):
         kayak_elements = kayak()
-        staycation_elements = staycation("45.764%2C4.83566")
+        verychic_elements = verychic()
 
         trips = Trip.objects.order_by("place", "date")
 
         context = {
             "kayak_elements": kayak_elements,
-            "staycation_elements": staycation_elements,
+            "verychic_elements": verychic_elements,
             "trips": trips,
         }
 

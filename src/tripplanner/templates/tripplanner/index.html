@@ -42,12 +42,12 @@
     <span>Aucun élément présent.</span>
     {% endif %}
 
-    <h3>Plans sur Staycation</h3>
+    <h3>Bons plans sur Very Chic</h3>
 
-    {% if staycation_elements %}
+    {% if verychic_elements %}
     <div>
-      {% for element in staycation_elements %}
-      <a href="{{element.href}}" target="_blank">{{element.text}}</a>
+      {% for element in verychic_elements %}
+      <a href="{{element.link}}" target="_blank">{{element.text}} (à partir de {{element.price}})</a>
       {% endfor %}
     </div>
     {% else %}

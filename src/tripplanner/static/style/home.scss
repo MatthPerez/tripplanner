@@ -89,6 +89,12 @@ main {
     @include flexcolumn;
     gap: 1em;
 
+    div,
+    span {
+        margin-bottom: 2em;
+
+    }
+
     div {
         @include flexcolumn;
         gap: 5px;
@@ -97,13 +103,13 @@ main {
             @include shadow-active;
             text-decoration: none;
             color: black;
-            font-size: 20px;
+            font-size: 18px;
             background-color: rgba(white, .7);
             backdrop-filter: blur(10px);
             padding: 5px 10px;
             border-radius: 10px;
             transition: 300ms all ease;
-            
+
             &:hover {
                 transition: 150ms all ease;
                 background-color: white;

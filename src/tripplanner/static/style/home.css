@@ -191,6 +191,10 @@ main section > p {
   align-items: center;
   gap: 1em;
 }
+#scrap div,
+#scrap span {
+  margin-bottom: 2em;
+}
 #scrap div {
   display: flex;
   flex-direction: column;
@@ -202,7 +206,7 @@ main section > p {
   transition: 300ms all ease;
   text-decoration: none;
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   background-color: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
