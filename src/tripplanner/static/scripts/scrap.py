@@ -20,12 +20,14 @@ def kayak():
             text_content = None
 
             href_card = card.find("a", class_="post-card-thumbnail-link")
+
             if href_card:
                 href_value = href_card.get("href")
 
             text_card = card.find("div", class_="post-card__body").find(
                 "div", class_="post-card__body-title"
             )
+
             if text_card:
                 text_content = text_card.get_text(strip=True)
 
@@ -35,6 +37,8 @@ def kayak():
                     "text": text_content if text_content else "Pas de texte",
                 }
                 elements.append(element)
+
+    # print(elements)
 
     return elements
 
@@ -49,6 +53,7 @@ def wikipedia(city):
     try:
         response = requests.get(url)
         response.raise_for_status()
+
     except requests.RequestException as e:
         return [
             "Erreur lors de la récupération des informations de Wikipédia : " + str(e)
@@ -66,21 +71,38 @@ def wikipedia(city):
 
     return paragraphs
 
-# def airbnb(city, start_date, end_date):
-#     url = f"https://www.airbnb.fr/s/{city}/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date={start_date|format("y-m-d")}&monthly_length=3&monthly_end_date={end_date|format("y-m-d")}&price_filter_input_type=0&channel=EXPLORE&date_picker_type=calendar&checkin={start_date|format("y-m-d")}&checkout={end_date|format("y-m-d")}&source=structured_search_input_header&search_type=filter_change"
-    
-#     try:
-#         response = requests.get(url)
-#         response.raise_for_status()
-#     except requests.RequestException as e:
-#         return [
-#             "Erreur lors de la récupération des informations de Wikipédia : " + str(e)
-#         ]
 
-#     soup = BeautifulSoup(response.content, "html.parser")
-    
-#     houses = soup.findAll("div", class_="g1qv1ctd").find_all("div").get_text(strip=True)
-    
-#     return houses
-    
-    
+def staycation(gps):
+    url = f"https://www.staycation.co/fr/collections/staycation-au-vert?coords={gps}"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+
+    except requests.RequestException as e:
+        return [
+            "Erreur lors de la récupération des informations de Staycation : " + str(e)
+        ]
+
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    plans = []
+
+    items = soup.find_all("li", class_="CardsGrid_item__jEkAl")
+
+    for item in items:
+        link = item.find("a")
+        if link:
+            href = link.get("href")
+
+            divs = link.find_all("div")
+            if len(divs) >= 3:
+                third_div = divs[
+                    2
+                ]
+                text = third_div.text.strip()
+                plans.append({"link": href, "text": text})
+
+    print(plans)
+
+    return plans
