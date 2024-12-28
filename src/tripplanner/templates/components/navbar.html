@@ -6,7 +6,8 @@
 
 <nav>
     <a href="{% url 'trip' %}" class="{% if '/voyage/' in request.path %}active{% endif %}">Mes voyages</a>
-    <a href="{% url 'travel' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Trajets</a>
+    <a href="{% url 'country' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Destinations</a>
+    <a href="{% url 'country' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Trajets</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">Logements</a>
     <a href="{% url 'activity' %}" class="{% if '/activite/' in request.path %}active{% endif %}">Activités</a>
     <a href="{% url 'expense' %}" class="{% if '/depense/' in request.path %}active{% endif %}">Dépenses</a>
@@ -33,6 +34,7 @@
 <div id="menu">
     <a href="/" class="{% if request.path == "/" %}smallActive{% endif %}">ACCUEIL</a>
     <a href="{% url 'trip' %}" class="{% if '/voyage/' in request.path %}smallActive{% endif %}">Mes voyages</a>
+    <a href="{% url 'country' %}" class="{% if '/trajet/' in request.path %}smallActive{% endif %}">Destinations</a>
     <a href="{% url 'travel' %}" class="{% if '/travel/' in request.path %}smallActive{% endif %}">Trajets</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}smallActive{% endif %}">Logements</a>
     <a href="{% url 'activity' %}" class="{% if '/activity/' in request.path %}smallActive{% endif %}">Activités</a>

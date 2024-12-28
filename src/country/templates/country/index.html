@@ -1,0 +1,34 @@
+{% extends 'tripplanner/base.html' %} {% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'style/index.css' %}" />{% endblock %}
+{% block script_js %}<script src="{% static 'js/country.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner | Destinations{% endblock %}
+{% block content %}
+<main>
+  <h1>Liste des destinations</h1>
+
+  <a href="{% url 'country_new' %}" title="Rajouter une destination à la liste"
+    >Rajouter une destination</a
+  >
+
+  <div class="elements">
+    {% for country in countries %}
+    <div>
+      <a href="#">
+        <div>{{country.name}}</div>
+        <div>
+          <a
+            href="{% url 'country_update' country.pk %}"
+            title="Modifier cette destination"
+            >✏️</a
+          >
+          <form action="{% url 'country_delete' country.pk %}" method="POST">
+            {% csrf_token %}
+              <button type="submit" title="Supprimer la destination">❌</button>
+          </form>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

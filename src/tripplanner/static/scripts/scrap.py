@@ -75,8 +75,10 @@ def wikipedia(city):
 
 def extract_number(price_str):
     match = re.search(r"\d+", price_str)
+    
     if match:
         return int(match.group())
+    
     return 0
 
 
