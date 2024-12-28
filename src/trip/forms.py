@@ -1,6 +1,7 @@
 from django import forms
 from .models import Trip
 from travel.models import Travel
+from country.models import Country
 from airbnb.models import Airbnb
 from activity.models import Activity
 from expense.models import Expense
@@ -31,14 +32,11 @@ class AddTrip(forms.ModelForm):
             }
         ),
     )
-    place = forms.CharField(
+    place = forms.ModelChoiceField(
         required=True,
-        label="Lieu",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Zadar, Croatie",
-            }
-        ),
+        queryset=Country.objects.all(),
+        label="Destination",
+        to_field_name="name",
     )
     people = forms.IntegerField(
         required=True,

@@ -6,8 +6,8 @@
 
 <nav>
     <a href="{% url 'trip' %}" class="{% if '/voyage/' in request.path %}active{% endif %}">Mes voyages</a>
-    <a href="{% url 'country' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Destinations</a>
-    <a href="{% url 'country' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Trajets</a>
+    <a href="{% url 'country' %}" class="{% if '/destination/' in request.path %}active{% endif %}">Destinations</a>
+    <a href="{% url 'travel' %}" class="{% if '/trajet/' in request.path %}active{% endif %}">Trajets</a>
     <a href="{% url 'airbnb' %}" class="{% if '/airbnb/' in request.path %}active{% endif %}">Logements</a>
     <a href="{% url 'activity' %}" class="{% if '/activite/' in request.path %}active{% endif %}">Activités</a>
     <a href="{% url 'expense' %}" class="{% if '/depense/' in request.path %}active{% endif %}">Dépenses</a>

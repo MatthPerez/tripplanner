@@ -36,6 +36,7 @@ class TripDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context["country"] = context["trip"].place
         context["travels"] = context["trip"].travels.all()
         context["airbnbs"] = context["trip"].airbnbs.all()
         context["activities"] = context["trip"].activities.all()
@@ -105,7 +106,7 @@ class TripUpdate(FormView):
             'place': trip.place,
             'people': trip.people,
         })
-        for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
+        for field_name in ['country', 'travels', 'airbnbs', 'activities', 'expenses']:
             related_objects = getattr(trip, field_name).all()
             initial[field_name] = [obj.id for obj in related_objects]
         return initial
