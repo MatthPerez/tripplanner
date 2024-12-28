@@ -1,11 +1,17 @@
 from django import forms
 from .models import Activity
+from country.models import Country
+
+from django import forms
+from .models import Activity
+from country.models import Country
+
 
 class AddActivity(forms.ModelForm):
     class Meta:
         model = Activity
-        fields = ['name', 'city', 'price_person', 'category', 'gps', 'note']
-    
+        fields = ["name", "cities", "price_person", "category", "gps", "note"]
+
     name = forms.CharField(
         required=True,
         label="Désignation",
@@ -16,14 +22,10 @@ class AddActivity(forms.ModelForm):
             }
         ),
     )
-    city = forms.CharField(
-        required=True,
-        label="Ville",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Centre-ville de Zadar",
-            }
-        ),
+    cities = forms.ModelMultipleChoiceField(
+        queryset=Country.objects.all(),
+        label="Destinations",
+        widget=forms.CheckboxSelectMultiple,
     )
     price_person = forms.DecimalField(
         required=True,
@@ -61,7 +63,7 @@ class AddActivity(forms.ModelForm):
             }
         ),
     )
-    
+
 
 class ActivityForm(forms.ModelForm):
     class Meta:

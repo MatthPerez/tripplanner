@@ -12,7 +12,7 @@ from .models import Activity
 
 class ActivityView(View):
     def get(self, request):
-        activities = Activity.objects.order_by("name")
+        activities = Activity.objects.prefetch_related('cities').order_by("name")
         
         context = {
             "activities": activities,
@@ -72,7 +72,6 @@ class NewActivity(View):
                 "activity/new.html",
                 context
             )
-            
 
 class ActivityUpdate(View):
     def get(self, request, pk):

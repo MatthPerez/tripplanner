@@ -1,4 +1,5 @@
-{% extends 'tripplanner/base.html' %} {% load static %}
+{% extends 'tripplanner/base.html' %} 
+{% load static %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'style/index.css' %}" />{% endblock %}
 {% block script_js %}<script src="{% static 'js/activity.js' %}" defer></script>{% endblock %}
 {% block title %}Trip planner | Activités{% endblock %}
@@ -6,19 +7,23 @@
 <main>
   <h1>Liste des activités</h1>
 
-  <a href="{% url 'activity_new' %}" title="Rajouter un activité à la liste"
-    >Rajouter un activité</a
+  <a href="{% url 'activity_new' %}" title="Rajouter une activité à la liste"
+    >Rajouter une activité</a
   >
 
   <div class="elements">
     {% for activity in activities %}
     <div>
-      <a href="{% url 'activity_detail' activity.pk %}" title="{{activity.category}}">
-        <div>{{activity.name}} ({{activity.city}} | {{activity.price_person}} €)</div>
+      <a href="{% url 'activity_detail' activity.pk %}" title="{{ activity.category }}">
+        <div>{{ activity.name }} ({{ activity.category }} | {{ activity.price_person }} €) - 
+          {% for city in activity.cities.all %}
+            {{ city.name }}{% if not forloop.last %}, {% endif %}
+          {% empty %}
+            Aucune ville associée
+          {% endfor %}
+        </div>
         <div>
-          <a
-            href="{% url 'activity_update' activity.pk %}"
-            title="Modifier cette activité"
+          <a href="{% url 'activity_update' activity.pk %}" title="Modifier cette activité"
             >✏️</a
           >
           <form action="{% url 'activity_delete' activity.pk %}" method="POST">
