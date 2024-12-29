@@ -19,7 +19,7 @@
           {% for city in activity.cities.all %}
             {{ city.name }}{% if not forloop.last %}, {% endif %}
           {% empty %}
-            Aucune ville associée
+            Aucune destination associée
           {% endfor %}
         </div>
         <div>
