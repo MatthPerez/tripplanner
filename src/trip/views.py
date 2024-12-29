@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import DetailView
 from .forms import AddTrip
 from .models import Trip
+from activity.models import Activity
 from django.utils.timezone import now
 from tripplanner.static.scripts.scrap import wikipedia
 # from django.contrib.auth.mixins import UserPassesTestMixin
@@ -50,41 +51,56 @@ class TripDetail(DetailView):
 class NewTrip(View):
     def get(self, request):
         form = AddTrip()
-        title="Ajouter un voyage"
+        title = "Ajouter un voyage"
         submit_text = "Ajouter"
-        
+
+        activities_with_destination = []
+        for activity in Activity.objects.all():
+            destination = (
+                activity.country_set.first()
+            )
+            if destination:
+                activities_with_destination.append(
+                    {"id": activity.id, "name": f"{activity.name} - {destination.name}"}
+                )
+            else:
+                activities_with_destination.append(
+                    {"id": activity.id, "name": activity.name}
+                )
+
         context = {
             "form": form,
             "title": title,
             "submit_text": submit_text,
+            "activities_with_destination": activities_with_destination,
         }
-        
+
         return render(
             request,
             "trip/new.html",
             context,
         )
-    
+
     def post(self, request):
         form = AddTrip(request.POST)
-        
+
         if form.is_valid():
             form.save()
-            
+
             context={
                 "form": form,
                 "success": "Trajet ajouté avec succès.",
             }
-            
+
             return redirect("trip")
         else:
             print(form.errors)
-            
+
             context={
                 "form": form,
                 "errors": form.errors,
             }
-            
+
             return render(
                 request,
                 "trip/new.html",
@@ -115,7 +131,24 @@ class TripUpdate(FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = "Mise à jour du voyage"
         context['submit_text'] = "Enregistrer"
-
+        
+        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        activities_with_destination = []
+        for activity in Activity.objects.all():
+            destinations = activity.cities.all()
+            if destinations:
+                destination = destinations.first()
+                activities_with_destination.append({
+                    'id': activity.id,
+                    'name': f"{activity.name} | {destination.name}"
+                })
+            else:
+                activities_with_destination.append({
+                    'id': activity.id,
+                    'name': activity.name
+                })
+        
+        context['activities_with_destination'] = activities_with_destination
         return context
 
     def form_valid(self, form):

@@ -1,18 +1,13 @@
-{% extends 'tripplanner/base.html' %}
-{% load static %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %}
-{% block script_js %}<script src="{% static 'js/trip.js' %}" defer></script>{% endblock %}
-{% block title %}Tripplanner | Nouvel voyage{% endblock %}
-{% block content %}
+{% extends 'tripplanner/base.html' %} {% load static %} {% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %} {% block script_js %}
+<script src="{% static 'js/trip.js' %}" defer></script>
+{% endblock %} {% block title %}Tripplanner | Nouveau voyage{% endblock %} {% block content %}
 <main>
   <h1>
-    <a href="{% url 'trip' %}"><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"/></a>
+    <a href="{% url 'trip' %}"
+      ><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"
+    /></a>
     <span>
-      {% if title %}
-      {{title}}
-      {% else %}
-      Ajouter un voyage
-      {% endif %}
+      {% if title %} {{title}} {% else %} Ajouter un voyage {% endif %}
     </span>
   </h1>
 
@@ -25,13 +20,27 @@
       <div>{{ form.people.label_tag }} {{ form.people }}</div>
       <div>{{ form.travels.label_tag }} {{ form.travels }}</div>
       <div>{{ form.airbnbs.label_tag }} {{ form.airbnbs }}</div>
-      <div>{{ form.activities.label_tag }} {{ form.activities }}</div>
+      <div>
+        {{ form.activities.label_tag }}
+        <ul id="activities">
+          {% for activity in activities_with_destination %}
+          <li>
+            <label>
+              <input type="checkbox" name="activities" value="{{ activity.id }}"
+              {% if activity.id|stringformat:"s" in form.activities.value %}checked{% endif %}> {{ activity.name }}
+            </label>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
       <div>{{ form.expenses.label_tag }} {{ form.expenses }}</div>
     </section>
 
-    {% if form.errors %}
+    {% if errors %}
     <ul>
-      {{form.errors}}
+      {% for field, errors in form.errors.items %} {% for error in errors %}
+      <li>{{ field }}: {{ error }}</li>
+      {% endfor %} {% endfor %}
     </ul>
     {% endif %}
 
