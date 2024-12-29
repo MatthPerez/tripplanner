@@ -26,8 +26,9 @@ href="{% static 'style/detail.css' %}"
   </div>
   
   <div id="wikipedia-info">
-    {% if wikipedia_paragraphs|length >= 2 %}
+    {% if wikipedia_paragraphs|length >= 3 %}
         <p>{{ wikipedia_paragraphs.1 }}</p>
+        <p>{{ wikipedia_paragraphs.2 }}</p>
     {% else %}
         <p>Pas assez d'informations Wikipedia disponibles pour cette destination.</p>
     {% endif %}

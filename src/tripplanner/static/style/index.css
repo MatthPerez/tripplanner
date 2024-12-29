@@ -151,27 +151,21 @@ main > a:hover {
   box-shadow: none;
   transform: translateY(4px);
 }
+.elements > div span,
 .elements > div a {
-  text-decoration: none;
-}
-.elements > div:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-@media (width <= 768px) {
-  .elements > div {
-    width: clamp(100px, 70%, 300px);
-    padding: 0.8em;
-    font-size: 18px;
-  }
-}
-.elements > div span {
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-decoration: none;
   justify-content: space-between;
 }
-.elements > div span div {
+.elements > div span div,
+.elements > div a div {
   width: auto !important;
+  text-align: left;
+}
+.elements > div:hover {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .elements > div div {
   width: auto;
@@ -194,4 +188,10 @@ main > a:hover {
   background-color: transparent;
   font-size: 16px;
   cursor: pointer;
+}
+@media (width <= 768px) {
+  .elements > div {
+    width: clamp(300px, 80%, 700px);
+    font-size: 18px;
+  }
 }/*# sourceMappingURL=index.css.map */

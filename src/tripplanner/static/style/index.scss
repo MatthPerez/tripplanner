@@ -53,27 +53,20 @@ main {
         background-color: rgba(white, .5);
         text-align: center;
 
+        span,
         a {
+            @include flex;
             text-decoration: none;
+            justify-content: space-between;
+
+            div {
+                width: auto !important;
+                text-align: left;
+            }
         }
 
         &:hover {
             background-color: rgba(white, .8);
-        }
-
-        @media (width<=768px) {
-            width: clamp(100px, 70%, 300px);
-            padding: .8em;
-            font-size: 18px;
-        }
-
-        span {
-            @include flex;
-            justify-content: space-between;
-            
-            div {
-                width: auto !important;
-            }
         }
 
         div {
@@ -96,6 +89,11 @@ main {
                 }
 
             }
+        }
+
+        @media (width<=768px) {
+            width: clamp(300px, 80%, 700px);
+            font-size: 18px;
         }
     }
 }
