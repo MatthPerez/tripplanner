@@ -164,6 +164,15 @@ main > a:hover {
     font-size: 18px;
   }
 }
+.elements > div span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.elements > div span div {
+  width: auto !important;
+}
 .elements > div div {
   width: auto;
   font-size: 16px;

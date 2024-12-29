@@ -67,6 +67,15 @@ main {
             font-size: 18px;
         }
 
+        span {
+            @include flex;
+            justify-content: space-between;
+            
+            div {
+                width: auto !important;
+            }
+        }
+
         div {
             width: auto;
             font-size: 16px;
@@ -78,13 +87,14 @@ main {
             form {
                 width: auto;
                 font-size: 16px;
-                
+
                 button {
                     @include no-border;
                     background-color: transparent;
                     font-size: 16px;
                     cursor: pointer;
                 }
+
             }
         }
     }
