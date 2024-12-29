@@ -27,7 +27,6 @@ class TripView(View):
             context,
         )
 
-
 class TripDetail(DetailView):
     model = Trip
     template_name = "trip/detail.html"
@@ -37,7 +36,7 @@ class TripDetail(DetailView):
         context = super().get_context_data(**kwargs)
 
         city = context["trip"].place
-        context["country"] = city
+        context["place"] = city
         context["travels"] = context["trip"].travels.all()
         context["airbnbs"] = context["trip"].airbnbs.all()
         context["activities"] = context["trip"].activities.all()
@@ -47,7 +46,6 @@ class TripDetail(DetailView):
         context["wikipedia_paragraphs"] = wikipedia(city)
 
         return context
-
 
 class NewTrip(View):
     def get(self, request):
@@ -100,13 +98,15 @@ class TripUpdate(FormView):
     def get_initial(self):
         initial = super().get_initial()
         trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+
         initial.update({
             'date': trip.date.strftime("%Y-%m-%d"),
             'duration': trip.duration,
-            'place': trip.place,
             'people': trip.people,
+            'place': trip.place,
         })
-        for field_name in ['country', 'travels', 'airbnbs', 'activities', 'expenses']:
+
+        for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
             related_objects = getattr(trip, field_name).all()
             initial[field_name] = [obj.id for obj in related_objects]
         return initial
@@ -115,16 +115,21 @@ class TripUpdate(FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = "Mise à jour du voyage"
         context['submit_text'] = "Enregistrer"
-        
+
         return context
 
     def form_valid(self, form):
         trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
         form.instance = trip
-        form.save()
-        
-        return redirect('trip_detail', pk=trip.pk)
 
+        trip.date = form.cleaned_data['date']
+        trip.duration = form.cleaned_data['duration']
+        trip.place = form.cleaned_data['place']
+        trip.people = form.cleaned_data['people']
+
+        form.save()
+
+        return redirect('trip_detail', pk=trip.pk)
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form, errors=form.errors))

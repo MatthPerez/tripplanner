@@ -6,11 +6,21 @@ from airbnb.models import Airbnb
 from activity.models import Activity
 from expense.models import Expense
 
+
 class AddTrip(forms.ModelForm):
     class Meta:
         model = Trip
-        fields = ['date', 'duration', 'place', 'people', 'travels', 'airbnbs', 'activities', 'expenses',]
-    
+        fields = [
+            "date",
+            "duration",
+            "place",
+            "people",
+            "travels",
+            "airbnbs",
+            "activities",
+            "expenses",
+        ]
+
     date = forms.DateField(
         required=True,
         label="Date",
@@ -47,44 +57,29 @@ class AddTrip(forms.ModelForm):
             }
         ),
     )
-    travels = forms.MultipleChoiceField(
+    travels = forms.ModelMultipleChoiceField(
         required=False,
         label="Trajets",
-        choices=[(t.id, str(t)) for t in Travel.objects.all()],
+        queryset=Travel.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-    airbnbs = forms.MultipleChoiceField(
+    airbnbs = forms.ModelMultipleChoiceField(
         required=False,
         label="Logements",
-        choices=[(a.id, a.name) for a in Airbnb.objects.all()],
+        queryset=Airbnb.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-    activities = forms.MultipleChoiceField(
+    activities = forms.ModelMultipleChoiceField(
         required=False,
         label="Activités",
-        choices=[(a.id, a.name) for a in Activity.objects.all()],
+        queryset=Activity.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-    expenses = forms.MultipleChoiceField(
+    expenses = forms.ModelMultipleChoiceField(
         required=False,
         label="Dépenses",
-        choices=[(e.id, e.name) for e in Expense.objects.all()],
+        queryset=Expense.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-    
-class TripForm(forms.ModelForm):
-    class Meta:
-        model = Trip
-        fields = "__all__"
-        widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "type": "date",
-                    "placeholder": "AAAA-MM-JJ"
-                }
-            )
-        }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['date'].widget.format = '%d/%m/%Y'
+
