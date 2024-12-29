@@ -116,7 +116,7 @@ main > div {
   flex-wrap: wrap;
 }
 main > div a {
-  box-shadow: 4px 4px 5px rgb(130, 130, 130);
+  box-shadow: 4px 4px 5px rgb(80, 80, 80);
   transition: 300ms all ease;
   width: clamp(200px, 15%, 300px);
   text-decoration: none;

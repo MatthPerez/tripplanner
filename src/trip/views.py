@@ -36,14 +36,14 @@ class TripDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["country"] = context["trip"].place
+        city = context["trip"].place
+        context["country"] = city
         context["travels"] = context["trip"].travels.all()
         context["airbnbs"] = context["trip"].airbnbs.all()
         context["activities"] = context["trip"].activities.all()
         context["expenses"] = context["trip"].expenses.all()
         context["total_price"] = context["trip"].total_price
 
-        city = context["trip"].place
         context["wikipedia_paragraphs"] = wikipedia(city)
 
         return context

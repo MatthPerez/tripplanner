@@ -1,11 +1,20 @@
 from django import forms
 from airbnb.models import Airbnb
+from country.models import Country
 
 class AddAirbnb(forms.ModelForm):
     class Meta:
         model = Airbnb
-        fields = ['name', 'reference', 'price', 'charges', 'city', 'start_date', 'end_date']
-    
+        fields = [
+            "name",
+            "cities",
+            "reference",
+            "price",
+            "charges",
+            "start_date",
+            "end_date",
+        ]
+
     name = forms.CharField(
         required=True,
         label="Désignation",
@@ -15,6 +24,11 @@ class AddAirbnb(forms.ModelForm):
                 "autofocus": "autofocus",
             }
         ),
+    )
+    cities = forms.ModelMultipleChoiceField(
+        queryset=Country.objects.all(),
+        label="Destinations",
+        widget=forms.CheckboxSelectMultiple,
     )
     reference = forms.CharField(
         required=True,
@@ -40,16 +54,6 @@ class AddAirbnb(forms.ModelForm):
         widget=forms.NumberInput(
             attrs={
                 "placeholder": "25",
-            }
-        ),
-    )
-    city = forms.CharField(
-        required=True,
-        max_length=50,
-        label="Ville",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Barcelone",
             }
         ),
     )

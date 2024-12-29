@@ -136,7 +136,7 @@ main > a:hover {
   flex-wrap: wrap;
 }
 .elements > div {
-  box-shadow: 4px 4px 5px rgb(130, 130, 130);
+  box-shadow: 4px 4px 5px rgb(80, 80, 80);
   transition: 300ms all ease;
   width: 100%;
   display: flex;

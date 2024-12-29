@@ -9,11 +9,10 @@ from django.utils.timezone import now
 # def is_admin(user):
 #     return user.is_authenticated and hasattr(user, "is_admin") and user.is_admin
 
-
 class AirbnbView(View):
     def get(self, request):
         today = now()
-        airbnbs = Airbnb.objects.filter(start_date__gte=today,).order_by("city", "name")
+        airbnbs = Airbnb.objects.filter(start_date__gte=today,).order_by("name")
         
         context = {
             "airbnbs": airbnbs,
@@ -68,8 +67,6 @@ class NewAirbnb(View):
                 "airbnb/new.html",
                 context
             )
-            
-            
         
 class AirbnbUpdate(View):
     def get(self, request, pk):
@@ -86,7 +83,7 @@ class AirbnbUpdate(View):
                 "reference": airbnb.reference,
                 "price": airbnb.price,
                 "charges": airbnb.charges,
-                "city": airbnb.city,
+                "cities": airbnb.cities,
                 "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
                 "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
             }
