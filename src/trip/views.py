@@ -168,9 +168,8 @@ class TripUpdate(FormView):
         airbnbs_with_destination = []
 
         for airbnb in Airbnb.objects.all():
-            destination = (
-                airbnb.countries.first().name if airbnb.countries.exists() else None
-            )
+            destination = airbnb.country.name
+            
             if destination:
                 airbnbs_with_destination.append(
                     {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
