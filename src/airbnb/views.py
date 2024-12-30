@@ -74,26 +74,19 @@ class NewAirbnb(View):
             return render(request, "airbnb/new.html", context)
 
 
+from django.shortcuts import render, redirect
+from django.views import View
+from .models import Airbnb
+from .forms import AddAirbnb
+
+
 class AirbnbUpdate(View):
     def get(self, request, pk):
         airbnb = Airbnb.objects.get(pk=pk)
-        title = f"Mise à jour du logenemt : {airbnb.name}"
+        title = f"Mise à jour du logement : {airbnb.name}"
         submit_text = "Enregistrer"
 
-        # form = AddAirbnb(instance=airbnb)
-
-        form = AddAirbnb(
-            instance=airbnb,
-            initial={
-                "name": airbnb.name,
-                "reference": airbnb.reference,
-                "price": airbnb.price,
-                "charges": airbnb.charges,
-                "countries": airbnb.countries,
-                "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
-                "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
-            },
-        )
+        form = AddAirbnb(instance=airbnb)
 
         context = {
             "form": form,
@@ -101,11 +94,7 @@ class AirbnbUpdate(View):
             "submit_text": submit_text,
         }
 
-        return render(
-            request,
-            "airbnb/new.html",
-            context,
-        )
+        return render(request, "airbnb/new.html", context)
 
     def post(self, request, pk):
         airbnb = Airbnb.objects.get(pk=pk)
@@ -113,21 +102,13 @@ class AirbnbUpdate(View):
 
         if form.is_valid():
             form.save()
-
-            context = {
-                "form": form,
-                "success": "Logement modifié avec succès.",
-            }
-
             return redirect("airbnb")
         else:
             print(form.errors)
-
             context = {
                 "form": form,
                 "errors": form.errors,
             }
-
             return render(request, "airbnb/new.html", context)
 
 

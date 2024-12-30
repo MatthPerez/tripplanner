@@ -88,12 +88,7 @@ class CountryUpdate(View):
         title = f"Mise à jour de la destination"
         submit_text = "Enregistrer"
 
-        form = AddCountry(
-            instance=country,
-            initial={
-                "name": country.name,
-            },
-        )
+        form = AddCountry(instance=country)
 
         context = {
             "form": form,

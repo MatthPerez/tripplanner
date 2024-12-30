@@ -1,6 +1,6 @@
 from django import forms
 from airbnb.models import Airbnb
-from country.models import Country
+
 
 class AddAirbnb(forms.ModelForm):
     class Meta:
@@ -14,71 +14,52 @@ class AddAirbnb(forms.ModelForm):
             "start_date",
             "end_date",
         ]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "placeholder": "Joli studio bord de mer",
+                    "autofocus": "autofocus",
+                }
+            ),
+            "countries": forms.CheckboxSelectMultiple(),
+            "reference": forms.TextInput(
+                attrs={
+                    "placeholder": "Référence unique",
+                }
+            ),
+            "price": forms.NumberInput(
+                attrs={
+                    "placeholder": "70",
+                }
+            ),
+            "charges": forms.NumberInput(
+                attrs={
+                    "placeholder": "25",
+                }
+            ),
+            "start_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "placeholder": "AAAA-MM-JJ",
+                }
+            ),
+            "end_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "placeholder": "AAAA-MM-JJ",
+                }
+            ),
+        }
+        labels = {
+            "name": "Désignation",
+            "countries": "Destinations",
+            "reference": "Référence",
+            "price": "Prix/nuit",
+            "charges": "Frais",
+            "start_date": "Date de début",
+            "end_date": "Date de fin",
+        }
 
-    name = forms.CharField(
-        required=True,
-        label="Désignation",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Joli studio bord de mer",
-                "autofocus": "autofocus",
-            }
-        ),
-    )
-    countries = forms.ModelMultipleChoiceField(
-        queryset=Country.objects.all(),
-        label="Destinations",
-        widget=forms.CheckboxSelectMultiple,
-    )
-    reference = forms.CharField(
-        required=True,
-        label="Référence",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Référence unique",
-            }
-        ),
-    )
-    price = forms.IntegerField(
-        required=True,
-        label="Prix/nuit",
-        widget=forms.NumberInput(
-            attrs={
-                "placeholder": "70",
-            }
-        ),
-    )
-    charges = forms.IntegerField(
-        required=True,
-        label="Frais",
-        widget=forms.NumberInput(
-            attrs={
-                "placeholder": "25",
-            }
-        ),
-    )
-    start_date = forms.DateField(
-        required=True,
-        label="Date de début",
-        input_formats=["%Y-%m-%d"],
-        widget=forms.DateInput(
-            attrs={
-                "type": "date",
-                "placeholder": "AAAA-MM-JJ",
-            }
-        ),
-    )
-    end_date = forms.DateField(
-        required=True,
-        label="Date de fin",
-        input_formats=["%Y-%m-%d"],
-        widget=forms.DateInput(
-            attrs={
-                "type": "date",
-                "placeholder": "AAAA-MM-JJ",
-            }
-        ),
-    )
 
 class AirbnbForm(forms.ModelForm):
     class Meta:

@@ -5,14 +5,12 @@ from .models import Country
 class AddCountry(forms.ModelForm):
     class Meta:
         model = Country
-        fields = [
-            "name",
-        ]
+        fields = ["name"]
 
     name = forms.CharField(
         required=True,
         label="Nom",
-        widget=forms.DateInput(
+        widget=forms.TextInput(
             attrs={
                 "placeholder": "Bulgarie",
                 "autofocus": "autofocus",
