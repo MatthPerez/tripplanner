@@ -8,7 +8,7 @@ from activity.models import Activity
 from airbnb.models import Airbnb
 from expense.models import Expense
 from django.utils.timezone import now
-from tripplanner.static.scripts.scrap import wikipedia
+# from tripplanner.static.scripts.scrap import wikipedia
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -51,7 +51,7 @@ class TripDetail(DetailView):
         context["expenses"] = context["trip"].expenses.all()
         context["total_price"] = context["trip"].total_price
 
-        context["wikipedia_paragraphs"] = wikipedia(country)
+        # context["wikipedia_paragraphs"] = wikipedia(country)
 
         return context
 

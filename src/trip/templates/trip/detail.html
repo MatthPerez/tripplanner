@@ -25,14 +25,14 @@ href="{% static 'style/detail.css' %}"
     </form>
   </div>
   
-  <div id="wikipedia-info">
+  {% comment %} <div id="wikipedia-info">
     {% if wikipedia_paragraphs|length >= 3 %}
         <p>{{ wikipedia_paragraphs.1 }}</p>
         <p>{{ wikipedia_paragraphs.2 }}</p>
     {% else %}
         <p>Pas assez d'informations Wikipedia disponibles pour cette destination.</p>
     {% endif %}
-  </div>
+  </div> {% endcomment %}
 
   <div id="total">
     <span>Coût total =</span>

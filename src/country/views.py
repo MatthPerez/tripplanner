@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
+from django.views.generic import DetailView
 from .forms import AddCountry
 from .models import Country
+from tripplanner.static.scripts.scrap import wikipedia
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -23,6 +25,20 @@ class CountryView(View):
             "country/index.html",
             context,
         )
+
+
+class CountryDetail(DetailView):
+    model = Country
+    template_name = "country/detail.html"
+    context_object_name = "country"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["name"] = context["country"].name
+        context["wikipedia_lines"] = wikipedia(context["name"])
+
+        return context
 
 
 class NewCountry(View):

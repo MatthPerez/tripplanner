@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import requests
 import re
 
@@ -62,23 +62,35 @@ def wikipedia(city):
 
     soup = BeautifulSoup(response.content, "html.parser")
 
-    paragraphs = (
-        soup.find("div", class_="mw-content-ltr mw-parser-output").findAll("p")
-        if soup.find("div", class_="mw-parser-output")
-        else []
-    )
+    if soup.find("div", class_="infobox"):
+        lines = (
+            soup.find("div", class_="infobox")
+            .findAll("table")[2]
+            .find("tbody")
+            .findAll("tr")
+        )
 
-    paragraphs = [p.text for p in paragraphs if len(p.text.strip()) > 0]
+        result = []
 
-    return paragraphs
+        for line in lines:
+            th = line.find("th")
+            td = line.find("td")
+
+            if th and td:
+                result.append((th.text.strip(), td.text.strip()))
+
+        return result
+
+    else:
+        return []
 
 
 def extract_number(price_str):
     match = re.search(r"\d+", price_str)
-    
+
     if match:
         return int(match.group())
-    
+
     return 0
 
 
@@ -114,10 +126,17 @@ def verychic():
         link = article.find("a").get("href")
         link = f"https://www.verychic.fr{link}"
 
-        price = article.find(
-            "a",
-            class_="infos",
-        ).findAll("div")[1].find("div").find("div").findAll("div")[2].get_text(strip=True)
+        price = (
+            article.find(
+                "a",
+                class_="infos",
+            )
+            .findAll("div")[1]
+            .find("div")
+            .find("div")
+            .findAll("div")[2]
+            .get_text(strip=True)
+        )
 
         plans.append(
             {

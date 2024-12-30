@@ -1,0 +1,46 @@
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css%}<link
+rel="stylesheet"
+href="{% static 'style/detail.css' %}"
+/>{% endblock %}
+{% block script_js %}<script src="{% static 'js/country.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner |
+{{country.name}}{% endblock %}
+    {% block content %}
+
+<main>
+  <h1>
+    <a href="{% url 'country' %}"
+      ><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"
+    /></a>
+    <span>{{country.name}}</span>
+  </h1>
+
+  <div class="actions">
+    <a
+      href="{% url 'country_update' country.pk %}"
+      title="Modifier cette destination"
+      >✏️</a
+    >
+    <form
+      action="{% url 'country_delete' country.pk %}"
+      method="POST"
+      title="Supprimer cette destination"
+    >
+      {% csrf_token %}
+      <button type="submit">❌</button>
+    </form>
+  </div>
+
+  <div id="wikipedia-info">
+    {% if wikipedia_lines %} {% for label, value in wikipedia_lines %}
+    <p><strong>{{ label }} :</strong> {{ value }}</p>
+    {% endfor %} {% else %}
+    <p>
+      Pas assez d'informations Wikipedia disponibles pour cette destination.
+    </p>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

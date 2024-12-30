@@ -13,7 +13,7 @@
   <div class="elements">
     {% for country in countries %}
     <div>
-      <span>
+      <a href="{% url 'country_detail' country.pk %}">
         <div>{{country.name}}</div>
         <div>
           <a
@@ -26,7 +26,7 @@
               <button type="submit" title="Supprimer la destination">❌</button>
           </form>
         </div>
-      </span>
+      </a>
     </div>
     {% endfor %}
   </div>
