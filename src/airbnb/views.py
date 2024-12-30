@@ -15,13 +15,8 @@ from django.utils.timezone import now
 class AirbnbView(View):
     def get(self, request):
         today = now()
-        airbnbs = (
-            Airbnb.objects.prefetch_related("countries")
-            .filter(
-                start_date__gte=today,
-            )
-            .order_by("name")
-        )
+
+        airbnbs = Airbnb.objects.filter(start_date__gte=today).order_by("name")
 
         context = {
             "airbnbs": airbnbs,
@@ -86,9 +81,7 @@ class AirbnbUpdate(FormView):
         initial.update(
             {
                 "name": airbnb.name,
-                "countries": list(
-                    airbnb.countries.values_list("id", flat=True)
-                ),
+                "countries": (airbnb.countries.id if airbnb.countries else None),
                 "reference": airbnb.reference,
                 "price": airbnb.price,
                 "charges": airbnb.charges,
@@ -107,7 +100,6 @@ class AirbnbUpdate(FormView):
 
     def form_valid(self, form):
         airbnb = get_object_or_404(Airbnb, pk=self.kwargs["pk"])
-        # form.instance = airbnb
 
         airbnb.name = form.cleaned_data["name"]
         airbnb.reference = form.cleaned_data["reference"]
@@ -116,9 +108,10 @@ class AirbnbUpdate(FormView):
         airbnb.start_date = form.cleaned_data["start_date"]
         airbnb.end_date = form.cleaned_data["end_date"]
 
-        airbnb.save()
+        if form.cleaned_data["countries"]:
+            airbnb.countries = form.cleaned_data["countries"]
 
-        airbnb.countries.set(form.cleaned_data["countries"])
+        airbnb.save()
 
         return redirect("airbnb_detail", pk=airbnb.pk)
 

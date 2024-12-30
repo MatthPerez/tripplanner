@@ -7,7 +7,7 @@ class AddAirbnb(forms.ModelForm):
         model = Airbnb
         fields = [
             "name",
-            "countries",
+            "country",
             "reference",
             "price",
             "charges",
@@ -21,7 +21,7 @@ class AddAirbnb(forms.ModelForm):
                     "autofocus": "autofocus",
                 }
             ),
-            "countries": forms.CheckboxSelectMultiple(),
+            "country": forms.CheckboxSelectMultiple(),
             "reference": forms.TextInput(
                 attrs={
                     "placeholder": "Référence unique",
@@ -52,7 +52,7 @@ class AddAirbnb(forms.ModelForm):
         }
         labels = {
             "name": "Désignation",
-            "countries": "Destinations",
+            "country": "Destinations",
             "reference": "Référence",
             "price": "Prix/nuit",
             "charges": "Frais",
@@ -64,8 +64,18 @@ class AddAirbnb(forms.ModelForm):
 class AirbnbForm(forms.ModelForm):
     class Meta:
         model = Airbnb
-        fields = "__all__"
+        # fields = "__all__"
+        fields = [
+            "name",
+            "country",
+            "reference",
+            "price",
+            "charges",
+            "start_date",
+            "end_date",
+        ]
         widgets = {
+            "country": forms.Select(),
             "start_date": forms.DateInput(
                 attrs={
                     "type": "date",

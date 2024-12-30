@@ -7,7 +7,7 @@ class Airbnb(models.Model):
     reference = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     charges = models.DecimalField(max_digits=6, decimal_places=2)
-    countries = models.ForeignKey(
+    country = models.ForeignKey(
         Country,
         on_delete=models.CASCADE,
         related_name="airbnbs",
