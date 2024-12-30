@@ -22,8 +22,7 @@
       <div>{{ form.duration.label_tag }} {{ form.duration }}</div>
       <div>{{ form.people.label_tag }} {{ form.people }}</div>
       <div>{{ form.travels.label_tag }} {{ form.travels }}</div>
-      {% comment %} <div>{{ form.airbnbs.label_tag }} {{ form.airbnbs }}</div>
-      <div>{{ form.activities.label_tag }} {{ form.activities }}</div> {% endcomment %}
+
       <div>
         {{ form.airbnbs.label_tag }}
         <ul id="airbnbs">
@@ -53,6 +52,7 @@
           {% endfor %}
         </ul>
       </div>
+      
       <div>{{ form.expenses.label_tag }} {{ form.expenses }}</div>
     </section>
 

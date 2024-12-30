@@ -53,6 +53,12 @@ class TripDetail(DetailView):
 
         return context
 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
+from .models import Trip, Airbnb, Activity
+from .forms import AddTrip
+
+
 class NewTrip(View):
     def get(self, request, pk=None):
         if pk:
@@ -73,24 +79,31 @@ class NewTrip(View):
         activities_with_destination = []
 
         for airbnb in Airbnb.objects.all():
-            destination = airbnb.countries if hasattr(airbnb, "countries") else None
+            # Récupère le premier pays associé à l'Airbnb (s'il existe)
+            destination = (
+                airbnb.countries.first().name if airbnb.countries.exists() else None
+            )
 
             if destination:
                 airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": f"{airbnb.name} - {destination}"}
+                    {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
                 )
             else:
                 airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
 
         for activity in Activity.objects.all():
-            destination = activity.countries.first() if hasattr(activity, "countries") else None
+            destination = (
+                activity.countries.first().name if activity.countries.exists() else None
+            )
 
             if destination:
                 activities_with_destination.append(
-                    {"id": activity.id, "name": f"{activity.name} - {destination}"}
+                    {"id": activity.id, "name": f"{activity.name} ({destination})"}
                 )
             else:
-                activities_with_destination.append({"id": activity.id, "name": activity.name})
+                activities_with_destination.append(
+                    {"id": activity.id, "name": activity.name}
+                )
 
         context = {
             "form": form,
