@@ -81,7 +81,7 @@ class AirbnbUpdate(FormView):
         initial.update(
             {
                 "name": airbnb.name,
-                "countries": (airbnb.countries.id if airbnb.countries else None),
+                "country": (airbnb.country.id if airbnb.country else None),
                 "reference": airbnb.reference,
                 "price": airbnb.price,
                 "charges": airbnb.charges,
@@ -108,12 +108,12 @@ class AirbnbUpdate(FormView):
         airbnb.start_date = form.cleaned_data["start_date"]
         airbnb.end_date = form.cleaned_data["end_date"]
 
-        if form.cleaned_data["countries"]:
-            airbnb.countries = form.cleaned_data["countries"]
+        if form.cleaned_data["country"]:
+            airbnb.country = form.cleaned_data["country"]
 
         airbnb.save()
 
-        return redirect("airbnb_detail", pk=airbnb.pk)
+        return redirect("airbnb")
 
     def form_invalid(self, form):
         return self.render_to_response(
