@@ -56,12 +56,12 @@
       <div>
         {{ form.expenses.label_tag }}
         <ul id="expenses">
-          {% for expense in expenses_with_price %}
+          {% for expense in all_expenses %}
             <li>
               <label>
                 <input type="checkbox" name="expenses" value="{{ expense.0 }}"
-                      {% if expense.0 in form.expenses.value %}checked{% endif %}>
-                {{ expense.1 }} - {{ expense.2 }} €
+                      {% if expense.0 in trip_expenses_ids %}checked{% endif %}>
+                {{ expense.1 }} ({{ expense.2 }} €)
               </label>
             </li>
           {% endfor %}

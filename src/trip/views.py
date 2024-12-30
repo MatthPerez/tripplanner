@@ -56,12 +56,6 @@ class TripDetail(DetailView):
         return context
 
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View
-from .models import Trip, Airbnb, Activity
-from .forms import AddTrip
-
-
 class NewTrip(View):
     def get(self, request, pk=None):
         if pk:
@@ -69,27 +63,24 @@ class NewTrip(View):
             form = AddTrip(instance=trip)
             airbnbs_ids = list(trip.airbnbs.values_list("id", flat=True))
             activities_ids = list(trip.activities.values_list("id", flat=True))
-            expenses_with_price = list(trip.expenses.values_list("id", "name", "price"))
+            trip_expenses_ids = list(trip.expenses.values_list("id", flat=True))
             title = "Modifier un voyage"
             submit_text = "Modifier"
         else:
             form = AddTrip()
             airbnbs_ids = []
             activities_ids = []
-            expenses_with_price = list(
-                Expense.objects.values_list("id", "name", "price")
-            )
+            trip_expenses_ids = []
             title = "Ajouter un voyage"
             submit_text = "Ajouter"
 
-        airbnbs_with_destination = []
-        activities_with_destination = []
+        all_expenses = list(Expense.objects.values_list("id", "name", "price"))
 
+        airbnbs_with_destination = []
         for airbnb in Airbnb.objects.all():
             destination = (
                 airbnb.countries.first().name if airbnb.countries.exists() else None
             )
-
             if destination:
                 airbnbs_with_destination.append(
                     {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
@@ -97,11 +88,11 @@ class NewTrip(View):
             else:
                 airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
 
+        activities_with_destination = []
         for activity in Activity.objects.all():
             destination = (
                 activity.countries.first().name if activity.countries.exists() else None
             )
-
             if destination:
                 activities_with_destination.append(
                     {"id": activity.id, "name": f"{activity.name} ({destination})"}
@@ -119,32 +110,11 @@ class NewTrip(View):
             "airbnbs_with_destination": airbnbs_with_destination,
             "airbnbs_ids": airbnbs_ids,
             "activities_ids": activities_ids,
-            "expenses_with_price": expenses_with_price,
+            "all_expenses": all_expenses,
+            "trip_expenses_ids": trip_expenses_ids,
         }
 
         return render(request, "trip/new.html", context)
-
-    def post(self, request):
-        form = AddTrip(request.POST)
-
-        if form.is_valid():
-            form.save()
-
-            context = {
-                "form": form,
-                "success": "Trajet ajouté avec succès.",
-            }
-
-            return redirect("trip")
-        else:
-            print(form.errors)
-
-            context = {
-                "form": form,
-                "errors": form.errors,
-            }
-
-            return render(request, "trip/new.html", context)
 
 
 class TripUpdate(FormView):
@@ -160,7 +130,7 @@ class TripUpdate(FormView):
                 "date": trip.date.strftime("%Y-%m-%d"),
                 "duration": trip.duration,
                 "people": trip.people,
-                "place": trip.place,
+                "place": (trip.place.id if trip.place else None),
             }
         )
 
@@ -177,32 +147,44 @@ class TripUpdate(FormView):
         trip = get_object_or_404(Trip, pk=self.kwargs["pk"])
 
         airbnbs_with_destination = []
-        activities_with_destination = []
-
         for airbnb in Airbnb.objects.all():
-            destinations = airbnb.countries.all()
-            if destinations:
-                destination = destinations.first()
+            destination = (
+                airbnb.countries.first().name if airbnb.countries.exists() else None
+            )
+            if destination:
                 airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": f"{airbnb.name} | {destination.name}"}
+                    {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
                 )
             else:
                 airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
 
+        activities_with_destination = []
         for activity in Activity.objects.all():
-            destinations = activity.countries.all()
-            if destinations:
-                destination = destinations.first()
+            destination = (
+                activity.countries.first().name if activity.countries.exists() else None
+            )
+            if destination:
                 activities_with_destination.append(
-                    {"id": activity.id, "name": f"{activity.name} | {destination.name}"}
+                    {"id": activity.id, "name": f"{activity.name} ({destination})"}
                 )
             else:
                 activities_with_destination.append(
                     {"id": activity.id, "name": activity.name}
                 )
 
+        all_expenses = list(Expense.objects.values_list("id", "name", "price"))
+        # trip_expenses_ids = list(trip.expenses.values_list("id", flat=True))
+
+        # print(f"All expenses: {all_expenses}")
+        # print(f"Trip expenses IDs: {trip_expenses_ids}")
+
         context["airbnbs_with_destination"] = airbnbs_with_destination
         context["activities_with_destination"] = activities_with_destination
+        context["all_expenses"] = all_expenses
+        context["airbnbs_ids"] = list(trip.airbnbs.values_list("id", flat=True))
+        context["activities_ids"] = list(trip.activities.values_list("id", flat=True))
+        context["expenses_ids"] = list(trip.expenses.values_list("id", flat=True))
+        # context["trip_expenses_ids"] = trip_expenses_ids
 
         return context
 
@@ -217,8 +199,9 @@ class TripUpdate(FormView):
 
         trip.airbnbs.set(form.cleaned_data["airbnbs"])
         trip.activities.set(form.cleaned_data["activities"])
+        trip.expenses.set(form.cleaned_data["expenses"])
 
-        form.save()
+        trip.save()
 
         return redirect("trip_detail", pk=trip.pk)
 
