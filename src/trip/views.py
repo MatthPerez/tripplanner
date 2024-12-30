@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 from .forms import AddTrip
 from .models import Trip
 from activity.models import Activity
+from airbnb.models import Airbnb
 from django.utils.timezone import now
 from tripplanner.static.scripts.scrap import wikipedia
 # from django.contrib.auth.mixins import UserPassesTestMixin
@@ -55,6 +56,21 @@ class NewTrip(View):
         submit_text = "Ajouter"
 
         activities_with_destination = []
+        airbnbs_with_destination = []
+        
+        for airbnb in Airbnb.objects.all():
+            destination = (
+                airbnb.cities.first()
+            )
+            if destination:
+                airbnbs_with_destination.append(
+                    {"id": airbnb.id, "name": f"{airbnb.name} - {destination.name}"}
+                )
+            else:
+                airbnbs_with_destination.append(
+                    {"id": airbnb.id, "name": airbnb.name}
+                )
+                
         for activity in Activity.objects.all():
             destination = (
                 activity.cities.first()
@@ -72,6 +88,7 @@ class NewTrip(View):
             "form": form,
             "title": title,
             "submit_text": submit_text,
+            "airbnbs_with_destination": airbnbs_with_destination,
             "activities_with_destination": activities_with_destination,
         }
 
@@ -133,7 +150,23 @@ class TripUpdate(FormView):
         context['submit_text'] = "Enregistrer"
         
         trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        airbnbs_with_destination = []
         activities_with_destination = []
+        
+        for airbnb in Airbnb.objects.all():
+            destinations = airbnb.cities.all()
+            if destinations:
+                destination = destinations.first()
+                airbnbs_with_destination.append({
+                    'id': airbnb.id,
+                    'name': f"{airbnb.name} | {destination.name}"
+                })
+            else:
+                airbnbs_with_destination.append({
+                    'id': airbnb.id,
+                    'name': airbnb.name
+                })
+                
         for activity in Activity.objects.all():
             destinations = activity.cities.all()
             if destinations:
@@ -148,6 +181,7 @@ class TripUpdate(FormView):
                     'name': activity.name
                 })
         
+        context['airbnbs_with_destination'] = airbnbs_with_destination
         context['activities_with_destination'] = activities_with_destination
         return context
 

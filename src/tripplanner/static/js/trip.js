@@ -2,9 +2,30 @@ const activities = document
   .getElementById('activities')
   .getElementsByTagName('li')
 
+const airbnbs = document
+  .getElementById('airbnbs')
+  .getElementsByTagName('li')
+
+function hide_airbnbs () {
+  Array.from(airbnbs).forEach(el => {
+    el.classList.add('d-none')
+  })
+}
+
 function hide_activities () {
   Array.from(activities).forEach(el => {
     el.classList.add('d-none')
+  })
+}
+
+function show_airbnbs (destination) {
+  hide_airbnbs()
+
+  Array.from(airbnbs).forEach(el => {
+    let my_value = el.getElementsByTagName('label')[0].textContent
+    if (my_value.includes(destination)) {
+      el.classList.remove('d-none')
+    }
   })
 }
 
@@ -20,20 +41,34 @@ function show_activities (destination) {
 }
 
 function trip_main () {
-  Array.from(activities).forEach(el => {
+  Array.from(airbnbs).forEach(() => {
     const selectElement = document.getElementById('id_place')
 
-    // Changement de sélection
+    // Selection change
     selectElement.addEventListener('change', function () {
       const selectedValue = this.value
-      // console.log('Valeur sélectionnée:', selectedValue)
+      show_airbnbs(selectedValue)
+    })
+
+    // Initial value while thepage is loading
+    window.addEventListener('load', function () {
+      const initialValue = selectElement.value
+      show_airbnbs(initialValue)
+    })
+  })
+
+  Array.from(activities).forEach(() => {
+    const selectElement = document.getElementById('id_place')
+
+    // Selection change
+    selectElement.addEventListener('change', function () {
+      const selectedValue = this.value
       show_activities(selectedValue)
     })
 
-    // Valeur initiale au chargement de la page
+    // Initial value while thepage is loading
     window.addEventListener('load', function () {
       const initialValue = selectElement.value
-      // console.log('Valeur sélectionnée initiale:', initialValue)
       show_activities(initialValue)
     })
   })
