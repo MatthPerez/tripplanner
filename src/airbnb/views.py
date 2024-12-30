@@ -15,7 +15,7 @@ class AirbnbView(View):
     def get(self, request):
         today = now()
         airbnbs = (
-            Airbnb.objects.prefetch_related("cities")
+            Airbnb.objects.prefetch_related("countries")
             .filter(
                 start_date__gte=today,
             )
@@ -89,7 +89,7 @@ class AirbnbUpdate(View):
                 "reference": airbnb.reference,
                 "price": airbnb.price,
                 "charges": airbnb.charges,
-                "cities": airbnb.cities,
+                "countries": airbnb.countries,
                 "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
                 "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
             },

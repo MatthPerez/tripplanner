@@ -22,7 +22,7 @@
           <span>{{ activity.name }} ({{ activity.category }})</span>
           <span>
             {{ activity.price_person }} € - 
-            {% for city in activity.cities.all %}
+            {% for city in activity.countries.all %}
             {{ city.name }}{% if not forloop.last %}, {% endif %}
             {% empty %}
             Aucune destination associée

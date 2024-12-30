@@ -14,7 +14,7 @@
     <div>
       <span>
         <div>
-          {{airbnb.name}} ( {% for city in airbnb.cities.all %} {{city.name}}{% if not forloop.last %}, {% endif %} {%empty%} Aucune destination
+          {{airbnb.name}} ( {% for city in airbnb.countries.all %} {{city.name}}{% if not forloop.last %}, {% endif %} {%empty%} Aucune destination
           associée{% endfor %} | {{airbnb.price}} €/nuit)
         </div>
         <div>

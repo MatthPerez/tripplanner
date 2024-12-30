@@ -4,7 +4,7 @@ from country.models import Country
 
 class Activity(models.Model):
     name = models.CharField(max_length=100)
-    cities = models.ManyToManyField(
+    countries = models.ManyToManyField(
         Country,
         related_name="activities",
     )

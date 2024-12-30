@@ -10,7 +10,7 @@ from country.models import Country
 class AddActivity(forms.ModelForm):
     class Meta:
         model = Activity
-        fields = ["name", "cities", "price_person", "category", "gps", "note"]
+        fields = ["name", "countries", "price_person", "category", "gps", "note"]
 
     name = forms.CharField(
         required=True,
@@ -22,7 +22,7 @@ class AddActivity(forms.ModelForm):
             }
         ),
     )
-    cities = forms.ModelMultipleChoiceField(
+    countries = forms.ModelMultipleChoiceField(
         queryset=Country.objects.all(),
         label="Destinations",
         widget=forms.CheckboxSelectMultiple,

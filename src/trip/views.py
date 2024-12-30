@@ -8,16 +8,20 @@ from activity.models import Activity
 from airbnb.models import Airbnb
 from django.utils.timezone import now
 from tripplanner.static.scripts.scrap import wikipedia
+
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 # def is_admin(user):
 #     return user.is_authenticated and hasattr(user, "is_admin") and user.is_admin
 
+
 class TripView(View):
     def get(self, request):
         today = now()
-        trips = Trip.objects.filter(date__gte=today,).order_by("date")
+        trips = Trip.objects.filter(
+            date__gte=today,
+        ).order_by("date")
 
         context = {
             "trips": trips,
@@ -37,66 +41,68 @@ class TripDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        city = context["trip"].place
-        context["place"] = city
+        country = context["trip"].place
+        context["place"] = country
         context["travels"] = context["trip"].travels.all()
         context["airbnbs"] = context["trip"].airbnbs.all()
         context["activities"] = context["trip"].activities.all()
         context["expenses"] = context["trip"].expenses.all()
         context["total_price"] = context["trip"].total_price
 
-        context["wikipedia_paragraphs"] = wikipedia(city)
+        context["wikipedia_paragraphs"] = wikipedia(country)
 
         return context
 
 class NewTrip(View):
-    def get(self, request):
-        form = AddTrip()
-        title = "Ajouter un voyage"
-        submit_text = "Ajouter"
+    def get(self, request, pk=None):
+        if pk:
+            trip = get_object_or_404(Trip, pk=pk)
+            form = AddTrip(instance=trip)
+            airbnbs_ids = list(trip.airbnbs.values_list("id", flat=True))
+            activities_ids = list(trip.activities.values_list("id", flat=True))
+            title = "Modifier un voyage"
+            submit_text = "Modifier"
+        else:
+            form = AddTrip()
+            airbnbs_ids = []
+            activities_ids = []
+            title = "Ajouter un voyage"
+            submit_text = "Ajouter"
 
-        activities_with_destination = []
         airbnbs_with_destination = []
-        
+        activities_with_destination = []
+
         for airbnb in Airbnb.objects.all():
-            destination = (
-                airbnb.cities.first()
-            )
+            destination = airbnb.countries if hasattr(airbnb, "countries") else None
+
             if destination:
                 airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": f"{airbnb.name} - {destination.name}"}
+                    {"id": airbnb.id, "name": f"{airbnb.name} - {destination}"}
                 )
             else:
-                airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": airbnb.name}
-                )
-                
+                airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
+
         for activity in Activity.objects.all():
-            destination = (
-                activity.cities.first()
-            )
+            destination = activity.countries.first() if hasattr(activity, "countries") else None
+
             if destination:
                 activities_with_destination.append(
-                    {"id": activity.id, "name": f"{activity.name} - {destination.name}"}
+                    {"id": activity.id, "name": f"{activity.name} - {destination}"}
                 )
             else:
-                activities_with_destination.append(
-                    {"id": activity.id, "name": activity.name}
-                )
+                activities_with_destination.append({"id": activity.id, "name": activity.name})
 
         context = {
             "form": form,
             "title": title,
             "submit_text": submit_text,
-            "airbnbs_with_destination": airbnbs_with_destination,
             "activities_with_destination": activities_with_destination,
+            "airbnbs_with_destination": airbnbs_with_destination,
+            "airbnbs_ids": airbnbs_ids,
+            "activities_ids": activities_ids,
         }
 
-        return render(
-            request,
-            "trip/new.html",
-            context,
-        )
+        return render(request, "trip/new.html", context)
 
     def post(self, request):
         form = AddTrip(request.POST)
@@ -104,7 +110,7 @@ class NewTrip(View):
         if form.is_valid():
             form.save()
 
-            context={
+            context = {
                 "form": form,
                 "success": "Trajet ajouté avec succès.",
             }
@@ -113,103 +119,97 @@ class NewTrip(View):
         else:
             print(form.errors)
 
-            context={
+            context = {
                 "form": form,
                 "errors": form.errors,
             }
 
-            return render(
-                request,
-                "trip/new.html",
-                context
-            )
+            return render(request, "trip/new.html", context)
 
 class TripUpdate(FormView):
-    template_name = 'trip/new.html'
+    template_name = "trip/new.html"
     form_class = AddTrip
 
     def get_initial(self):
         initial = super().get_initial()
-        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        trip = get_object_or_404(Trip, pk=self.kwargs["pk"])
 
-        initial.update({
-            'date': trip.date.strftime("%Y-%m-%d"),
-            'duration': trip.duration,
-            'people': trip.people,
-            'place': trip.place,
-        })
+        initial.update(
+            {
+                "date": trip.date.strftime("%Y-%m-%d"),
+                "duration": trip.duration,
+                "people": trip.people,
+                "place": trip.place,
+            }
+        )
 
-        for field_name in ['travels', 'airbnbs', 'activities', 'expenses']:
+        for field_name in ["travels", "airbnbs", "activities", "expenses"]:
             related_objects = getattr(trip, field_name).all()
             initial[field_name] = [obj.id for obj in related_objects]
         return initial
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Mise à jour du voyage"
-        context['submit_text'] = "Enregistrer"
-        
-        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
-        
+        context["title"] = "Mise à jour du voyage"
+        context["submit_text"] = "Enregistrer"
+
+        trip = get_object_or_404(Trip, pk=self.kwargs["pk"])
+
         airbnbs_with_destination = []
         activities_with_destination = []
-        
+
         for airbnb in Airbnb.objects.all():
-            destinations = airbnb.cities.all()
+            destinations = airbnb.countries.all()
             if destinations:
                 destination = destinations.first()
-                airbnbs_with_destination.append({
-                    'id': airbnb.id,
-                    'name': f"{airbnb.name} | {destination.name}"
-                })
+                airbnbs_with_destination.append(
+                    {"id": airbnb.id, "name": f"{airbnb.name} | {destination.name}"}
+                )
             else:
-                airbnbs_with_destination.append({
-                    'id': airbnb.id,
-                    'name': airbnb.name
-                })
-                
+                airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
+
         for activity in Activity.objects.all():
-            destinations = activity.cities.all()
+            destinations = activity.countries.all()
             if destinations:
                 destination = destinations.first()
-                activities_with_destination.append({
-                    'id': activity.id,
-                    'name': f"{activity.name} | {destination.name}"
-                })
+                activities_with_destination.append(
+                    {"id": activity.id, "name": f"{activity.name} | {destination.name}"}
+                )
             else:
-                activities_with_destination.append({
-                    'id': activity.id,
-                    'name': activity.name
-                })
-        
-        context['airbnbs_with_destination'] = airbnbs_with_destination
-        context['activities_with_destination'] = activities_with_destination
-        
+                activities_with_destination.append(
+                    {"id": activity.id, "name": activity.name}
+                )
+
+        context["airbnbs_with_destination"] = airbnbs_with_destination
+        context["activities_with_destination"] = activities_with_destination
+
         return context
 
     def form_valid(self, form):
-        trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        trip = get_object_or_404(Trip, pk=self.kwargs["pk"])
         form.instance = trip
 
-        trip.date = form.cleaned_data['date']
-        trip.duration = form.cleaned_data['duration']
-        trip.place = form.cleaned_data['place']
-        trip.people = form.cleaned_data['people']
-        
-        trip.airbnbs.set(form.cleaned_data['airbnbs'])
-        trip.activities.set(form.cleaned_data['activities'])
+        trip.date = form.cleaned_data["date"]
+        trip.duration = form.cleaned_data["duration"]
+        trip.place = form.cleaned_data["place"]
+        trip.people = form.cleaned_data["people"]
+
+        trip.airbnbs.set(form.cleaned_data["airbnbs"])
+        trip.activities.set(form.cleaned_data["activities"])
 
         form.save()
 
-        return redirect('trip_detail', pk=trip.pk)
+        return redirect("trip_detail", pk=trip.pk)
 
     def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form, errors=form.errors))
+        return self.render_to_response(
+            self.get_context_data(form=form, errors=form.errors)
+        )
 
 class TripDelete(View):
     def post(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         trip = get_object_or_404(Trip, pk=pk)
         trip.delete()
-        
+
         return redirect("trip")

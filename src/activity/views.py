@@ -12,7 +12,7 @@ from .models import Activity
 
 class ActivityView(View):
     def get(self, request):
-        activities = Activity.objects.prefetch_related('cities').order_by("name")
+        activities = Activity.objects.prefetch_related('countries').order_by("name")
         
         context = {
             "activities": activities,

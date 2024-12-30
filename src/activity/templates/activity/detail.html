@@ -31,7 +31,7 @@ href="{% static 'style/detail.css' %}"
 
         <div>
             <span>Ville :</span>
-            {% for city in activity.cities.all %}
+            {% for city in activity.countries.all %}
               <span>{{ city.name }}{% if not forloop.last %}, {% endif %}</span>
             {% empty %}
               Aucune destination associée

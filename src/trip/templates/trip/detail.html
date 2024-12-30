@@ -78,7 +78,7 @@ href="{% static 'style/detail.css' %}"
         <ul>
             {% for house in airbnbs %}
             <li>
-            <span>{{ house.name }} ({{ house.city }}, {{ house.price|floatformat:2 }} €/nuit)</span>
+            <span>{{ house.name }} : {{ house.price|floatformat:2 }} €/nuit</span>
             <a href="https://www.airbnb.fr/rooms/{{ house.reference }}?adults={{trip.people}}&check_in={{ house.start_date|date:"Y-m-d" }}&check_out={{ house.end_date|date:"Y-m-d" }}" target="_blank">
                 <img src="{% static 'icons/airbnb.png' %}" alt="lien AirBnb">
             </a>

@@ -7,7 +7,7 @@ class AddAirbnb(forms.ModelForm):
         model = Airbnb
         fields = [
             "name",
-            "cities",
+            "countries",
             "reference",
             "price",
             "charges",
@@ -25,7 +25,7 @@ class AddAirbnb(forms.ModelForm):
             }
         ),
     )
-    cities = forms.ModelMultipleChoiceField(
+    countries = forms.ModelMultipleChoiceField(
         queryset=Country.objects.all(),
         label="Destinations",
         widget=forms.CheckboxSelectMultiple,

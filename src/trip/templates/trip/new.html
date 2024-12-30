@@ -17,11 +17,13 @@
   <form method="POST">
     {% csrf_token %}
     <section>
+      <div>{{ form.place.label_tag }} {{ form.place }}</div>
       <div>{{ form.date.label_tag }} {{ form.date }}</div>
       <div>{{ form.duration.label_tag }} {{ form.duration }}</div>
-      <div>{{ form.place.label_tag }} {{ form.place }}</div>
       <div>{{ form.people.label_tag }} {{ form.people }}</div>
       <div>{{ form.travels.label_tag }} {{ form.travels }}</div>
+      {% comment %} <div>{{ form.airbnbs.label_tag }} {{ form.airbnbs }}</div>
+      <div>{{ form.activities.label_tag }} {{ form.activities }}</div> {% endcomment %}
       <div>
         {{ form.airbnbs.label_tag }}
         <ul id="airbnbs">
@@ -29,13 +31,14 @@
           <li>
             <label>
               <input type="checkbox" name="airbnbs" value="{{ airbnb.id }}"
-              {% if airbnb.id|stringformat:"s" in form.airbnbs.value %}checked{% endif %}
-              > {{ airbnb.name }}
+              {% if airbnb.id in airbnbs_ids %}checked{% endif %}>
+              {{ airbnb.name }}
             </label>
           </li>
           {% endfor %}
         </ul>
       </div>
+
       <div>
         {{ form.activities.label_tag }}
         <ul id="activities">
@@ -43,7 +46,7 @@
           <li>
             <label>
               <input type="checkbox" name="activities" value="{{ activity.id }}"
-              {% if activity.id|stringformat:"s" in form.activities.value %}checked{% endif %}>
+              {% if activity.id in activities_ids %}checked{% endif %}>
               {{ activity.name }}
             </label>
           </li>
@@ -55,9 +58,11 @@
 
     {% if errors %}
     <ul>
-      {% for field, errors in form.errors.items %} {% for error in errors %}
+      {% for field, errors in form.errors.items %} 
+      {% for error in errors %}
       <li>{{ field }}: {{ error }}</li>
-      {% endfor %} {% endfor %}
+      {% endfor %} 
+      {% endfor %}
     </ul>
     {% endif %}
 
