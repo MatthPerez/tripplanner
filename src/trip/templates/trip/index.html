@@ -6,7 +6,7 @@
 <main>
   <h1>Liste des voyages</h1>
 
-  <a href="{% url 'trip_new' %}" title="Rajouter un trajet à la liste"
+  <a href="{% url 'trip_new' %}" title="Rajouter un voyage à la liste"
     >Rajouter un voyage</a
   >
 
@@ -23,7 +23,7 @@
           >
           <form action="{% url 'trip_delete' trip.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit" title="Supprimer le trajet">❌</button>
+            <button type="submit" title="Supprimer le voyage">❌</button>
           </form>
         </div>
       </a>
