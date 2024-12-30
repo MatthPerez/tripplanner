@@ -132,13 +132,16 @@ class TripUpdate(FormView):
                 "date": trip.date.strftime("%Y-%m-%d"),
                 "duration": trip.duration,
                 "people": trip.people,
-                "place": (trip.place.id if trip.place else None),
+                "place": (trip.place.name if trip.place else None),
             }
         )
+
+        print(f"ID destination : {trip.place.id}")
 
         for field_name in ["travels", "airbnbs", "activities", "expenses"]:
             related_objects = getattr(trip, field_name).all()
             initial[field_name] = [obj.id for obj in related_objects]
+
         return initial
 
     def get_context_data(self, **kwargs):
@@ -178,16 +181,16 @@ class TripUpdate(FormView):
 
         all_expenses = list(Expense.objects.values_list("id", "name", "price"))
         expenses_ids = list(trip.expenses.values_list("id", flat=True))
-        
-        print(f"All expenses: {all_expenses}")
-        print(f"Expenses IDs: {expenses_ids}")
+
+        # print(f"All expenses: {all_expenses}")
+        # print(f"Expenses IDs: {expenses_ids}")
 
         context["airbnbs_with_destination"] = airbnbs_with_destination
         context["activities_with_destination"] = activities_with_destination
         context["all_expenses"] = all_expenses
         context["airbnbs_ids"] = list(trip.airbnbs.values_list("id", flat=True))
         context["activities_ids"] = list(trip.activities.values_list("id", flat=True))
-        context["expenses_ids"] = list(trip.expenses.values_list("id", flat=True))
+        context["expenses_ids"] = expenses_ids
 
         return context
 
