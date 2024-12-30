@@ -61,16 +61,10 @@ class NewTrip(View):
         if pk:
             trip = get_object_or_404(Trip, pk=pk)
             form = AddTrip(instance=trip)
-            airbnbs_ids = list(trip.airbnbs.values_list("id", flat=True))
-            activities_ids = list(trip.activities.values_list("id", flat=True))
-            trip_expenses_ids = list(trip.expenses.values_list("id", flat=True))
             title = "Modifier un voyage"
             submit_text = "Modifier"
         else:
             form = AddTrip()
-            airbnbs_ids = []
-            activities_ids = []
-            trip_expenses_ids = []
             title = "Ajouter un voyage"
             submit_text = "Ajouter"
 
@@ -110,13 +104,34 @@ class NewTrip(View):
             "submit_text": submit_text,
             "activities_with_destination": activities_with_destination,
             "airbnbs_with_destination": airbnbs_with_destination,
-            "airbnbs_ids": airbnbs_ids,
-            "activities_ids": activities_ids,
             "all_expenses": all_expenses,
-            "trip_expenses_ids": trip_expenses_ids,
         }
 
         return render(request, "trip/new.html", context)
+
+    def post(self, request, pk=None):
+        if pk:
+            trip = get_object_or_404(Trip, pk=pk)
+            form = AddTrip(request.POST, instance=trip)
+        else:
+            form = AddTrip(request.POST)
+
+        if form.is_valid():
+            trip = form.save()
+
+            selected_expenses = form.cleaned_data["expenses"]
+            trip.expenses.set(selected_expenses)
+
+            return redirect("trip_detail", pk=trip.pk)
+        else:
+            print(form.errors)  # Pour le débogage
+
+            context = {
+                "form": form,
+                "errors": form.errors,
+            }
+
+            return render(request, "trip/new.html", context)
 
 
 class TripUpdate(FormView):
@@ -215,6 +230,7 @@ class TripUpdate(FormView):
         return self.render_to_response(
             self.get_context_data(form=form, errors=form.errors)
         )
+
 
 class TripDelete(View):
     def post(self, request, *args, **kwargs):
