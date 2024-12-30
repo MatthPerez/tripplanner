@@ -60,7 +60,7 @@
             <li>
               <label>
                 <input type="checkbox" name="expenses" value="{{ expense.0 }}"
-                      {% if expense.0 in trip_expenses_ids %}checked{% endif %}>
+                      {% if expense.0 in expenses_ids %}checked{% endif %}>
                 {{ expense.1 }} ({{ expense.2 }} €)
               </label>
             </li>

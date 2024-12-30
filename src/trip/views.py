@@ -77,6 +77,7 @@ class NewTrip(View):
         all_expenses = list(Expense.objects.values_list("id", "name", "price"))
 
         airbnbs_with_destination = []
+
         for airbnb in Airbnb.objects.all():
             destination = (
                 airbnb.countries.first().name if airbnb.countries.exists() else None
@@ -89,6 +90,7 @@ class NewTrip(View):
                 airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
 
         activities_with_destination = []
+
         for activity in Activity.objects.all():
             destination = (
                 activity.countries.first().name if activity.countries.exists() else None
@@ -147,6 +149,7 @@ class TripUpdate(FormView):
         trip = get_object_or_404(Trip, pk=self.kwargs["pk"])
 
         airbnbs_with_destination = []
+
         for airbnb in Airbnb.objects.all():
             destination = (
                 airbnb.countries.first().name if airbnb.countries.exists() else None
@@ -159,6 +162,7 @@ class TripUpdate(FormView):
                 airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
 
         activities_with_destination = []
+
         for activity in Activity.objects.all():
             destination = (
                 activity.countries.first().name if activity.countries.exists() else None
@@ -173,10 +177,10 @@ class TripUpdate(FormView):
                 )
 
         all_expenses = list(Expense.objects.values_list("id", "name", "price"))
-        # trip_expenses_ids = list(trip.expenses.values_list("id", flat=True))
-
-        # print(f"All expenses: {all_expenses}")
-        # print(f"Trip expenses IDs: {trip_expenses_ids}")
+        expenses_ids = list(trip.expenses.values_list("id", flat=True))
+        
+        print(f"All expenses: {all_expenses}")
+        print(f"Expenses IDs: {expenses_ids}")
 
         context["airbnbs_with_destination"] = airbnbs_with_destination
         context["activities_with_destination"] = activities_with_destination
@@ -184,7 +188,6 @@ class TripUpdate(FormView):
         context["airbnbs_ids"] = list(trip.airbnbs.values_list("id", flat=True))
         context["activities_ids"] = list(trip.activities.values_list("id", flat=True))
         context["expenses_ids"] = list(trip.expenses.values_list("id", flat=True))
-        # context["trip_expenses_ids"] = trip_expenses_ids
 
         return context
 
@@ -209,7 +212,6 @@ class TripUpdate(FormView):
         return self.render_to_response(
             self.get_context_data(form=form, errors=form.errors)
         )
-
 
 class TripDelete(View):
     def post(self, request, *args, **kwargs):
