@@ -150,6 +150,7 @@ class TripUpdate(FormView):
         context['submit_text'] = "Enregistrer"
         
         trip = get_object_or_404(Trip, pk=self.kwargs['pk'])
+        
         airbnbs_with_destination = []
         activities_with_destination = []
         
@@ -183,6 +184,7 @@ class TripUpdate(FormView):
         
         context['airbnbs_with_destination'] = airbnbs_with_destination
         context['activities_with_destination'] = activities_with_destination
+        
         return context
 
     def form_valid(self, form):
@@ -193,6 +195,9 @@ class TripUpdate(FormView):
         trip.duration = form.cleaned_data['duration']
         trip.place = form.cleaned_data['place']
         trip.people = form.cleaned_data['people']
+        
+        trip.airbnbs.set(form.cleaned_data['airbnbs'])
+        trip.activities.set(form.cleaned_data['activities'])
 
         form.save()
 
