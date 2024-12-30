@@ -57,7 +57,7 @@ class NewTrip(View):
         activities_with_destination = []
         for activity in Activity.objects.all():
             destination = (
-                activity.country_set.first()
+                activity.cities.first()
             )
             if destination:
                 activities_with_destination.append(
