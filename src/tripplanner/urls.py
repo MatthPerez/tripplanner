@@ -11,6 +11,6 @@ urlpatterns = [
     path("activite/", include("activity.urls")),
     path("depense/", include("expense.urls")),
     path("voyage/", include("trip.urls")),
-    path("pays/", include("country.urls")),
+    path("destination/", include("country.urls")),
 
 ]
