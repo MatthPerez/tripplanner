@@ -74,8 +74,17 @@ main {
             width: auto;
             font-size: 16px;
             padding: 5px;
-            @include flex;
-            gap: 10px;
+            @include flexcolumn;
+            align-items: flex-start;
+
+            &:nth-child(2) {
+                @include flex;
+                gap: 5px;
+            }
+
+            span {
+                width: auto;
+            }
 
             a,
             form {
@@ -88,7 +97,6 @@ main {
                     font-size: 16px;
                     cursor: pointer;
                 }
-
             }
         }
 
@@ -98,3 +106,4 @@ main {
         }
     }
 }
+
