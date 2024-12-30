@@ -21,7 +21,7 @@ class AddAirbnb(forms.ModelForm):
                     "autofocus": "autofocus",
                 }
             ),
-            "country": forms.CheckboxSelectMultiple(),
+            "country": forms.Select(),
             "reference": forms.TextInput(
                 attrs={
                     "placeholder": "Référence unique",
@@ -52,7 +52,7 @@ class AddAirbnb(forms.ModelForm):
         }
         labels = {
             "name": "Désignation",
-            "country": "Destinations",
+            "country": "Destination",
             "reference": "Référence",
             "price": "Prix/nuit",
             "charges": "Frais",
