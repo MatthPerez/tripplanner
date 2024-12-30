@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
+from django.views.generic.edit import FormView
 from .forms import AddAirbnb
 from .models import Airbnb
 from django.utils.timezone import now
@@ -74,42 +75,57 @@ class NewAirbnb(View):
             return render(request, "airbnb/new.html", context)
 
 
-from django.shortcuts import render, redirect
-from django.views import View
-from .models import Airbnb
-from .forms import AddAirbnb
+class AirbnbUpdate(FormView):
+    template_name = "airbnb/new.html"
+    form_class = AddAirbnb
 
+    def get_initial(self):
+        initial = super().get_initial()
+        airbnb = get_object_or_404(Airbnb, pk=self.kwargs["pk"])
 
-class AirbnbUpdate(View):
-    def get(self, request, pk):
-        airbnb = Airbnb.objects.get(pk=pk)
-        title = f"Mise à jour du logement : {airbnb.name}"
-        submit_text = "Enregistrer"
-
-        form = AddAirbnb(instance=airbnb)
-
-        context = {
-            "form": form,
-            "title": title,
-            "submit_text": submit_text,
-        }
-
-        return render(request, "airbnb/new.html", context)
-
-    def post(self, request, pk):
-        airbnb = Airbnb.objects.get(pk=pk)
-        form = AddAirbnb(request.POST, instance=airbnb)
-
-        if form.is_valid():
-            form.save()
-            return redirect("airbnb")
-        else:
-            print(form.errors)
-            context = {
-                "form": form,
-                "errors": form.errors,
+        initial.update(
+            {
+                "name": airbnb.name,
+                "countries": list(
+                    airbnb.countries.values_list("id", flat=True)
+                ),
+                "reference": airbnb.reference,
+                "price": airbnb.price,
+                "charges": airbnb.charges,
+                "start_date": airbnb.start_date.strftime("%Y-%m-%d"),
+                "end_date": airbnb.end_date.strftime("%Y-%m-%d"),
             }
-            return render(request, "airbnb/new.html", context)
+        )
+
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Mise à jour du voyage"
+        context["submit_text"] = "Enregistrer"
+        return context
+
+    def form_valid(self, form):
+        airbnb = get_object_or_404(Airbnb, pk=self.kwargs["pk"])
+        # form.instance = airbnb
+
+        airbnb.name = form.cleaned_data["name"]
+        airbnb.reference = form.cleaned_data["reference"]
+        airbnb.price = form.cleaned_data["price"]
+        airbnb.charges = form.cleaned_data["charges"]
+        airbnb.start_date = form.cleaned_data["start_date"]
+        airbnb.end_date = form.cleaned_data["end_date"]
+
+        airbnb.save()
+
+        airbnb.countries.set(form.cleaned_data["countries"])
+
+        return redirect("airbnb_detail", pk=airbnb.pk)
+
+    def form_invalid(self, form):
+        return self.render_to_response(
+            self.get_context_data(form=form, errors=form.errors)
+        )
 
 
 class AirbnbDelete(View):
