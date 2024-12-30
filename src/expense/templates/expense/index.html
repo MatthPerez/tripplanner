@@ -13,7 +13,7 @@
   <div class="elements">
     {% for expense in expenses %}
     <div>
-      <a href="#">
+      <span>
         <div>{{expense.name}} ({{expense.price}} €)</div>
         <div>
           <a
@@ -26,7 +26,7 @@
               <button type="submit" title="Supprimer la dépense">❌</button>
           </form>
         </div>
-      </a>
+      </span>
     </div>
     {% endfor %}
   </div>

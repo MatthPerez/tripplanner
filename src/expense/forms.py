@@ -4,7 +4,7 @@ from .models import Expense
 class AddExpense(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ['name', 'place', 'category', 'price', 'note']
+        fields = ['name', 'category', 'price', 'note']
     
     name = forms.CharField(
         required=True,
@@ -13,15 +13,6 @@ class AddExpense(forms.ModelForm):
             attrs={
                 "placeholder": "Location véhicule",
                 "autofocus": "autofocus",
-            }
-        ),
-    )
-    place = forms.CharField(
-        required=True,
-        label="Ville",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Zadar",
             }
         ),
     )
