@@ -53,7 +53,20 @@
         </ul>
       </div>
       
-      <div>{{ form.expenses.label_tag }} {{ form.expenses }}</div>
+      <div>
+        {{ form.expenses.label_tag }}
+        <ul id="expenses">
+          {% for expense in expenses_with_price %}
+            <li>
+              <label>
+                <input type="checkbox" name="expenses" value="{{ expense.0 }}"
+                      {% if expense.0 in form.expenses.value %}checked{% endif %}>
+                {{ expense.1 }} - {{ expense.2 }} €
+              </label>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </section>
 
     {% if errors %}

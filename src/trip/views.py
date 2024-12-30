@@ -6,6 +6,7 @@ from .forms import AddTrip
 from .models import Trip
 from activity.models import Activity
 from airbnb.models import Airbnb
+from expense.models import Expense
 from django.utils.timezone import now
 from tripplanner.static.scripts.scrap import wikipedia
 
@@ -33,6 +34,7 @@ class TripView(View):
             context,
         )
 
+
 class TripDetail(DetailView):
     model = Trip
     template_name = "trip/detail.html"
@@ -53,6 +55,7 @@ class TripDetail(DetailView):
 
         return context
 
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Trip, Airbnb, Activity
@@ -66,12 +69,16 @@ class NewTrip(View):
             form = AddTrip(instance=trip)
             airbnbs_ids = list(trip.airbnbs.values_list("id", flat=True))
             activities_ids = list(trip.activities.values_list("id", flat=True))
+            expenses_with_price = list(trip.expenses.values_list("id", "name", "price"))
             title = "Modifier un voyage"
             submit_text = "Modifier"
         else:
             form = AddTrip()
             airbnbs_ids = []
             activities_ids = []
+            expenses_with_price = list(
+                Expense.objects.values_list("id", "name", "price")
+            )
             title = "Ajouter un voyage"
             submit_text = "Ajouter"
 
@@ -79,7 +86,6 @@ class NewTrip(View):
         activities_with_destination = []
 
         for airbnb in Airbnb.objects.all():
-            # Récupère le premier pays associé à l'Airbnb (s'il existe)
             destination = (
                 airbnb.countries.first().name if airbnb.countries.exists() else None
             )
@@ -113,6 +119,7 @@ class NewTrip(View):
             "airbnbs_with_destination": airbnbs_with_destination,
             "airbnbs_ids": airbnbs_ids,
             "activities_ids": activities_ids,
+            "expenses_with_price": expenses_with_price,
         }
 
         return render(request, "trip/new.html", context)
@@ -138,6 +145,7 @@ class NewTrip(View):
             }
 
             return render(request, "trip/new.html", context)
+
 
 class TripUpdate(FormView):
     template_name = "trip/new.html"
@@ -218,6 +226,7 @@ class TripUpdate(FormView):
         return self.render_to_response(
             self.get_context_data(form=form, errors=form.errors)
         )
+
 
 class TripDelete(View):
     def post(self, request, *args, **kwargs):
