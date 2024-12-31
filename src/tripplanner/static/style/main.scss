@@ -32,7 +32,8 @@ body {
 }
 
 main {
-    min-height: calc(100vh - 2 * var(--height) - 2.75em);
+    // min-height: calc(100vh - 2 * var(--height) - 2.75em);
+    min-height: calc(100vh - var(--height));
 
     @media (width<=768px) {
         min-height: calc(100vh - 7em) !important;
@@ -85,14 +86,14 @@ footer {
     background-color: var(--color-primary1);
     position: sticky;
     color: white;
-    height: var(--height);
+    height: auto;
+    max-height: var(--height);
 }
 
 footer {
     @include flex;
     justify-content: center;
     gap: 1em;
-    background-color: transparent !important;
 
     span,
     a {
