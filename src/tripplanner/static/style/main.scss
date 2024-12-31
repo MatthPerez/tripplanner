@@ -92,6 +92,7 @@ footer {
     @include flex;
     justify-content: center;
     gap: 1em;
+    background-color: transparent !important;
 
     span,
     a {

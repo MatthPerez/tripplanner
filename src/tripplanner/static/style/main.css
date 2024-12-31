@@ -167,6 +167,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 1em;
+  background-color: transparent !important;
 }
 footer span,
 footer a {
