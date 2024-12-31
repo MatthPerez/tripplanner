@@ -14,7 +14,8 @@
     <div>
       <a href="https://www.airbnb.fr/rooms/{{ airbnb.reference }}?adults={{trip.people}}&check_in={{ airbnb.start_date|date:"Y-m-d" }}&check_out={{ airbnb.end_date|date:"Y-m-d" }}" target="_blank">
         <div>
-          {{airbnb.name}} ( {{airbnb.country.name|default:"Aucune destination associée"}} | {{airbnb.price}} €/nuit)
+          <span>{{airbnb.name}}</span>
+          <span>({{airbnb.country.name|default:"Aucune destination associée"}} | {{airbnb.price}} €/nuit)</span>
         </div>
         <div>
           <a

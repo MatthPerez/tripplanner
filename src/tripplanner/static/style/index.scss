@@ -66,6 +66,12 @@ main {
             }
         }
 
+        span {
+            &:first-child {
+                font-weight: 600;
+            }
+        }
+
         &:hover {
             background-color: rgba(white, .8);
         }
