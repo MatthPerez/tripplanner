@@ -158,11 +158,14 @@ footer {
   background-color: var(--color-primary1);
   position: sticky;
   color: white;
-  height: auto;
-  max-height: var(--height);
+}
+
+nav {
+  height: var(--height);
 }
 
 footer {
+  max-height: var(--height);
   display: flex;
   flex-direction: row;
   align-items: center;
