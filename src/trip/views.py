@@ -8,6 +8,7 @@ from activity.models import Activity
 from airbnb.models import Airbnb
 from expense.models import Expense
 from django.utils.timezone import now
+
 # from tripplanner.static.scripts.scrap import wikipedia
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
@@ -74,7 +75,7 @@ class NewTrip(View):
 
         for airbnb in Airbnb.objects.all():
             destination = airbnb.country.name
-            
+
             if destination:
                 airbnbs_with_destination.append(
                     {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
@@ -169,7 +170,7 @@ class TripUpdate(FormView):
 
         for airbnb in Airbnb.objects.all():
             destination = airbnb.country.name
-            
+
             if destination:
                 airbnbs_with_destination.append(
                     {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
@@ -180,17 +181,11 @@ class TripUpdate(FormView):
         activities_with_destination = []
 
         for activity in Activity.objects.all():
-            destination = (
-                activity.countries.first().name if activity.countries.exists() else None
+            destinations = [country.name for country in activity.countries.all()]
+            destination_text = ", ".join(destinations) if destinations else "Pas de destination associée"
+            activities_with_destination.append(
+                {"id": activity.id, "name": f"{activity.name} ({destination_text})"}
             )
-            if destination:
-                activities_with_destination.append(
-                    {"id": activity.id, "name": f"{activity.name} ({destination})"}
-                )
-            else:
-                activities_with_destination.append(
-                    {"id": activity.id, "name": activity.name}
-                )
 
         all_expenses = list(Expense.objects.values_list("id", "name", "price"))
         expenses_ids = list(trip.expenses.values_list("id", flat=True))
