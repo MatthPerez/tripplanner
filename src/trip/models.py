@@ -33,7 +33,7 @@ class Trip(models.Model):
 
     @property
     def activity_total(self):
-        return sum(activity.price_person for activity in self.activities.all())
+        return sum(activity.price_person for activity in self.activities.all()) * self.people
 
     @property
     def expense_total(self):
