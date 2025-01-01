@@ -14,7 +14,10 @@
     {% for travel in travels %}
     <div>
       <a href="#">
-        <div>{{travel.date}} ({{travel.start_place}} - {{travel.end_place}})</div>
+        <div>
+          <span>{{travel.date}} - {{travel.type}}</span>
+          <span>{{travel.start_place}} {{travel.start_time}} - {{travel.end_place}} {{travel.end_time}}</span>
+        </div>
         <div>
           <a
             href="{% url 'travel_update' travel.pk %}"
