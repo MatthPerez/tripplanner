@@ -2,10 +2,6 @@ from django import forms
 from .models import Activity
 from country.models import Country
 
-from django import forms
-from .models import Activity
-from country.models import Country
-
 
 class AddActivity(forms.ModelForm):
     class Meta:
@@ -23,7 +19,9 @@ class AddActivity(forms.ModelForm):
         ),
     )
     countries = forms.ModelMultipleChoiceField(
-        queryset=Country.objects.all(),
+        queryset=Country.objects.all().order_by(
+            "name"
+        ),
         label="Destinations",
         widget=forms.CheckboxSelectMultiple,
     )
@@ -50,7 +48,7 @@ class AddActivity(forms.ModelForm):
         label="Point GPS",
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'xxxx yyyy',
+                "placeholder": "xxxx yyyy",
             }
         ),
     )
