@@ -159,6 +159,7 @@ main > a:hover {
   text-decoration: none;
   justify-content: space-between;
   color: black;
+  font-weight: normal;
 }
 .elements > div span div,
 .elements > div a div {

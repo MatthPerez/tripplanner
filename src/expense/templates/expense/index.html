@@ -1,4 +1,5 @@
-{% extends 'tripplanner/base.html' %} {% load static %}
+{% extends 'tripplanner/base.html' %}
+{% load static %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'style/index.css' %}" />{% endblock %}
 {% block script_js %}<script src="{% static 'js/expense.js' %}" defer></script>{% endblock %}
 {% block title %}Trip planner | Dépenses{% endblock %}
@@ -14,7 +15,10 @@
     {% for expense in expenses %}
     <div>
       <span>
-        <div>{{expense.name}} ({{expense.price}} €)</div>
+        <div>
+          <span>{{expense.name}}</span>
+          <span>({{expense.price}} €)</span>
+        </div>
         <div>
           <a
             href="{% url 'expense_update' expense.pk %}"
@@ -23,7 +27,7 @@
           >
           <form action="{% url 'expense_delete' expense.pk %}" method="POST">
             {% csrf_token %}
-              <button type="submit" title="Supprimer la dépense">❌</button>
+            <button type="submit" title="Supprimer la dépense">❌</button>
           </form>
         </div>
       </span>
