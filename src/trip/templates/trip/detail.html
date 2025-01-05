@@ -94,9 +94,11 @@ href="{% static 'style/detail.css' %}"
             {% for act in activities %}
             <li>
             <span>{{ act }} : {{ act.price_person|floatformat:2 }} €/personne</span>
+            {% if act.gps %}
             <a href="https://www.google.com/maps/place/{{ act.gps|urlencode }}/" target="_blank">
                 <img src="{% static 'icons/maps.png' %}" alt="Lien Google Maps" title="Lien Google Maps vers {{ act.name }}">
             </a>
+            {% endif %}
             </li>
             {% empty %} Pas d'activité pour ce voyage. {% endfor %}
         </ul>
