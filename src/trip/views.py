@@ -211,6 +211,7 @@ class TripUpdate(FormView):
         trip.place = form.cleaned_data["place"]
         trip.people = form.cleaned_data["people"]
 
+        trip.travels.set(form.cleaned_data["travels"])
         trip.airbnbs.set(form.cleaned_data["airbnbs"])
         trip.activities.set(form.cleaned_data["activities"])
         trip.expenses.set(form.cleaned_data["expenses"])
