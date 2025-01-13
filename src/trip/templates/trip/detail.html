@@ -67,7 +67,7 @@ href="{% static 'style/detail.css' %}"
 
         <ul>
             {% for travel in travels %}
-            <li>{{ travel }} ({{ travel.start_time }} - {{ travel.end_time }})</li>
+            <li>{{ travel }} : {{travel.price}} €</li>
             {% empty %} Pas de trajet pour ce voyage. {% endfor %}
         </ul>
     </div>

@@ -59,15 +59,15 @@ class TripDetail(DetailView):
 
 class NewTrip(View):
     def get(self, request, pk=None):
-        if pk:
-            trip = get_object_or_404(Trip, pk=pk)
-            form = AddTrip(instance=trip)
-            title = "Modifier un voyage"
-            submit_text = "Modifier"
-        else:
-            form = AddTrip()
-            title = "Ajouter un voyage"
-            submit_text = "Ajouter"
+        # if pk:
+        #     trip = get_object_or_404(Trip, pk=pk)
+        #     form = AddTrip(instance=trip)
+        #     title = "Modifier un voyage"
+        #     submit_text = "Modifier"
+        # else:
+        form = AddTrip()
+        title = "Ajouter un voyage"
+        submit_text = "Ajouter"
 
         all_expenses = list(Expense.objects.values_list("id", "name", "price"))
 

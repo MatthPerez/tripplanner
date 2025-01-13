@@ -2,7 +2,7 @@
 {% load static %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %}
 {% block script_js %}<script src="{% static 'js/trip.js' %}" defer></script>{% endblock %}
-{% block title %}Tripplanner | Nouveau voyage{% endblock %}
+{% block title %}Tripplanner | {% if title %}{{title}}{% else %}Nouveau voyage{% endif %}{% endblock %}
 {% block content %}
 <main>
   <h1>

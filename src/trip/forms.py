@@ -21,6 +21,13 @@ class AddTrip(forms.ModelForm):
             "expenses",
         ]
 
+    place = forms.ModelChoiceField(
+        required=True,
+        queryset=Country.objects.all(),
+        label="Destination",
+        to_field_name="name",
+        widget=forms.Select(attrs={"autofocus": True}),
+    )
     date = forms.DateField(
         required=True,
         label="Date",
@@ -29,7 +36,6 @@ class AddTrip(forms.ModelForm):
             attrs={
                 "type": "date",
                 "placeholder": "AAAA-MM-JJ",
-                "autofocus": "autofocus",
             }
         ),
     )
@@ -41,12 +47,6 @@ class AddTrip(forms.ModelForm):
                 "placeholder": "6",
             }
         ),
-    )
-    place = forms.ModelChoiceField(
-        required=True,
-        queryset=Country.objects.all(),
-        label="Destination",
-        to_field_name="name",
     )
     people = forms.IntegerField(
         required=True,
@@ -81,5 +81,3 @@ class AddTrip(forms.ModelForm):
         queryset=Expense.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
-
-

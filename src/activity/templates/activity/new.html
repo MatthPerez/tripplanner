@@ -2,7 +2,7 @@
 {% load static %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'style/new.css' %}" />{% endblock %}
 {% block script_js %}<script src="{% static 'js/activity.js' %}" defer></script>{% endblock %}
-{% block title %}Tripplanner | Nouvelle activité{% endblock %}
+{% block title %}Tripplanner | <span>{% if title %}{{title}}{% else %}Ajouter une activité{% endif %}</span>{% endblock %}
 {% block content %}
 <main>
   <h1>
