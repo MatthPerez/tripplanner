@@ -145,3 +145,14 @@ main {
         box-shadow: $padding $padding 5px rgb($k, $k, $k);
     }
 }
+
+.split {
+    @include flex;
+    justify-content: space-between;
+    height: 1.5em;
+    transition: 300ms all ease;
+    
+    &:nth-child(even) {
+        background-color: rgba(white, .2);
+    }
+}
