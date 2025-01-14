@@ -74,14 +74,14 @@ class NewTrip(View):
         airbnbs_with_destination = []
 
         for airbnb in Airbnb.objects.all():
-            destination = airbnb.country.name
-
-            if destination:
-                airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
-                )
-            else:
-                airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
+            airbnbs_with_destination.append(
+                {
+                    "id": airbnb.id,
+                    "name": airbnb.name,
+                    "reference": airbnb.reference,
+                    "country": airbnb.country.name,
+                }
+            )
 
         activities_with_destination = []
 
@@ -103,11 +103,15 @@ class NewTrip(View):
             "title": title,
             "submit_text": submit_text,
             "activities_with_destination": activities_with_destination,
-            "airbnbs_with_destination": airbnbs_with_destination,
+            "full_airbnbs": airbnbs_with_destination,
             "all_expenses": all_expenses,
         }
 
-        return render(request, "trip/new.html", context)
+        return render(
+            request,
+            "trip/new.html",
+            context,
+        )
 
     def post(self, request, pk=None):
         if pk:
@@ -168,15 +172,17 @@ class TripUpdate(FormView):
 
         airbnbs_with_destination = []
 
-        for airbnb in Airbnb.objects.order_by("name"):
-            destination = airbnb.country.name
-
-            if destination:
-                airbnbs_with_destination.append(
-                    {"id": airbnb.id, "name": f"{airbnb.name} ({destination})"}
-                )
-            else:
-                airbnbs_with_destination.append({"id": airbnb.id, "name": airbnb.name})
+        for airbnb in Airbnb.objects.all():
+            airbnbs_with_destination.append(
+                {
+                    "id": airbnb.id,
+                    "name": airbnb.name,
+                    "reference": airbnb.reference,
+                    "country": airbnb.country.name,
+                    "price": airbnb.price,
+                    "charges": airbnb.charges,
+                }
+            )
 
         activities_with_destination = []
 
@@ -204,7 +210,7 @@ class TripUpdate(FormView):
         # print(f"All expenses: {all_expenses}")
         # print(f"Expenses IDs: {expenses_ids}")
 
-        context["airbnbs_with_destination"] = airbnbs_with_destination
+        context["full_airbnbs"] = airbnbs_with_destination
         context["activities_with_destination"] = activities_with_destination
         context["all_expenses"] = all_expenses
         context["airbnbs_ids"] = list(trip.airbnbs.values_list("id", flat=True))

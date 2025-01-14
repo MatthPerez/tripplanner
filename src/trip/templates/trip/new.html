@@ -26,12 +26,17 @@
       <div>
         {{ form.airbnbs.label_tag }}
         <ul id="airbnbs">
-          {% for airbnb in airbnbs_with_destination %}
+          {% for airbnb in full_airbnbs %}
           <li>
             <label>
               <input type="checkbox" name="airbnbs" value="{{ airbnb.id }}"
               {% if airbnb.id in airbnbs_ids %}checked{% endif %}>
-              {{ airbnb.name }}
+              <div>
+                <span>{{airbnb.name}} ({{airbnb.country}} | {{airbnb.price}} €)</span>
+                <span>
+                  <a href="https://www.airbnb.fr/rooms/{{airbnb.reference}}" target="_blank">🔗</a>
+                </span>
+              </div>
             </label>
           </li>
           {% endfor %}
