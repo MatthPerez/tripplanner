@@ -182,12 +182,23 @@ class TripUpdate(FormView):
 
         for activity in Activity.objects.order_by("name"):
             destinations = [country.name for country in activity.countries.all()]
-            destination_text = ", ".join(destinations) if destinations else "Pas de destination associée"
+            destination_text = (
+                ", ".join(destinations)
+                if destinations
+                else "Pas de destination associée"
+            )
             activities_with_destination.append(
-                {"id": activity.id, "name": f"{activity.name} ({destination_text})"}
+                {
+                    "id": activity.id,
+                    "name": f"{activity.name} ({destination_text})",
+                    "gps": activity.gps,
+                    "note": activity.note,
+                }
             )
 
-        all_expenses = list(Expense.objects.order_by("name").values_list("id", "name", "price"))
+        all_expenses = list(
+            Expense.objects.order_by("name").values_list("id", "name", "price")
+        )
         expenses_ids = list(trip.expenses.values_list("id", flat=True))
 
         # print(f"All expenses: {all_expenses}")

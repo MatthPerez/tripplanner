@@ -186,9 +186,44 @@ form section ul li {
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+  border-bottom: 1px solid rgb(140, 140, 140);
+  transition: 300ms all ease;
+}
+form section ul li:hover {
+  transition: 150ms all ease;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 form section ul li * {
   width: auto;
+}
+form section ul li label {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+form section ul li label input {
+  width: 30px;
+}
+form section ul li label div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+form section ul li label div span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+form section ul li label div span span,
+form section ul li label div span a {
+  width: 25px;
+}
+form section ul li label div span a {
+  text-decoration: none;
 }
 form button {
   width: auto;

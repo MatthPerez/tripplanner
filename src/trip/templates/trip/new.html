@@ -46,7 +46,14 @@
             <label>
               <input type="checkbox" name="activities" value="{{ activity.id }}"
               {% if activity.id in activities_ids %}checked{% endif %}>
-              {{ activity.name }}
+              <div>
+                <span name="{{activity.gps}}">{{ activity.name }}</span>
+                <span>
+                  <a href="{% url 'activity_detail' activity.id %}" target="_blank">🔎</a>
+                  {% if activity.gps %}<a href="https://www.google.com/maps/place/{{activity.gps}}" target="_blank">🗺️</a>{% else %}<span>⚪</span>{% endif %}
+                  {% if activity.note and "http" in activity.note %}<a href="{{activity.note}}" target="_blank">🔗</a>{% else %}<span>⚪</span>{% endif %}
+                </span>
+              </div>
             </label>
           </li>
           {% endfor %}
