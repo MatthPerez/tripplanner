@@ -37,6 +37,8 @@
           </span>
         </div>
         <div>
+          {% if activity.note and "http" in activity.note %}<a href="{{activity.note}}" target="_blank" title="Voir le site">🔗</a>{% endif %}
+          {% if activity.gps %}<a href="https://www.google.com/maps/place/{{activity.gps}}" target="_blank" title="Lancer le GPS">🗺️</a>{% endif %}
           <a
             href="{% url 'activity_update' activity.pk %}"
             title="Modifier cette activité"

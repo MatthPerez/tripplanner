@@ -11,6 +11,4 @@ class Travel(models.Model):
     type = models.CharField(max_length=100)
 
     def __str__(self):
-        return (
-            f"{self.start_place} ({self.date.strftime('%d/%m/%Y')} à {self.start_time})"
-        )
+        return f"{self.start_place} ({self.date.strftime('%d/%m/%Y')} {self.start_time}-{self.end_time})"
