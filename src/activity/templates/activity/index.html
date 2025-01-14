@@ -11,9 +11,16 @@
     >Rajouter une activité</a
   >
 
+  <select name="destinations" id="destinations" autofocus>
+    <option value="0">Choisissez une destination</option>
+    {% for dest in destinations %}
+    <option value="{{dest}}">{{dest}}</option>
+    {% endfor %}
+  </select>
+
   <div class="elements">
     {% for activity in activities %}
-    <div>
+    <div id=" {% for dest in activity.countries.all %}{{dest.name}}{% if not forloop.last %}|{% endif %}{% endfor %} " class="act_el">
       <a
         href="{% url 'activity_detail' activity.pk %}"
         title="{{ activity.category }}"

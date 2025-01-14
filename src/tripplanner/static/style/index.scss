@@ -36,6 +36,13 @@ main {
     >a {
         @include button;
     }
+
+    >select {
+        width: clamp(300px, 40%, 600px);
+        padding: 10px;
+        @include no-border;
+        font-size: 18px;
+    }
 }
 
 .elements {

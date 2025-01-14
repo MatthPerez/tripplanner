@@ -125,6 +125,13 @@ main > a:hover {
   box-shadow: none;
   transform: translateY(4px);
 }
+main > select {
+  width: clamp(300px, 40%, 600px);
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+}
 
 .elements {
   width: clamp(300px, 50%, 550px);

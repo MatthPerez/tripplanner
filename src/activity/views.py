@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import DetailView
 from .forms import AddActivity
 from .models import Activity
+from country.models import Country
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -14,9 +15,11 @@ from .models import Activity
 class ActivityView(View):
     def get(self, request):
         activities = Activity.objects.prefetch_related("countries").order_by("name")
+        destinations = Country.objects.order_by("name")
 
         context = {
             "activities": activities,
+            "destinations": destinations,
         }
 
         return render(
