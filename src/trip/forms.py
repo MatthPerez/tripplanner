@@ -47,6 +47,7 @@ class AddTrip(forms.ModelForm):
                 "placeholder": "6",
             }
         ),
+        min_value=1,
     )
     people = forms.IntegerField(
         required=True,
