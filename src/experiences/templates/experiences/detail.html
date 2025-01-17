@@ -1,0 +1,44 @@
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css%}<link
+rel="stylesheet"
+href="{% static 'style/detail.css' %}"
+/>{% endblock %}
+{% block script_js %}<script src="{% static 'js/experience.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner | {{experience.name}}{% endblock %}
+{% block content %}
+
+<main>
+  <h1>
+    <a href="{% url 'experience' %}"><img src="{% static 'icons/left_arrow.png' %}" alt="Retour"/></a>
+    <span>{{experience.name}}</span>
+  </h1>
+
+  <div class="actions">
+    <a href="{% url 'experience_update' experience.pk %}" title="Modifier cette activité">✏️</a>
+    <form action="{% url 'experience_delete' experience.pk %}" method="POST" title="Supprimer cette activité">
+        {% csrf_token %}
+        <button type="submit">❌</button>
+    </form>
+  </div>
+
+  <section>
+    <div>
+        <div>
+            <span>Désignation :</span>
+            <span>{{experience.name}}</span>
+        </div>
+
+        <div>
+            <span>Lien Internet :</span>
+            <a href="{{experience.url}}" target="_blank">suivre le lien</a>
+        </div>
+
+        <div>
+            <span>Note :</span>
+            <p>{{experience.note}}</p>
+        </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

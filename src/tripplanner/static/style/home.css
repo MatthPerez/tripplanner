@@ -77,32 +77,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4em !important;
-  padding-bottom: 3em;
-}
-
-nav,
-footer {
-  background-color: var(--color-primary2);
-}
-
-.top {
-  background: linear-gradient(rgba(80, 80, 80, 0.5), transparent);
-  height: 10em;
-  position: fixed;
-  top: var(--height);
-  z-index: 2;
-}
-
-main {
+  gap: 2em;
   background: url("../pics/trip03.webp");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
 }
 main h1 {
   text-shadow: 0 0 5px red, 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
@@ -161,6 +140,22 @@ main section > p {
   text-align: justify;
   font-size: 24px;
 }
+main section:last-child {
+  padding-bottom: 10em;
+}
+
+nav,
+footer {
+  background-color: var(--color-primary2);
+}
+
+.top {
+  background: linear-gradient(rgba(80, 80, 80, 0.5), transparent);
+  height: 10em;
+  position: fixed;
+  top: var(--height);
+  z-index: 2;
+}
 
 #trips {
   display: flex;
@@ -190,7 +185,7 @@ main section > p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
 }
 #scrap div,
 #scrap span {
@@ -229,4 +224,41 @@ main section > p {
   width: auto;
   padding: 10px 30px;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+#experiences {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#experiences div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#experiences div span,
+#experiences div a {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  color: black;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+#experiences div a {
+  box-shadow: 4px 4px 5px rgb(80, 80, 80);
+  transition: 300ms all ease;
+  text-decoration: none;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  transition: 300ms all ease;
+}
+#experiences div a:hover {
+  transition: 150ms all ease;
+  box-shadow: none;
+  transform: translateY(4px);
+}
+#experiences div a:hover {
+  transition: 150ms all ease;
+  background-color: white;
 }/*# sourceMappingURL=home.css.map */

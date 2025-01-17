@@ -46,5 +46,20 @@
     <span>Aucun élément présent.</span>
     {% endif %}
   </section>
+  
+  <section id="experiences">
+    <h3>
+      <span>Expériences</span>
+      <a href="{% url 'experience_new' %}">➕</a>
+    </h3>
+
+    <div>
+      {% for exp in experiences %}
+        <a href="{% url 'experience_detail' exp.pk %}" title="Détail sur l'expérience {{exp.name}}">{{exp.name}}</a>
+        {% empty %}
+        <span>Pas d'expérience pour le moment.</span>
+      {% endfor %}
+    </div>
+  </section>
 </main>
 {% endblock %}

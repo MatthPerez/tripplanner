@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "expense",
     "trip",
     "country",
+    "experiences",
 ]
 
 MIDDLEWARE = [

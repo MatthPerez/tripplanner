@@ -1,0 +1,46 @@
+{% extends 'tripplanner/base.html' %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'style/index.css' %}" />{% endblock %}
+{% block script_js %}<script src="{% static 'js/experience.js' %}" defer></script>{% endblock %}
+{% block title %}Trip planner | Expériences{% endblock %}
+{% block content %}
+<main>
+  <h1>Liste des expériences</h1>
+
+  <a href="{% url 'experience_new' %}" title="Rajouter une expérience à la liste"
+    >Rajouter une expérience</a
+  >
+
+  <div id="experiences">
+    {% for exp in experiences %}
+    <article>
+      <div>
+        <span>Désignation :</span>
+        <span>{{exp.name}}</span>
+      </div>
+  
+      <div>
+        <span>Lien Internet :</span>
+        <a href="{{exp.url}}" target"_blank" title="Suivre le lien">Lien Internet</a>
+      </div>
+  
+      <div>
+        <span>Note :</span>
+        <p>{{exp.note}}</p>
+      </div>
+
+      <div>
+        <a href="{% url 'experience_detail' exp.pk %}" title="Détail sur cette expérience">🔎</a>
+        <a href="{% url 'experience_update' exp.pk %}" title="Modifier cette expérience">✏️</a>
+        <form action="{% url 'experience_delete' exp.pk %}" method="POST" title="Supprimer cette expérience">
+          {% csrf_token %}
+          <button type="submit">❌</button>
+        </form>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  
+</main>
+{% endblock %}

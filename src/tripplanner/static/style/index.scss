@@ -121,3 +121,54 @@ main {
     }
 }
 
+#experiences {
+    width: clamp(300px, 60%, 800px);
+    @include flexcolumn;
+    gap: 1em;
+
+    article {
+        @include border;
+        position: relative;
+        background-color: rgba(white, .3);
+        padding: 5px;
+
+        div {
+            width: auto;
+            @include flex;
+            gap: 10px;
+
+            span {
+                width: auto;
+                white-space: nowrap;
+
+                &:first-child {
+                    font-weight: 800;
+                }
+            }
+
+            a {
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            &:last-child {
+                gap: 5px;
+                position: absolute;
+                $side: 10px;
+                top: $side;
+                right: $side;
+
+                a,
+                form {
+                    width: auto;
+                }
+
+                a, form button {
+                    @include no-border;
+                    background-color: transparent;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}

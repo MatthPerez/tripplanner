@@ -1,14 +1,14 @@
 from django import forms
-from .models import Expense
+from .models import Experience
+from country.models import Country
 
 
-class AddExpense(forms.ModelForm):
+class AddExperience(forms.ModelForm):
     class Meta:
-        model = Expense
+        model = Experience
         fields = [
             "name",
-            "category",
-            "price",
+            "url",
             "note",
         ]
 
@@ -17,26 +17,17 @@ class AddExpense(forms.ModelForm):
         label="Désignation",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Location véhicule",
+                "placeholder": "Restaurant thème japonais",
                 "autofocus": "autofocus",
             }
         ),
     )
-    category = forms.CharField(
+    url = forms.URLField(
         required=True,
-        label="Catégorie",
+        label="Lien",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Déplacement",
-            }
-        ),
-    )
-    price = forms.IntegerField(
-        required=True,
-        label="Prix",
-        widget=forms.NumberInput(
-            attrs={
-                "placeholder": "400",
+                "placeholder": "https://www.japonais.com",
             }
         ),
     )
@@ -45,15 +36,15 @@ class AddExpense(forms.ModelForm):
         label="Note, information",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "A réserver sur le site Internet",
+                "placeholder": "A faire en amoureux",
             }
         ),
     )
 
 
-class ExpenseForm(forms.ModelForm):
+class ExperienceForm(forms.ModelForm):
     class Meta:
-        model = Expense
+        model = Experience
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):

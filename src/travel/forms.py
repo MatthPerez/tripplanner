@@ -1,11 +1,20 @@
 from django import forms
 from .models import Travel
 
+
 class AddTravel(forms.ModelForm):
     class Meta:
         model = Travel
-        fields = ['date', 'price', 'start_place', 'start_time', 'end_place', 'end_time', 'type']
-    
+        fields = [
+            "date",
+            "price",
+            "start_place",
+            "start_time",
+            "end_place",
+            "end_time",
+            "type",
+        ]
+
     date = forms.DateField(
         required=True,
         label="Date",
@@ -73,19 +82,14 @@ class AddTravel(forms.ModelForm):
             }
         ),
     )
-    
+
 
 class TravelForm(forms.ModelForm):
     class Meta:
         model = Travel
         fields = "__all__"
         widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "type": "date",
-                    "placeholder": "AAAA-MM-JJ"
-                }
-            )
+            "date": forms.DateInput(attrs={"type": "date", "placeholder": "AAAA-MM-JJ"})
         }
 
     def __init__(self, *args, **kwargs):

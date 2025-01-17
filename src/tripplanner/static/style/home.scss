@@ -3,32 +3,12 @@
 
 main {
     @include flexcolumn;
-    gap: 4em !important;
-    padding-bottom: 3em;
-}
-
-nav,
-footer {
-    background-color: var(--color-primary2);
-}
-
-.top {
-    $k: 80;
-    background: linear-gradient(rgba($k, $k, $k, .5), transparent);
-    height: 10em;
-    position: fixed;
-    top: var(--height);
-    z-index: 2;
-}
-
-main {
+    gap: 2em;
     // background-color: var(--color-quaternary2);
     background: url("../pics/trip03.webp");
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    @include flexcolumn;
-    gap: 1em;
 
     h1 {
         @include red-neon;
@@ -72,7 +52,25 @@ main {
             text-align: justify;
             font-size: 24px;
         }
+
+        &:last-child {
+            padding-bottom: 10em;
+        }
     }
+}
+
+nav,
+footer {
+    background-color: var(--color-primary2);
+}
+
+.top {
+    $k: 80;
+    background: linear-gradient(rgba($k, $k, $k, .5), transparent);
+    height: 10em;
+    position: fixed;
+    top: var(--height);
+    z-index: 2;
 }
 
 #trips {
@@ -88,12 +86,11 @@ main {
 
 #scrap {
     @include flexcolumn;
-    gap: 1em;
+    gap: 2em;
 
     div,
     span {
         margin-bottom: 2em;
-
     }
 
     div {
@@ -123,5 +120,35 @@ main {
         width: auto;
         padding: 10px 30px;
         background-color: rgba(white, .5);
+    }
+}
+
+#experiences {
+    @include flexcolumn;
+
+    div {
+        @include flexcolumn;
+        gap: 10px;
+
+        span,
+        a {
+            background-color: rgba(white, .7);
+            border-radius: 10px;
+            color: black;
+            font-size: 18px;
+            padding: 5px 10px;
+        }
+
+        a {
+            @include shadow-active;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: 300ms all ease;
+
+            &:hover {
+                transition: 150ms all ease;
+                background-color: white;
+            }
+        }
     }
 }

@@ -215,4 +215,52 @@ main > select {
     width: clamp(300px, 80%, 700px);
     font-size: 18px;
   }
+}
+
+#experiences {
+  width: clamp(300px, 60%, 800px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+#experiences article {
+  border: 1px solid black;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 5px;
+}
+#experiences article div {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+#experiences article div span {
+  width: auto;
+  white-space: nowrap;
+}
+#experiences article div span:first-child {
+  font-weight: 800;
+}
+#experiences article div a {
+  text-decoration: none;
+  font-weight: 600;
+}
+#experiences article div:last-child {
+  gap: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+#experiences article div:last-child a,
+#experiences article div:last-child form {
+  width: auto;
+}
+#experiences article div:last-child a, #experiences article div:last-child form button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
 }/*# sourceMappingURL=index.css.map */
