@@ -125,14 +125,23 @@ main {
     width: clamp(300px, 80%, 1200px);
     @include flex;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
     flex-wrap: wrap;
 
-    div {
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: .5em;
+    }
+
+    a,
+    >img {
+        text-decoration: none;
         width: 20%;
         aspect-ratio: 4/3;
         overflow: hidden;
         @include border;
+        border-radius: 10px;
         @include flex;
         justify-content: center;
 
@@ -140,7 +149,7 @@ main {
             height: 100%;
             width: auto;
             transition: 300ms all ease;
-            
+
             &:hover {
                 transition: 150ms all ease;
                 transform: scale(1.1) rotate(3deg);
@@ -153,6 +162,11 @@ main {
     width: clamp(300px, 60%, 800px);
     @include flexcolumn;
     gap: 1em;
+
+    >span {
+        text-align: center;
+        font-size: 18px;
+    }
 
     article {
         @include border;

@@ -168,13 +168,26 @@ def experiments():
 
     soup = BeautifulSoup(response.content, "html.parser")
 
-    plans = []
+    divs = soup.find_all(
+        "img",
+        {"data-pin-media": True},
+    )
 
-    divs = soup.find_all("div", {"data-breakout": "fullWidth"})
+    links = soup.find_all("a", {"data-hook": "WebLink"})
 
-    for div in divs:
-        img = div.find("img").get("src")
-        
-        plans.append(img)
+    results = []
 
-    return plans
+    for i in range(min(len(divs), len(links))):
+        div = divs[i]
+        link = links[i]
+        pin_media = div["data-pin-media"]
+        href = link.get("href", "")
+
+        results.append(
+            {
+                "data_pin_media": pin_media,
+                "link": href,
+            }
+        )
+
+    return results

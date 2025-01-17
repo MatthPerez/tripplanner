@@ -11,12 +11,6 @@
     >Rajouter une expérience</a
   >
 
-  <div id="pics">
-    {% for pic in pics %}
-    <div><img src="{{pic}}"></div>
-    {% endfor %}
-  </div>
-
   <div id="experiences">
     {% for exp in experiences %}
     <article>
@@ -44,9 +38,17 @@
         </form>
       </div>
     </article>
+    {% empty %}
+    <span>Pas d'expérience personnalisée pour le moment.</span>
     {% endfor %}
   </div>
 
-  
+  <div id="pics">
+    <h3>Autres expériences</h3>
+
+    {% for pic in pics %}
+      <a href="{{ pic.link }}" target="_blank"><img src="{{ pic.data_pin_media }}"></a>
+    {% endfor %}
+  </div>
 </main>
 {% endblock %}
