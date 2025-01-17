@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic import DetailView
 from .forms import AddExperience
 from .models import Experience
-from country.models import Country
+from tripplanner.static.scripts.scrap import experiments
 
 # from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -14,9 +14,11 @@ from country.models import Country
 
 class ExperienceView(View):
     def get(self, request):
+        pics = experiments()
         experiences = Experience.objects.order_by('name')
 
         context = {
+            "pics": pics,
             "experiences": experiences,
         }
 

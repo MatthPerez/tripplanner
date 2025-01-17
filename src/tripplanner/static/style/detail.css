@@ -179,6 +179,9 @@ main > section > div div a:first-child {
 main > section > div div a {
   text-decoration: none;
 }
+main > section > div div p {
+  width: auto;
+}
 
 #total {
   width: auto;

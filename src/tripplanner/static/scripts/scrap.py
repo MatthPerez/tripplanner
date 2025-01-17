@@ -149,3 +149,32 @@ def verychic():
         sorted_plans = sorted(plans, key=lambda x: extract_number(x["price"]))
 
     return sorted_plans
+
+
+def experiments():
+    url = "https://www.globe-trotting.com/post/liste-experiences-a-vivre-voyage"
+
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+
+    except requests.RequestException as e:
+        return [
+            "Erreur lors de la récupération des informations de ce site : " + str(e)
+        ]
+
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    plans = []
+
+    divs = soup.find_all("div", {"data-breakout": "fullWidth"})
+
+    for div in divs:
+        img = div.find("img").get("src")
+        
+        plans.append(img)
+
+    return plans

@@ -11,6 +11,12 @@
     >Rajouter une expérience</a
   >
 
+  <div id="pics">
+    {% for pic in pics %}
+    <div><img src="{{pic}}"></div>
+    {% endfor %}
+  </div>
+
   <div id="experiences">
     {% for exp in experiences %}
     <article>

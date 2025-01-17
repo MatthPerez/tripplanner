@@ -121,6 +121,34 @@ main {
     }
 }
 
+#pics {
+    width: clamp(300px, 80%, 1200px);
+    @include flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    div {
+        width: 20%;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        @include border;
+        @include flex;
+        justify-content: center;
+
+        img {
+            height: 100%;
+            width: auto;
+            transition: 300ms all ease;
+            
+            &:hover {
+                transition: 150ms all ease;
+                transform: scale(1.1) rotate(3deg);
+            }
+        }
+    }
+}
+
 #experiences {
     width: clamp(300px, 60%, 800px);
     @include flexcolumn;
@@ -163,7 +191,8 @@ main {
                     width: auto;
                 }
 
-                a, form button {
+                a,
+                form button {
                     @include no-border;
                     background-color: transparent;
                     font-size: 18px;

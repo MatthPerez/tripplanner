@@ -78,7 +78,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 2em;
-  background: url("../pics/trip03.webp");
+  background: url("../pics/trip04.webp");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -233,17 +233,20 @@ footer {
 }
 #experiences div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 #experiences div span,
 #experiences div a {
+  width: auto;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   color: black;
   font-size: 18px;
-  padding: 5px 10px;
+  padding: 5px 15px;
 }
 #experiences div a {
   box-shadow: 4px 4px 5px rgb(80, 80, 80);
