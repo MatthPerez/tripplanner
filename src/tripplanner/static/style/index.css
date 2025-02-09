@@ -176,7 +176,7 @@ main > select {
 .elements > div span:first-child {
   font-weight: 600;
 }
-.elements > div:hover {
+.elements > div:active {
   background-color: rgba(255, 255, 255, 0.8);
 }
 .elements > div div {
@@ -250,8 +250,8 @@ main > select {
   width: auto;
   transition: 300ms all ease;
 }
-#pics a img:hover,
-#pics > img img:hover {
+#pics a img:active,
+#pics > img img:active {
   transition: 150ms all ease;
   transform: scale(1.1) rotate(3deg);
 }

@@ -1,4 +1,4 @@
-# TRIP PLANNER
+# Tripplanner
 
 `Développé par Matthieu PEREZ`
 

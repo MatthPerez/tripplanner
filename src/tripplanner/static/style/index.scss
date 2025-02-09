@@ -80,7 +80,7 @@ main {
             }
         }
 
-        &:hover {
+        &:active {
             background-color: rgba(white, .8);
         }
 
@@ -150,7 +150,7 @@ main {
             width: auto;
             transition: 300ms all ease;
 
-            &:hover {
+            &:active {
                 transition: 150ms all ease;
                 transform: scale(1.1) rotate(3deg);
             }

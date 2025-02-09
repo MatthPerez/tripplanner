@@ -44,10 +44,6 @@ def kayak():
     return elements
 
 
-from bs4 import BeautifulSoup
-import requests
-
-
 def wikipedia(city):
     url = f"https://fr.wikipedia.org/wiki/{city}"
 
@@ -152,6 +148,7 @@ def verychic():
 
 
 def experiments():
+    # A modifier : liens ne correspondent pas aux images
     url = "https://www.globe-trotting.com/post/liste-experiences-a-vivre-voyage"
 
     try:

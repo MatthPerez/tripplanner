@@ -253,15 +253,14 @@ nav {
 #menu {
     @include flex;
     flex-direction: column;
-    gap: 2em;
+    gap: .7em;
     justify-content: flex-start;
     height: 0;
     position: fixed;
     top: 0;
     overflow: hidden;
     z-index: 10;
-    background-color: rgba(white, .7);
-    backdrop-filter: blur(10px);
+    background-color: white;
     $k: 50;
     box-shadow: inset 0 0 20px 5px rgba($k, $k, $k);
     transition: 500ms all ease-out;

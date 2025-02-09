@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'style/home.css' %}" />
 {% endblock %} {% block script_js %}
 <script src="{% static 'js/home.js' %}" defer></script>
-{% endblock %} {% block title %}Trip planner | Accueil{% endblock %} {% block content %}
+{% endblock %} {% block title %}Tripplanner | Accueil{% endblock %} {% block content %}
 <main>
   <h1>Planificateur de voyages</h1>
 
@@ -49,7 +49,7 @@
   
   <section id="experiences">
     <h3>
-      <span>Expériences</span>
+      <span>Expériences <a href="{% url 'experience' %}" title="Voir toutes les expériences">🔎</a></span>
       <a href="{% url 'experience_new' %}">➕</a>
     </h3>
 

@@ -285,13 +285,15 @@ $color-red: #e62626;
 
 @mixin h1-form {
     width: auto;
-    font-size: clamp(20px, 3rem, 35px);
+    font-size: clamp(20px, 2rem, 30px);
+    font-weight: 700;
     @include flex;
     justify-content: center;
     gap: 1em;
 
     @media (width<=768px) {
         width: minmax(250px, 500px);
+        font-size: clamp(14px, 2rem, 25px) !important;
 
         a {
             img {
